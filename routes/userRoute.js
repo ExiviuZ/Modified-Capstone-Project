@@ -1,13 +1,17 @@
 const express = require("express");
+const cloudinary = require("cloudinary").v2;
 const router = express.Router();
 const { notLoggedIn, loggedIn, notUser } = require("../middleware");
 const { catchAsync } = require("../utils/errorHandler");
 const User = require("../model/user");
 const passport = require("passport");
 const multer = require("multer");
-const { storage } = require("../cloudinary/index");
-const upload = multer({ storage });
+const { profilePictureStorage, idCardStorage } = require("../cloudinary/index");
 const Admin = require("../model/admin");
+const idCardUpload = multer({ storage: idCardStorage });
+const sharp = require('sharp')
+const request = require('request-promise-native')
+const profilePicUpload = multer({ storage: profilePictureStorage });
 
 
 router.post(
@@ -167,23 +171,59 @@ router.delete("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   res.redirect('/user/profile#household-list')
 })
 
-
-router.post(
-  "/upload",
-  notLoggedIn,
-  notUser,
-  upload.single("image"),
-  async (req, res) => {
-    const user = await User.findById(req.user._id);
-    user.image.push({
-      url: req.file.path,
-      fileName: req.fileName,
-    });
-    await user.save();
-    req.flash("success", "Successfully Changed Your Picture");
-    res.redirect("/user/profile");
-  }
-);
+ //   const user = await User.findById(req.user._id);
+    // console.log(req)
+    // user.image.push({
+    //   url: req.file.path,
+    //   fileName: req.fileName,
+    // });
+    // await user.save();
+    // req.flash("success", "Successfully Changed Your Picture");
+    // res.redirect("/user/profile");
+    router.post(
+      "/upload",
+      notLoggedIn,
+      notUser,
+      profilePicUpload.single("image"),
+      async (req, res) => {
+        try {
+          // Resize and crop the image using Sharp
+          const imageBuffer = await request.get({ url: req.file.path, encoding: null });
+          const buffer = await sharp(imageBuffer)
+            .resize({ width: 500, height: 500, fit: 'cover', position: 'center' })
+            .toBuffer();
+    
+          // Upload the cropped image to Cloudinary
+          const result = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream({ resource_type: 'image' }, (error, result) => {
+              if (error) {
+                console.error(error);
+                reject(error);
+              } else {
+                resolve(result);
+              }
+            }).end(buffer);
+          });
+    
+          // Save the Cloudinary URL and public ID to the user's profile
+          const user = await User.findById(req.user._id);
+          user.image.push({
+            url: result.secure_url,
+            fileName: result.public_id,
+          });
+          await user.save();
+    
+          // Redirect back to the profile page with a success message
+          req.flash("success", "Successfully Changed Your Picture");
+          res.redirect("/user/profile");
+        } catch (error) {
+          console.error(error);
+          req.flash("error", "Failed to upload image to Cloudinary");
+          return res.redirect("/user/profile");
+        }
+      }
+    );
+    
 
 router.get("/census", notLoggedIn, notUser, async (req, res) => {
   const user = await User.findById(req.user._id);

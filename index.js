@@ -22,9 +22,6 @@ const User = require("./model/user");
 const Admin = require("./model/admin");
 const Survey = require("./model/survey");
 const { notLoggedIn, loggedIn } = require("./middleware");
-const multer = require("multer");
-const { storage } = require("./cloudinary/index");
-const upload = multer({ storage });
 
 // Router
 const logRegRoute = require("./routes/logRegRoute");

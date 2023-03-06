@@ -7,7 +7,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+const profilePictureStorage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "Barangay-User-Image",
@@ -15,7 +15,17 @@ const storage = new CloudinaryStorage({
   },
 });
 
+const idCardStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'idcards',
+    allowed_formats: ['jpg', 'jpeg', 'png']
+  }
+});
+
+
 module.exports = {
   cloudinary,
-  storage,
+  profilePictureStorage,
+  idCardStorage
 };
