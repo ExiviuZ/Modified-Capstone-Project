@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+
 // Application Dependencies
 const express = require("express");
 const app = express();
@@ -14,7 +15,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const path = require("path");
 const port = process.env.PORT || 3235;
-// const MongoDBStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo');
 
 // My Modules
 const User = require("./model/user");
@@ -30,18 +31,17 @@ const logRegRoute = require("./routes/logRegRoute");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 
-// const store = new MongoDBStore({
-//   url: process.env.MONGO_URI,
-//   secret: 'thishouldbeabettersecret',
-//   touchAfter: 24*60*60
-// })
+const production = false
 
-// store.on('error', function(e) {
-//   console.log('Session Store Error', e)
-// })
-
+// Session Config
 const sessionOptions = {
-  secret: "notasecret",
+  store: MongoStore.create({
+     mongoUrl: 'mongodb://127.0.0.1:27017/barangayDB',
+     touchAfter: 24 * 60 * 60,
+     secret: 'thisshouldbeabettersecret',
+
+     }),
+  secret: "thisshouldbeabettersecret",
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -56,15 +56,18 @@ mongoose.set('strictQuery', false)
 
 const connectDB = async()=> {
   try {
-    // if(process.env.MONGO_URI){
-      const conn = await mongoose.connect("mongodb://127.0.0.1:27017/barangayDB") 
+
+    if(process.env.MONGO_URI && production){
+      console.log('Have the URI and in Production')
+      const conn = await mongoose.connect(process.env.MONGO_URI)
+      console.log(`MongoDB Connected: ${conn.connection.host}`)
+    }
+    else if(process.env.MONGO_URI && !production){
+      const conn = await mongoose.connect('mongodb://127.0.0.1:27017/barangayDB')
+      console.log('Have the URI and not in Production')
       console.log(`MongoDB Connected: ${conn.connection.host}`)
       console.log('http://localhost:3235/')
-    // }
-    // else {
-    //   const conn = await mongoose.connect(process.env.MONGO_URI)
-    // console.log(`MongoDB Connected: ${conn.connection.host}`)
-    // }
+    }
     
   } catch (error) {
     console.log(error)
