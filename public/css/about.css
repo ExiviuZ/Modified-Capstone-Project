@@ -1,0 +1,54 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/img/barangay-msapa-aerial.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+main {
+  width: 80%;
+  margin: auto;
+  margin-block: 7rem;
+  color: white;
+}
+
+.wrap-history {
+  margin-bottom: 10rem;
+}
+.wrap-history h1,
+.wrap-history h2 {
+  text-align: center;
+}
+.wrap-history h1 {
+  font-size: 36px;
+}
+.wrap-history h2 {
+  font-size: 28px;
+  margin-bottom: 1rem;
+}
+.wrap-history p {
+  font-size: 18px;
+  line-height: 1.8;
+  width: 80%;
+  text-align: justify;
+  margin: auto;
+}
+
+.wrap-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.wrap-photos section {
+  width: 70%;
+  margin: auto;
+}
+.wrap-photos section img {
+  border: 5px solid #001122;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+}/*# sourceMappingURL=about.css.map */

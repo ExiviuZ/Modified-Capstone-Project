@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/generate.css" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/addAnnouncement') %>
+
+    <nav class="first-nav">
+      <span class="brand"
+        ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
+        Records</span
+      >
+      <ul class="nav-actions-wrap">
+        <li class="dashboard">
+          <a href="/admin/">Dashboard</a>
+          <ul class="nav-links">
+            <li>
+              <img src="/img/people.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/household"
+                >Barangay Households</a
+              >
+            </li>
+            <li>
+              <img src="/img/announcement.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/announcement"
+                >Manage Announcement</a
+              >
+            </li>
+            <li>
+              <img src="/img/report.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/report"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <div>
+                <span class="generate"
+                  ><img src="/img/pdf.svg" alt="" />
+                  <span class="generate">Generate Data</span></span
+                >
+              </div>
+              <ul>
+                <li>
+                  <a href="/admin/monthly" class="link-active"
+                    >Monthly Registered</a
+                  >
+                </li>
+                <li>
+                  <a href="/admin/covid">Vaccination Status</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <nav class="second-nav">
+        <button class="add-announcement">
+          <img src="/img/add_alert.svg" alt="" /> Add Announcement
+        </button>
+        <span class="admin">
+          <img src="/img/profile.svg" class="nav-profile-img" /> <%=
+          `${currentUser.name}`%> ▼
+          <ul class="dropdown">
+            <li><a href="/logout">Log-out</a></li>
+          </ul>
+        </span>
+      </nav>
+
+      <button id="download-btn">Download PDF</button>
+
+      <div id="container">
+        <h1>
+          <img src="/img/barangay-logo.png" alt="" /> Monthly User Registration
+          Track
+        </h1>
+        <% for(element of countPerMonth) { %>
+        <div class="outer-table">
+          <h2><%= myObject.converter(element.month) %> <%= element.year %></h2>
+          <table class="inner-table">
+            <colgroup>
+              <col style="width: 15%" />
+              <col style="width: 20%" />
+              <col style="width: 25%" />
+              <col style="width: 25%" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="name">Account Holder</th>
+                <th class="members">Family Members</th>
+                <th class="date">Date of Creation</th>
+                <th>House # - Sitio</th>
+                <th>Population</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% var totalHousehold = 0;
+              element.registreesId.forEach(function(registree, index) { %>
+              <tr style="page-break-inside: avoid">
+                <td class="name" style="vertical-align: top">
+                  <p style="margin-bottom: 0.5rem;"><%= registree.combName %></p style="margin-bottom: 0.5rem;">
+                  <p style="font-weight: 900"><%= registree.contact %></p>
+                </td>
+                <td class="list-members">
+                  <% if(registree.household.length > 0) {%>
+                  <ul class="list-members">
+                    <% for(member of registree.household) {%>
+                    <li><%= member.name %></li>
+                    <% } %> <% } else {%>
+                    <span style="color: red">--Data not Available-- </span
+                    ><% } %>
+                  </ul>
+                </td>
+                <td class="date">
+                  <%= registree.createdAt.toLocaleString('en-US', { month:
+                  'short', day: '2-digit', year: 'numeric', hour: 'numeric',
+                  minute: 'numeric', second: 'numeric', hour12: true }) %>
+                </td>
+                <td>
+                  <%= `${registree.address.houseNumber}
+                  ${registree.address.sitio}` %>
+                </td>
+                <td><%= registree.household.length + 1 %></td>
+              </tr>
+              <% totalHousehold += registree.household.length + 1; }); %>
+              <tr style="page-break-inside: avoid">
+                <td style="font-weight: 800; text-align: left; border: none">
+                  Total: <%= element.count %>
+                </td>
+                <td style="border: none"></td>
+                <td style="border: none"></td>
+                <td style="border: none"></td>
+                <td style="font-weight: 800; border: none">
+                  <%= totalHousehold %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <% } %>
+      </div>
+    </main>
+    <script src="/js/adminDropdown.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"
+      integrity="sha512-vNrhFyg0jANLJzCuvgtlfTuPR21gf5Uq1uuSs/EcBfVOz6oAHmjqfyPoB5rc9iWGSnVE41iuQU4jmpXMyhBrsw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/js/announcementModal.js"></script>
+
+    <script>
+      const downloadBtn = document.getElementById("download-btn");
+      var opt = {
+        filename: "Monthly Registered User Report.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        margin: [0.3, 0],
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "legal", orientation: "landscape" },
+      };
+      downloadBtn.addEventListener("click", (event) => {
+        const monthly = document.getElementById("container");
+        html2pdf().from(monthly).set(opt).save();
+      });
+    </script>
+  </body>
+</html>

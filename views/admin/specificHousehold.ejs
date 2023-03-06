@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/specificHousehold.css" />
+    <title><%= title %></title>
+    <style></style>
+  </head>
+  <body>
+    <%- include('../partials/success') %> <%- include('../partials/error') %>
+
+    <nav class="first-nav">
+      <span class="brand"
+        ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
+        Records</span
+      >
+      <ul class="nav-actions-wrap">
+        <li class="dashboard">
+          <a href="/admin/">Dashboard</a>
+          <ul class="nav-links">
+            <li>
+              <img src="/img/people.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/household"
+                class="link-active"
+                >Barangay Households</a
+              >
+            </li>
+            <li>
+              <img src="/img/announcement.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/announcement"
+                >Manage Announcement</a
+              >
+            </li>
+            <li>
+              <img src="/img/report.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/report"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <div>
+                <span class="generate"
+                  ><img src="/img/pdf.svg" alt="" />
+                  <span>Generate Data</span></span
+                >
+              </div>
+              <ul>
+                <li>
+                  <a href="/admin/monthly">Monthly Registered</a>
+                </li>
+                <li>
+                  <a href="/admin/covid">Vaccination Status</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <nav class="second-nav">
+        <button class="add-announcement">
+          <img src="/img/add_alert.svg" alt="" /> Add Announcement
+        </button>
+        <span class="admin">
+          <img src="/img/profile.svg" class="nav-profile-img" /> <%=
+          `${currentUser.name}`%> ▼
+          <ul class="dropdown">
+            <li><a href="/logout">Log-out</a></li>
+          </ul>
+        </span>
+      </nav>
+      <div class="content">
+        <h1>Resident's Household</h1>
+        <div class="content-wrapper">
+          <section class="resident-profile">
+            <span class="resident-about">About Resident</span>
+            <div class="resident-info">
+              <% if(registree.image.length > 0) {%>
+              <img
+                src="<%= registree.image[registree.image.length - 1].url  %>"
+                class="user-img"
+              />
+              <% } else {%>
+              <img src="/img/profile.svg" alt="" class="dummy-img" />
+              <% } %>
+
+              <span class="resident-name"><%= registree.fullName %></span>
+              <ul class="more-resident-info">
+                <li>
+                  <div class="wrap-title-icon">
+                    <img src="<%= registree.gender == "male" ? '/img/male.svg' :
+                    '/img/female.svg' %>" alt=""> Gender
+                  </div>
+                  <span style="text-transform: capitalize"
+                    ><%= registree.gender %>
+                  </span>
+                </li>
+                <li>
+                  <div class="wrap-title-icon">
+                    <img src="/img/marriage.png" /> Marital Status
+                  </div>
+                  <span style="text-transform: capitalize"
+                    ><%= registree.maritalStatus %>
+                  </span>
+                </li>
+                <li>
+                  <div class="wrap-title-icon">
+                    <img src="/img/calendar.svg" /> Birthday
+                  </div>
+                  <span
+                    ><%= registree.birthday.toLocaleString("en-US", { month:
+                    'short', day: 'numeric', year: 'numeric'}) %>
+                  </span>
+                </li>
+                <li>
+                  <div class="wrap-title-icon">
+                    <img src="/img/birthday.svg" /> Age
+                  </div>
+                  <span><%= age %> </span>
+                </li>
+              </ul>
+            </div>
+          </section>
+          <section class="resident-household">
+            <div class="household-members">
+              <span>Household Members</span>
+              <button id="back">Back</button>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Birthday</th>
+                  <th>Relationship</th>
+                  <th>Marital Status</th>
+                  <th>Educ. Attainment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(registree.answeredCensus) {%> <% for(member of
+                registree.household){ %>
+                <tr>
+                  <td><%= member.name %></td>
+                  <td><%= member.gender %></td>
+                  <td>
+                    <%= member.birthday.toLocaleString("en-US", { month:
+                    'short', day: 'numeric', year: 'numeric'}) %>
+                  </td>
+                  <td><%= member.relationship %></td>
+                  <td><%= member.maritalStatus %></td>
+                  <td><%= member.education %></td>
+                </tr>
+                <% } %> <% } else { %>
+                <tr>
+                  <td colspan="6" style="font-weight: 600">
+                    -- This user hasn't answered the census yet. --
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </main>
+    <%- include('../partials/addAnnouncement') %>
+
+    <script src="/js/adminDropdown.js"></script>
+    <script src="/js/announcementModal.js"></script>
+    <script>
+      document.getElementById("back").addEventListener("click", function () {
+        window.history.back();
+      });
+    </script>
+  </body>
+</html>

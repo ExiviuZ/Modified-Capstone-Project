@@ -1,0 +1,17 @@
+.report-contents {
+  margin-block: 2rem;
+}
+.report-contents > div {
+  margin-inline: auto;
+  width: 95%;
+}
+.report-contents .bar {
+  margin-bottom: 2rem;
+  animation: spin 0.5s ease-in-out;
+  background-color: white;
+  border-radius: 3px;
+  padding: 1rem 1.5rem;
+}
+.report-contents .bar h2 {
+  font-size: 1.5rem;
+}/*# sourceMappingURL=report.css.map */

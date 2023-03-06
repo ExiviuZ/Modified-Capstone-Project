@@ -1,0 +1,108 @@
+nav {
+  position: relative;
+  color: white;
+  padding: 1.5rem 1rem;
+  background-color: #001122;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.2);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1.5rem;
+
+  > li {
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+}
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+.nav-links > li > a {
+  &:not(last-child) {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      margin-inline: auto;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: gray;
+      transition: width 0.35s ease-in-out;
+    }
+    &:hover::after {
+      width: 100%;
+    }
+  }
+}
+
+.logout {
+  position: relative;
+}
+
+.nav-brand {
+  cursor: default;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.user {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.user-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  width: max-content;
+  right: 1%;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: hsl(210, 100%, 10%);
+  border-bottom-left-radius: 10px;
+  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+  li {
+    cursor: default;
+    padding: 1.5rem 2.5rem;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    &:not(:last-child) {
+      border-bottom: 1px solid whitesmoke;
+    }
+    a {
+      font-weight: 800;
+      transition: color 0.25s ease-in-out;
+      color: hsl(60, 5%, 60%);
+      &:hover {
+        color: hsl(60, 5%, 100%);
+      }
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.user-profile {
+  filter: invert(100%) sepia(0%) saturate(28%) hue-rotate(90deg)
+    brightness(106%) contrast(100%);
+  width: 25px;
+}

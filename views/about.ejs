@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/about.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('./partials/navbar') %> <%- include('./partials/error') %>
+
+    <main>
+      <div class="wrap-history">
+        <h1>BARANGAY MAG-ASAWANG SAPA</h1>
+        <h2>Short History</h2>
+
+        <p>
+          <!-- Barangay Mag-asawang Sapa Brief History  -->
+          According to the elders, once upon a time in a remote place there was
+          a source of water called Batang Bato. With the amount of water due to
+          its continuous flow, there was a river and it was called Batong Bata
+          River. Not far away, there is another stream that is the source of
+          water for watering the farmers' crops. This is called Sapang Sigawak.
+          The two aforementioned streams continue to flow and create their own
+          place. In the long run, their currents meet and flow together in a
+          river called Banca-Banca. Because what used to be two streams became
+          one, the people here began to call each other a couple of streams and
+          later the area was called "Mag-asawang Sapa".
+        </p>
+      </div>
+
+      <div class="wrap-photos">
+        <section><img src="/img/staff/1.png" alt="" /></section>
+        <section><img src="/img/staff/2.png" alt="" /></section>
+        <section><img src="/img/staff/3.png" alt="" /></section>
+      </div>
+    </main>
+    <%- include('./partials/success') %> <%- include("./partials/footer.ejs") %>
+  </body>
+</html>

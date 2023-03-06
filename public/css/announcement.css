@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/img/barangay-msapa.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  gap: 1rem;
+  margin: auto;
+  margin-block: 2rem;
+  align-items: baseline;
+}
+main #calendar-container {
+  animation: fadein ease-in-out 0.5s;
+  width: 50%;
+  border-radius: 7px;
+}
+
+.headers {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: auto;
+  color: white;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.announcements {
+  width: 30%;
+  margin-inline: auto;
+  margin-bottom: auto;
+  position: relative;
+}
+.announcements #buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-block: 1rem;
+}
+.announcements #buttons-container button {
+  padding: 0.5rem 1.3rem;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #001122;
+  transition: background-color 0.25s ease-in-out;
+  color: white;
+  border: none;
+}
+.announcements #buttons-container button:hover {
+  background-color: hsl(210, 100%, 11%);
+}
+.announcements #buttons-container button:nth-child(1) {
+  margin-left: 1rem;
+}
+.announcements #buttons-container button:nth-child(2) {
+  margin-right: 1rem;
+}
+.announcements .announcement-container {
+  display: flex;
+  flex-direction: column;
+}
+.announcements .announcement-wrap {
+  animation: fadein ease-in-out 0.5s;
+  border-radius: 5px;
+  color: white;
+  background-color: #001122;
+  padding: 1.5rem 1rem;
+  border: 1px solid black;
+}
+.announcements .announcement-wrap:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+.announcements .announcement-wrap.announcement-wrap:not(:first-child) {
+  display: none;
+}
+.announcements .announcement-wrap.active .announcement-body .announcement-message {
+  display: block;
+}
+.announcements .announcement-wrap.active .announcement-body .read-more-btn::before {
+  content: "Read Less";
+}
+.announcements .announcement-wrap .announcement-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  margin-bottom: 0.75rem;
+}
+.announcements .announcement-wrap .announcement-top .createdAt {
+  font-size: 13px;
+}
+.announcements .announcement-wrap .announcement-top img {
+  filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(329deg) brightness(105%) contrast(101%);
+}
+.announcements .announcement-wrap .announcement-top > div {
+  display: flex;
+  flex-direction: column;
+}
+.announcements .announcement-wrap .announcement-body .announcement-image {
+  display: block;
+  margin: auto;
+  padding-top: 1rem;
+  border-radius: 20px;
+  width: 100%;
+}
+.announcements .announcement-wrap .announcement-body .announcement-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  text-transform: capitalize;
+}
+.announcements .announcement-wrap .announcement-body .read-more-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: underline;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: rgb(187, 187, 187);
+}
+.announcements .announcement-wrap .announcement-body .read-more-btn::before {
+  content: "Read More";
+}
+.announcements .announcement-wrap .announcement-body .announcement-message {
+  margin-bottom: 0.75rem;
+  text-align: justify;
+  word-break: break-word;
+  text-indent: 2rem;
+  text-align: justify;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.announcements .announcement-wrap .announcement-body span {
+  display: block;
+}
+
+#calendar {
+  background-color: white;
+  padding: 1rem;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}/*# sourceMappingURL=announcement.css.map */

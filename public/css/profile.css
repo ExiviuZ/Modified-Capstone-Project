@@ -1,0 +1,452 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #a8a89e;
+}
+body.modal-active {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+main {
+  width: 90%;
+  padding-block: 5rem;
+  margin: auto;
+  position: relative;
+}
+
+.card-title {
+  letter-spacing: 1px;
+}
+
+.edit-btn {
+  border: none;
+  cursor: pointer;
+  right: 5%;
+  top: 15%;
+  position: absolute;
+  width: 30px;
+  padding: 0.2rem;
+  border-radius: 5px;
+  background-color: hsl(108, 72%, 40%);
+}
+.edit-btn img {
+  filter: invert(96%) sepia(4%) saturate(17%) hue-rotate(151deg) brightness(104%) contrast(104%);
+}
+
+.user-card {
+  animation: appear 0.5s ease-in-out;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  display: flex;
+  background-color: #001122;
+  color: white;
+  box-shadow: 0px 0px 5px black;
+}
+.user-card > * {
+  padding: 2rem;
+}
+.user-card > *:nth-child(1) {
+  border-right: 1px solid white;
+}
+.user-card .user-image-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+.user-card .user-image-name .wrap-image {
+  width: -moz-max-content;
+  width: max-content;
+  margin-inline: auto;
+  position: relative;
+}
+.user-card .user-image-name .dummy-img {
+  width: 125px;
+  border-radius: 50%;
+  border: solid 3px gray;
+  filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(243deg) brightness(102%) contrast(101%);
+  margin-inline: auto;
+}
+.user-card .user-image-name .user-img {
+  border: solid 3px gray;
+  border-radius: 50%;
+  width: 125px;
+  margin-inline: auto;
+}
+.user-card .user-image-name .user-name {
+  text-align: center;
+  font-size: 1.2rem;
+  width: 80%;
+  margin: auto;
+}
+.user-card .user-image-name .round {
+  bottom: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  line-height: 33px;
+  position: absolute;
+  text-align: center;
+  overflow: hidden;
+}
+.user-card .user-image-name .round input[type=file] {
+  opacity: 0;
+  z-index: 1;
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  scale: 2;
+  cursor: pointer;
+}
+.user-card .user-image-name .round input[type=file]::-webkit-file-upload-button {
+  cursor: pointer;
+}
+.user-card .user-image-name .add-photo {
+  z-index: 0;
+  width: 40px;
+}
+.user-card .user-image-name .add-photo.no-photo {
+  filter: invert(38%) sepia(13%) saturate(21%) hue-rotate(350deg) brightness(94%) contrast(89%);
+}
+.user-card .user-image-name .add-photo.have-photo {
+  filter: invert(97%) sepia(74%) saturate(7244%) hue-rotate(179deg) brightness(75%) contrast(88%);
+}
+.user-card .user-information-wrap {
+  width: 800px;
+  position: relative;
+}
+.user-card .card-title {
+  display: block;
+  font-size: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid gray;
+}
+.user-card .user-information {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 30% 30% 20% 20%;
+  gap: 0.75rem;
+  row-gap: 0.9rem;
+}
+.user-card .address {
+  display: block;
+}
+.user-card .title-label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+.user-card .title-value {
+  color: #a8a89e;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+#household-list {
+  animation: appear 0.5s ease-in-out;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 4rem;
+  text-align: center;
+  background-color: white;
+  width: 90%;
+  margin-inline: auto;
+  border-collapse: collapse;
+}
+#household-list td,
+#household-list th {
+  padding: 1.5rem 1rem;
+}
+#household-list th {
+  font-size: 1.1rem;
+}
+#household-list td {
+  font-size: 1rem;
+}
+#household-list thead {
+  color: white;
+  background-color: #001122;
+}
+#household-list tbody tr {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+#household-list tbody tr:nth-child(odd) {
+  background-color: #f4f6fb;
+}
+#household-list tbody tr .action-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+#household-list tbody tr .action-container > button {
+  cursor: pointer;
+  border: none;
+  padding: 0.2rem;
+  width: 25px;
+  border-radius: 5px;
+  padding: 0.2rem;
+}
+#household-list tbody tr .action-container > button:nth-child(1), #household-list tbody tr .action-container a:nth-child(1) {
+  background-color: #e14744;
+}
+#household-list tbody tr .action-container > button:nth-child(2) {
+  background-color: #3aaf1d;
+}
+#household-list tbody tr .action-container img {
+  filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg) brightness(102%) contrast(109%);
+}
+#household-list tbody tr .add-another > button {
+  display: block;
+  letter-spacing: 1px;
+  padding-block: 0.75rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  margin: auto;
+  padding-inline: 1rem;
+  color: white;
+  border: none;
+  transition: background-color 0.1s linear;
+  background-color: rgb(72, 196, 68);
+}
+#household-list tbody tr .add-another > button:hover {
+  background-color: rgb(55, 150, 52);
+}
+
+.profile-dialog {
+  background-color: #001122;
+  color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 5px;
+  margin: auto;
+  border: none;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  border: 0;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: ease-in-out opacity 0.75s, transform 0.5s ease-in-out;
+}
+.profile-dialog.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.profile-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.profile-dialog h2 {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid hsla(0, 0%, 50%, 0.8);
+}
+
+.edit-form {
+  margin-top: 1.5rem;
+  display: grid;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  row-gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+.edit-form select,
+.edit-form input,
+.edit-form button {
+  padding: 1rem 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  background-color: hsl(60, 5%, 84%);
+}
+.edit-form button {
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+.edit-form .close-btn {
+  background-color: hsl(0, 0%, 15%);
+  color: white;
+  transition: 0.25s background-color ease-in-out;
+  border: none;
+}
+.edit-form .close-btn:hover {
+  background-color: hsl(0, 0%, 0%);
+}
+.edit-form .btn {
+  color: white;
+  background-color: hsl(108, 72%, 40%);
+  transition: 0.25s background-color ease-in-out;
+  border: none;
+}
+.edit-form .btn:hover {
+  background-color: hsl(108, 72%, 35%);
+}
+
+.all-edit-member-form, .new-member-dialog {
+  opacity: 0;
+  background-color: #001122;
+  color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 5px;
+  margin: auto;
+  border: none;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  border: 0;
+  transition: opacity 1s linear;
+  transform: translateY(-100%);
+  transition: ease-in-out opacity 0.75s, transform 0.5s ease-in-out;
+}
+.all-edit-member-form.shown, .new-member-dialog.shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+.all-edit-member-form form, .new-member-dialog form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.all-edit-member-form h2, .new-member-dialog h2 {
+  font-size: 32px;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid hsla(0, 0%, 50%, 0.8);
+}
+.all-edit-member-form::backdrop, .new-member-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.all-edit-member-form input:not([type=radio]), .all-edit-member-form button, .all-edit-member-form select, .new-member-dialog input:not([type=radio]), .new-member-dialog button, .new-member-dialog select {
+  padding: 1rem 1.5rem;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  background-color: hsl(60, 5%, 84%);
+}
+.all-edit-member-form button, .new-member-dialog button {
+  cursor: pointer;
+}
+.all-edit-member-form button.close-member-edit, .all-edit-member-form button.close-new-member, .new-member-dialog button.close-member-edit, .new-member-dialog button.close-new-member {
+  background-color: hsl(0, 0%, 15%);
+  color: white;
+  transition: 0.25s background-color ease-in-out;
+  border: none;
+}
+.all-edit-member-form button.close-member-edit:hover, .all-edit-member-form button.close-new-member:hover, .new-member-dialog button.close-member-edit:hover, .new-member-dialog button.close-new-member:hover {
+  background-color: hsl(0, 0%, 0%);
+}
+.all-edit-member-form button.submit-edit, .all-edit-member-form button.submit-new-member, .new-member-dialog button.submit-edit, .new-member-dialog button.submit-new-member {
+  color: white;
+  transition: 0.25s background-color ease-in-out;
+  border: none;
+  background-color: rgb(72, 196, 68);
+}
+.all-edit-member-form button.submit-edit:hover, .all-edit-member-form button.submit-new-member:hover, .new-member-dialog button.submit-edit:hover, .new-member-dialog button.submit-new-member:hover {
+  background-color: rgb(55, 150, 52);
+}
+.all-edit-member-form .wrap-radio, .new-member-dialog .wrap-radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.all-edit-member-form .wrap-radio label, .new-member-dialog .wrap-radio label {
+  font-size: 18px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: hsla(210, 100%, 7%, 0.95);
+  padding-top: 50px;
+  /* Modal Content/Box */
+  /* Style the horizontal ruler */
+  /* The Modal Close Button (x) */
+  /* Clear floats */
+  /* Set a style for all buttons */
+  /* Float cancel and delete buttons and add an equal width */
+  /* Add a color to the cancel button */
+  /* Add a color to the delete button */
+  /* Add padding and center-align text to the container */
+}
+.modal .modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+.modal hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.modal .close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+  transition: color 0.1s linear;
+}
+.modal .close:hover,
+.modal .close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+.modal .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.modal button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  transition: opacity 0.1s linear;
+}
+.modal button:hover {
+  opacity: 1;
+}
+.modal .cancelbtn,
+.modal .deletebtn {
+  float: left;
+  width: 50%;
+}
+.modal .cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+.modal .deletebtn {
+  background-color: #f44336;
+}
+.modal .container {
+  border: none;
+  background-color: hsl(210, 100%, 10%);
+  color: white;
+  padding: 1.6rem;
+  padding: 16px;
+  text-align: center;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}/*# sourceMappingURL=profile.css.map */

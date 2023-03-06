@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <title><%= title %></title>
+    <style>
+      .sign-up {
+        color: white;
+        background-color: hsl(210, 100%, 7%);
+        text-decoration: none;
+        padding: 1rem 2rem;
+        display: block;
+        width: max-content;
+        letter-spacing: 1px;
+        border-radius: 50px;
+        transition: background-color 0.25s ease-in-out;
+      }
+      .sign-up:hover {
+        background-color: hsl(210, 100%, 16%);
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/navbar') %> <%- include('./partials/error') %> <%-
+    include('./partials/success') %>
+
+    <main>
+      <section>
+        <h1>Barangay Mag-Asawang Sapa Household Census</h1>
+      </section>
+      <section>
+        <div>
+          <h2>
+            Resident Record Management
+            <!-- and Certificate Issuance -->
+            System
+          </h2>
+          <p>
+            Fast and up-to-date census record of residents. Say goodbye to
+            manual and hassle way of managing records.
+          </p>
+        </div>
+        <div>
+          <img src="/img/town.svg" alt="" />
+        </div>
+      </section>
+
+      <section>
+        <div>
+          <img src="/img/data.svg" alt="" />
+        </div>
+        <div>
+          <h2>Barangay Mag-Asawang Sapa</h2>
+          <p>
+            If you are a resident of Barangay Mag-Asawang Sapa, sign-up now and
+            fill up questions about your household's personal information for
+            census straight from your browser.
+          </p>
+          <a href="/register" class="sign-up">Sign Up Now</a>
+        </div>
+      </section>
+    </main>
+
+    <%- include("./partials/footer.ejs") %>
+  </body>
+</html>

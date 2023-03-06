@@ -1,0 +1,134 @@
+#download-btn {
+  background-color: rgb(74, 58, 239);
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  margin-left: auto;
+}
+#download-btn:hover {
+  background-color: rgb(59, 47, 193);
+}
+
+.generate {
+  color: white;
+}
+
+#container {
+  max-width: 95%;
+  margin: 1rem auto;
+  padding: 20px;
+  background-color: white;
+}
+#container th,
+#container td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+#container .name {
+  text-align: left;
+}
+#container .date {
+  text-align: center;
+}
+#container .members {
+  text-align: left;
+}
+#container th {
+  font-weight: bold;
+}
+#container .list-members {
+  padding-left: 15px;
+}
+#container .list-members li {
+  list-style-type: disc;
+  word-wrap: break-word;
+  text-align: left;
+}
+#container h1 {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  gap: 0.75rem;
+  align-items: center;
+  margin: auto;
+  width: -moz-max-content;
+  width: max-content;
+}
+#container h1 img {
+  width: 50px;
+}
+#container h2 {
+  page-break-before: avoid;
+  margin-bottom: 1.5rem;
+  text-decoration: underline;
+}
+#container .outer-table {
+  page-break-inside: avoid;
+}
+#container .inner-table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+#covid-container {
+  max-width: 95%;
+  margin: 1rem auto;
+  padding: 20px;
+  background-color: white;
+}
+#covid-container h1 {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  gap: 0.75rem;
+  align-items: center;
+  margin: auto;
+  width: -moz-max-content;
+  width: max-content;
+}
+#covid-container h1 img {
+  width: 50px;
+}
+#covid-container h2 {
+  page-break-before: avoid;
+  margin-bottom: 1.5rem;
+}
+#covid-container table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+#covid-container table td, #covid-container table th {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#download-btn-2 {
+  background-color: rgb(74, 58, 239);
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  margin-left: auto;
+}
+#download-btn-2:hover {
+  background-color: rgb(59, 47, 193);
+}/*# sourceMappingURL=generate.css.map */

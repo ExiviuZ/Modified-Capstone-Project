@@ -1,0 +1,193 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url("/img/bg.svg");
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+main {
+  max-width: 76.81rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+main > *:first-child {
+  width: 40%;
+}
+main > *:last-child {
+  width: 60%;
+}
+main h1 {
+  line-height: 1.5;
+  text-align: left;
+  text-transform: capitalize;
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+main .description {
+  color: hsl(0, 0%, 80%);
+  width: 90%;
+  line-height: 1.5;
+}
+
+.tooltip {
+  cursor: pointer;
+  position: absolute;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid #111;
+  padding: 0.2rem;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+}
+
+form {
+  background-color: white;
+  box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 2rem;
+}
+form .btn {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  padding-block: 1rem;
+  margin-bottom: 1.3rem;
+  background-color: rgb(72, 196, 68);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 4px 1px 0px rgb(62, 165, 62);
+  transition: all 0.2s linear;
+}
+form .btn:hover {
+  transform: translateY(5px);
+  box-shadow: 0px 2px 2px 0px rgb(62, 165, 62);
+}
+
+.form-control {
+  margin-bottom: 2.3rem;
+  position: relative;
+}
+.form-control.error input {
+  border-color: rgb(252, 104, 104);
+}
+.form-control.error select {
+  border-color: rgb(252, 104, 104);
+}
+.form-control.error .error-message {
+  visibility: visible;
+  opacity: 1;
+  color: rgb(252, 104, 104);
+}
+.form-control.success input {
+  border-color: rgb(101, 255, 101);
+}
+.form-control.success select {
+  border-color: rgb(101, 255, 101);
+}
+.form-control.success .error-message {
+  visibility: visible;
+  opacity: 1;
+  color: rgb(66, 201, 66);
+}
+.form-control .error-message {
+  transition: visibility 0.25s linear, opacity 0.25s linear;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: 2%;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  top: 110%;
+}
+
+.have-account {
+  display: block;
+  margin: auto;
+  width: -moz-max-content;
+  width: max-content;
+  font-size: 0.9rem;
+  color: gray;
+}
+.have-account a {
+  color: gray;
+}
+
+input {
+  font-size: 0.9rem;
+  background-color: rgba(230, 230, 230, 0.5);
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgb(187, 187, 187);
+  padding: 1rem 2rem;
+}
+input::-moz-placeholder {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+input::placeholder {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+input:focus {
+  outline: 2px solid rgb(182, 182, 182);
+}
+
+select {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(230, 230, 230, 0.5);
+  color: gray;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  border: 1px solid rgb(187, 187, 187);
+  font-weight: 600;
+}
+
+.group-form-control {
+  padding-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+.group-form-control::before {
+  color: rgba(128, 128, 128, 0.7);
+  position: absolute;
+  top: -5%;
+  left: 4px;
+  font-size: 0.95rem;
+}
+.group-form-control.first::before {
+  content: "Name Information";
+}
+.group-form-control.second::before {
+  content: "Account Creation";
+}
+.group-form-control.third {
+  grid-template-columns: 1fr 1fr 2fr;
+}
+.group-form-control.third::before {
+  content: "House Number / Sitio ";
+}
+.group-form-control.fourth {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.group-form-control.fourth::before {
+  content: "Birthday / Status / Gender";
+}
+.group-form-control .form-control {
+  width: 100%;
+}/*# sourceMappingURL=registration.css.map */

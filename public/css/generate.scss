@@ -1,0 +1,178 @@
+#download-btn{
+    background-color: rgb(74, 58, 239);
+    padding: 0.5rem 1rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: auto;
+    &:hover {
+      background-color: rgb(59, 47, 193);
+    }
+}
+
+.generate {
+  color: white;
+}
+
+#container {
+  max-width: 95%;
+  margin: 1rem auto;
+  padding: 20px;
+  background-color: white;
+  th,
+td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+ .name {
+  text-align: left;
+}
+.date {
+   text-align: center;
+}
+
+.members {
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+}
+
+.list-members {
+  padding-left: 15px;
+  li {
+    list-style-type: disc;
+    word-wrap: break-word;
+    text-align: left;
+    
+  }
+}
+
+  h1 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+    gap: 0.75rem;
+    align-items: center;
+    margin: auto;
+    width: max-content;
+    img {
+      width: 50px;
+    }
+  }
+  h2 {
+    page-break-before: avoid;
+    margin-bottom: 1.5rem;
+    text-decoration: underline;
+  }
+  .outer-table{
+    page-break-inside: avoid;
+  }
+  .inner-table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+  }
+}
+
+
+#covid-container {
+  max-width: 95%;
+  margin: 1rem auto;
+  padding: 20px;
+  background-color: white;
+h1 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+    gap: 0.75rem;
+    align-items: center;
+    margin: auto;
+    width: max-content;
+    img {
+      width: 50px;
+    }
+  }
+  h2 {
+    page-break-before: avoid;
+    margin-bottom: 1.5rem;
+  }
+  table {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    td, th {
+      text-align: center;
+      padding: 10px;
+  border: 1px solid #ccc;
+    }
+  }
+}
+
+
+#download-btn-2 {
+  background-color: rgb(74, 58, 239);
+    padding: 0.5rem 1rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-left: auto;
+    &:hover {
+      background-color: rgb(59, 47, 193);
+    }
+}
+
+
+
+// .table-container{
+//   width: 90%;
+// }
+
+
+// #table-report {
+//   width: 100%;
+//     background-color: white;
+//     margin: auto;
+//     margin-block: 1rem;
+//     border-collapse: collapse;
+//     box-shadow: 0px 5px 10px #e1e5ee;
+  
+//     td,
+//     th {
+//       padding: 1rem;
+//       text-align: center;
+//     }
+//     thead {
+//       box-shadow: 0px 5px 10px #e1e5ee;
+//     }
+  
+//     tbody tr:nth-child(even) {
+//       background-color: #f4f6fb;
+//     }
+//     tbody {
+//       tr {
+//         transition: transform 0.25s ease-in-out;
+//       }
+//       tr:hover {
+//         transform: translateY(3%);
+//       }
+//     }
+//   }
+

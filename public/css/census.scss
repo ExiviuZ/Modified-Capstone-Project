@@ -1,0 +1,157 @@
+body {
+  background-color: #a8a89e;
+  background-image: url("/img/blob.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+main {
+  width: 40%;
+  margin: auto;
+  margin-block: 4rem;
+  padding: 2rem;
+  background-color: hsla(0, 0%, 95%, 0.9);
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+}
+.main-form {
+  .form-control {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .separator {
+    margin-bottom: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 2rem;
+    h1 {
+      font-weight: 500;
+      text-decoration: dotted;
+      letter-spacing: 1px;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      line-height: 1.6;
+      color: gray;
+    }
+  }
+
+  label {
+    font-size: 1.04rem;
+    &:not(.male, .female) {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
+  input {
+    &:not(input[type="radio"]) {
+      border-radius: 5px;
+      border: 1px solid rgb(187, 187, 187);
+      width: 100%;
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  select {
+    border-radius: 5px;
+    border: 1px solid rgb(187, 187, 187);
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .personContainer {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    &::after {
+      display: block;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      content: "";
+      height: 2px;
+      margin: auto;
+      background-color: hsla(210, 100%, 7%, 0.2);
+    }
+  }
+
+  .group {
+    gap: 2rem;
+    display: flex;
+    > * {
+      width: 50%;
+    }
+    margin-bottom: 1rem;
+  }
+
+  button {
+    letter-spacing: 1px;
+    padding-block: 0.75rem;
+    border-radius: 8px;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+    color: white;
+    border: none;
+  }
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    button {
+      &.add {
+        background-color: rgb(72, 196, 68);
+      }
+      &.minus {
+        background-color: rgb(252, 104, 104);
+      }
+    }
+  }
+
+  .submit {
+    background-color: #1d8bf7;
+    padding: 1rem 2rem;
+  }
+}
+.main-thanks {
+  animation: appear 0.5s ease-in-out;
+  padding: 2rem;
+  .thanks-title {
+    text-align: center;
+    margin-bottom: 0.3rem;
+    text-transform: capitalize;
+  }
+
+  .thanks-subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .check {
+    color: green;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

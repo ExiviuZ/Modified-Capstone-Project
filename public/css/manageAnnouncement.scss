@@ -1,0 +1,77 @@
+.wrap-table {
+  width: 95%;
+  margin: auto;
+  margin-block: 2rem;
+}
+
+.announcements {
+  background-color: white;
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0px 2px 5px #e1e5ee;
+
+  td,
+  th {
+    padding: 1rem;
+    text-align: center;
+  }
+  th:nth-child(1), th:nth-child(3){
+    width: 20%;
+  }
+  th:nth-child(2){
+    width: 50%;
+  }
+  thead {
+    font-size: 1.1rem;
+    box-shadow: 0px 5px 10px #e1e5ee;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f4f6fb;
+  }
+  tbody {
+    tr {
+      transition: transform 0.25s ease-in-out;
+    }
+    tr:hover {
+      transform: translateY(1%);
+    }
+  }
+span {
+    display: block;
+}
+.announcement-message{
+  text-align: justify;
+  text-indent: 2rem;
+  display: block;
+  line-height: 1.7;
+  word-break: break-word;
+  text-align:justify;
+}
+p {
+  margin-bottom: 1rem;
+}
+}
+
+.delete-btn {
+    cursor: pointer;
+}
+
+.action-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    > a {
+        width: 30px;
+      padding: 0.2rem;
+      border-radius: 5px;
+    }
+    > a:nth-child(1) {
+      background-color: #e14744;
+    }
+    img {
+      filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg)
+        brightness(102%) contrast(109%);
+    }
+  }

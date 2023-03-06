@@ -1,0 +1,241 @@
+body {
+  display: flex;
+}
+
+.first-nav {
+  height: 100%;
+  position: fixed;
+  width: 20%;
+  padding: 1rem;
+  background-color: #001122;
+  color: white;
+}
+.first-nav .brand {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-weight: 700;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #a8a89e;
+}
+.first-nav .nav-logo {
+  width: 50px;
+}
+.first-nav .nav-actions-wrap {
+  padding: 1rem;
+}
+.first-nav .dashboard {
+  font-size: 1.1rem;
+}
+.first-nav .dashboard > a {
+  text-decoration: none;
+  color: hsl(0, 0%, 60%);
+  transition: color 0.25s linear;
+}
+.first-nav .dashboard > a:hover {
+  color: hsl(0, 0%, 95%);
+}
+.first-nav .dashboard > a.link-active {
+  color: white;
+}
+.first-nav .nav-links {
+  padding-left: 0.5rem;
+  font-size: 1rem;
+}
+.first-nav .nav-links > li:nth-child(4) {
+  display: block;
+  padding-left: 0.5rem;
+  cursor: default;
+}
+.first-nav .nav-links > li:nth-child(4) > div > span {
+  color: hsl(0, 0%, 60%);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.first-nav .nav-links > li:nth-child(4) > div > span > img {
+  display: inline-block;
+  width: 25px;
+  filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg) brightness(102%) contrast(109%);
+}
+.first-nav .nav-links > li:nth-child(4) ul {
+  padding-left: 0.5rem;
+}
+.first-nav .nav-links li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+}
+.first-nav .nav-links li a {
+  color: hsl(0, 0%, 60%);
+  text-decoration: none;
+  transition: color 0.25s linear;
+}
+.first-nav .nav-links li a.link-active {
+  color: white;
+}
+.first-nav .nav-links li:not(:nth-child(4)):hover a {
+  color: hsl(0, 0%, 95%);
+}
+.first-nav .dashboard-svg {
+  width: 25px;
+  filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg) brightness(102%) contrast(109%);
+}
+
+main {
+  width: 80%;
+  margin-left: auto;
+  background-color: #a8a89e;
+}
+
+.announcement-modal {
+  width: 30%;
+  margin: auto;
+  border: none;
+  box-shadow: 0px 0px 100px hsla(0, 0%, 0%, 0.5);
+  padding: 2rem;
+  background-color: #001122;
+  color: white;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease-in-out, opacity 0.75s ease-in-out;
+  opacity: 0;
+}
+.announcement-modal.active {
+  transform: translateX(0);
+  opacity: 1;
+}
+.announcement-modal .close-announcement {
+  background-color: hsl(0, 0%, 15%);
+  color: white;
+  transition: 0.25s background-color ease-in-out;
+}
+.announcement-modal .close-announcement:hover {
+  background-color: hsl(0, 0%, 5%);
+}
+.announcement-modal .submit-announcement {
+  color: white;
+  background-color: hsl(210, 93%, 54%);
+  transition: 0.25s background-color ease-in-out;
+}
+.announcement-modal .submit-announcement:hover {
+  background-color: hsl(210, 93%, 39%);
+}
+.announcement-modal > span {
+  display: block;
+  text-transform: capitalize;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  padding-bottom: 1rem;
+}
+.announcement-modal .title {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+}
+.announcement-modal .message {
+  padding: 0.5rem 1rem;
+}
+.announcement-modal .form-control {
+  margin-bottom: 1rem;
+}
+.announcement-modal .form-control label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.announcement-modal .form-control input, .announcement-modal .form-control textarea {
+  width: 100%;
+}
+.announcement-modal .form-control textarea {
+  resize: none;
+}
+.announcement-modal .wrap-buttons {
+  display: flex;
+  gap: 1rem;
+}
+.announcement-modal .wrap-buttons button {
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 5px;
+}
+.announcement-modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.568);
+}
+
+.second-nav {
+  background-color: hsl(210, 100%, 10%);
+  color: white;
+  padding: 1.6rem;
+  display: flex;
+  justify-content: end;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.second-nav .add-announcement {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+.second-nav .add-announcement img {
+  width: 40px;
+}
+.second-nav .admin {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+.second-nav .admin .nav-profile-img {
+  width: 30px;
+  filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg) brightness(102%) contrast(109%);
+}
+.second-nav .admin .dropdown {
+  background-color: red;
+  width: 17%;
+  right: 0;
+  position: absolute;
+  top: 100%;
+  background-color: hsl(210, 100%, 12%);
+  border-bottom-left-radius: 10px;
+  opacity: 0;
+  z-index: 1;
+  visibility: hidden;
+  transition: visibility 0.25s ease-in-out, opacity ease-in-out 0.25s;
+}
+.second-nav .admin .dropdown.active {
+  visibility: visible;
+  opacity: 1;
+}
+.second-nav .admin .dropdown li {
+  cursor: default;
+  padding: 1.5rem 2.5rem;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+.second-nav .admin .dropdown li:not(:last-child) {
+  border-bottom: 1px solid whitesmoke;
+}
+.second-nav .admin .dropdown li a {
+  text-decoration: none;
+  font-weight: 800;
+  transition: color 0.25s ease-in-out;
+  color: hsl(60, 5%, 60%);
+}
+.second-nav .admin .dropdown li a:hover {
+  color: hsl(60, 5%, 100%);
+}/*# sourceMappingURL=admin.css.map */

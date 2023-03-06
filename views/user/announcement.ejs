@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/announcement.css" />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %> <%- include('../partials/success') %>
+
+    <main>
+      <div id="calendar-container">
+        <span class="headers">Calendar of Events</span>
+        <!-- <div id="calendar"></div> -->
+        <div data-tockify-component="mini" data-tockify-calendar="msapa.events"></div>
+      </div>
+      <div class="announcements">
+        <span  class="headers">Announcements</span>
+        <div id="buttons-container">
+          <button id="previous-button">Previous</button>
+          <button id="next-button">Next</button>
+        </div>
+        <div class="announcement-container">
+          <% for(announcement of announcements) { %>
+            <div class="announcement-wrap">
+              <div class="announcement-top">
+                <img src="/img/campaign.svg" alt="" />
+                <div>
+                  <span><%= admin.name %></span>
+                  <span class="createdAt">
+                    <%= `${announcement.createdAt.toLocaleString('en-US',
+                    {year:"numeric",month:"short",day:"numeric"})} -
+                    ${announcement.createdAt.toLocaleString('en-US',
+                    {timeStyle:"short"})} ` %>
+                  </span class="createdAt">
+                </div>
+              </div>
+              
+              <div class="announcement-body">
+                <span class="announcement-title"><%= announcement.title %></span>
+                  <% announcement.message.split('\n').forEach(function(paragraph)
+                  { %>
+                  <p class="announcement-message"><%= paragraph %></p>
+                  <% }); %>
+                <button class="read-more-btn"></button>
+                <img class="announcement-image" src="<%= announcement.image.link  %>" alt="">
+              </div>
+      
+            </div>
+            
+            <% } %> 
+        </div>
+      </div>
+    </main>
+  
+
+    <%- include('../partials/error') %>
+    <script src="/js/loginDropdown.js"></script>
+    <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>
+    <script>
+      // var stringifiedEvents = `<%- JSON.stringify(mappedEvents) %>`;
+      // var events = JSON.parse(stringifiedEvents);
+      // document.addEventListener("DOMContentLoaded", function () {
+      //   var calendarEl = document.getElementById("calendar");
+      //   var calendar = new FullCalendar.Calendar(calendarEl, {
+      //     initialView: "dayGridMonth",
+      //     headerToolbar: {
+      //       left: "title",
+      //       right: "today prev,next",
+      //     },
+          
+      //     dayMaxEventRows: true,
+      //     aspectRatio: 2,
+      //     selectable: true,
+      //     eventSources: {
+      //       events,
+      //       backgroundColor: "#2c3e50",
+      //       borderColor: "grey",
+      //     },
+      //     eventClick: function (info) {
+      //       alert("Event: " + info.event.title);
+      //     },
+      //     eventMouseEnter: function (info) {
+      //       info.el.style.cursor = "pointer";
+      //     },
+          
+          
+      //   });
+      //   calendar.render();
+      // });
+    </script>
+    <script>
+     const readMoreBtns = document.querySelectorAll('.read-more-btn')
+     const wrappedAnnouncements = document.querySelectorAll('.announcement-wrap')
+
+     readMoreBtns.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        if(!wrappedAnnouncements[index].classList.contains('active')){
+          wrappedAnnouncements[index].classList.add('active')
+        }
+        else {
+          wrappedAnnouncements[index].classList.remove('active')
+        }
+      })
+     })
+
+
+     const prevButton = document.getElementById('previous-button');
+const nextButton = document.getElementById('next-button');
+const announcementContainer = document.querySelector('.announcement-container');
+const announcementWraps = document.querySelectorAll('.announcement-wrap');
+let currentAnnouncementIndex = 0;
+
+function showAnnouncement(index) {
+  announcementWraps.forEach((announcementWrap, i) => {
+    if (i === index) {
+      announcementWrap.style.display = 'block';
+    } else {
+      announcementWrap.style.display = 'none';
+    }
+  });
+}
+
+nextButton.addEventListener('click', () => {
+  currentAnnouncementIndex++;
+  if (currentAnnouncementIndex >= announcementWraps.length) {
+    currentAnnouncementIndex = 0;
+  }
+  showAnnouncement(currentAnnouncementIndex);
+});
+
+prevButton.addEventListener('click', () => {
+  currentAnnouncementIndex--;
+  if (currentAnnouncementIndex < 0) {
+    currentAnnouncementIndex = announcementWraps.length - 1;
+  }
+  showAnnouncement(currentAnnouncementIndex);
+});
+
+
+    </script>
+  </body>
+</html>
+
+
+
+

@@ -1,0 +1,25 @@
+.report-contents {
+margin-block: 2rem;
+> div {
+  margin-inline:auto;
+  width: 95%;
+}
+  .bar {
+    margin-bottom: 2rem;
+    animation: spin 0.5s ease-in-out;
+    background-color: white;
+    border-radius: 3px;
+    padding: 1rem 1.5rem;
+    h2 {
+        font-size: 1.5rem;
+      }
+  }
+
+#calendar {
+  // padding: 1rem;
+  // border-radius: 3px;
+  // background-color: white;
+  
+}
+
+}

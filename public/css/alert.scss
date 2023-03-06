@@ -1,0 +1,46 @@
+.alert {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  text-align: left;
+  font-size: 1.1rem;
+  padding: 1rem;
+  width: 25%;
+  color: rgb(20, 20, 20);
+  animation: goDown 5s ease-in-out forwards;
+  z-index: 1;
+}
+
+.success-alert {
+  background-color: rgb(136, 255, 100);
+  border-left: 4px solid rgb(0, 185, 31);
+  font-weight: 500;
+}
+
+.error-alert {
+  background-color: rgb(255, 100, 100);
+  border-left: 4px solid rgb(185, 0, 0);
+  font-weight: 500;
+}
+
+@keyframes goDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(60%) scale(1);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(60%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%) scale(0);
+  }
+}

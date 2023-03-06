@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/household.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/success') %> <%- include('../partials/error') %>
+
+    <nav class="first-nav">
+      <span class="brand"
+        ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
+        Records</span
+      >
+      <ul class="nav-actions-wrap">
+        <li class="dashboard">
+          <a href="/admin/">Dashboard</a>
+          <ul class="nav-links">
+            <li>
+              <img src="/img/people.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/household"
+                class="link-active"
+                >Barangay Households</a
+              >
+            </li>
+            <li>
+              <img src="/img/announcement.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/announcement"
+                >Manage Announcement</a
+              >
+            </li>
+            <li>
+              <img src="/img/report.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/report"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <div>
+                <span class="generate"
+                  ><img src="/img/pdf.svg" alt="" />
+                  <span>Generate Data</span></span
+                >
+              </div>
+              <ul>
+                <li>
+                  <a href="/admin/monthly">Monthly Registered</a>
+                </li>
+                <li>
+                  <a href="/admin/covid">Vaccination Status</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <nav class="second-nav">
+        <button class="add-announcement">
+          <img src="/img/add_alert.svg" alt="" /> Add Announcement
+        </button>
+        <span class="admin">
+          <img src="/img/profile.svg" class="nav-profile-img" /> <%=
+          `${currentUser.name}`%> ▼
+          <ul class="dropdown">
+            <li><a href="/logout">Log-out</a></li>
+          </ul>
+        </span>
+      </nav>
+      <section id="to-print" class="content">
+        <div class="top-content">
+          <h1 class="resident-head-title">
+            <span
+              ><img src="/img/stats.svg" class="stats-svg" alt="" /> Household
+              Registrants</span
+            >
+          </h1>
+          <div class="search-forms">
+            <form action="/admin/household" class="sort-sitio">
+              <select name="sitio" id="sitio" class="sort-sitio-input">
+                <option <%= (sorting) == "" ? "selected" : ""  %> value="">-- All Sitio --</option>
+                <option <%= (sorting && sitioPlace == 'Ibabaw') ? "selected" : ""  %> valu>Ibabaw</option>
+                <option <%= (sorting && sitioPlace == 'Sulucan I') ? "selected" : ""  %> value="Sulucan I">Sulucan I</option>
+                <option <%= (sorting && sitioPlace == 'Sulucan II') ? "selected" : ""  %> value="Sulucan II">Sulucan II</option>
+                <option <%= (sorting && sitioPlace == 'Sulucan III') ? "selected" : ""  %> value="Sulucan III">Sulucan III</option>
+                <option <%= (sorting && sitioPlace == 'Centro') ? "selected" : ""  %> value="Centro">Centro</option>
+                <option <%= (sorting && sitioPlace == 'Hulo') ? "selected" : ""  %> value="Hulo">Hulo</option>
+                <option <%= (sorting && sitioPlace == 'Pulong Bocaue') ? "selected" : ""  %> value="Pulong Bocaue">Pulong Bocaue</option>
+                <option <%= (sorting && sitioPlace == 'Putol') ? "selected" : ""  %> value="Putol">Putol</option>
+                <option <%= (sorting && sitioPlace == 'Banca Banca') ? "selected" : ""  %> value="Banca Banca">Banca Banca</option>
+                <option <%= (sorting && sitioPlace == 'El Pueblo') ? "selected" : ""  %> value="El Pueblo">El Pueblo</option>
+              </select>
+            </form>
+            <form action="/admin/household">
+              <input
+                type="text"
+                class="search"
+                name="name"
+                placeholder="Search Name &#x1F50D;"
+                required
+              />
+            </form>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Household Registree</th>
+              <th>Address</th>
+              <th>Contact</th>
+              <th>Tools</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(sorting) {%> <% if(sitioUsers.length < 1){ %>
+            <tr>
+              <td colspan="5" style="font-weight: 600">
+                -- No Currently Registered User in this Sitio.--
+              </td>
+            </tr>
+            <% } else { for(user of sitioUsers) { %>
+            <tr>
+              <% if(user.image.length > 0) {%>
+              <td>
+                <img
+                  src="<%= user.image[user.image.length - 1].url  %>"
+                  class="user-img"
+                />
+              </td>
+              <% } else {%>
+              <td>
+                <img src="/img/profile.svg" alt="" class="dummy-img" />
+              </td>
+              <% } %>
+              <td><%= user.fullName %></td>
+              <td><%= user.fullAddress %></td>
+              <td><%= user.contact %></td>
+              <td class="action-cell">
+                <div class="action-container">
+                  <a href="/admin/household/<%= user._id %>"
+                    ><img src="/img/visibility.svg" class="action-icons" alt=""
+                  /></a>
+                  <a
+                    id="<%= user._id  %>"
+                    class="delete-btn"
+                    onclick="openModal(this.id)"
+                    ><img src="/img/delete.svg" class="action-icons" alt=""
+                  /></a>
+                </div>
+              </td>
+            </tr>
+            <% } }%> <% } else if(searching){ %> <% if(users.length < 1){ %>
+            <tr>
+              <td colspan="5" style="font-weight: 600">
+                -- No Users Found With That Name --
+              </td>
+            </tr>
+            <% } else { %> <% for(user of users){ %>
+            <tr>
+              <% if(user.image.length > 0) {%>
+              <td>
+                <img
+                  src="<%= user.image[user.image.length - 1].url  %>"
+                  class="user-img"
+                />
+              </td>
+              <% } else {%>
+              <td>
+                <img src="/img/profile.svg" alt="" class="dummy-img" />
+              </td>
+              <% } %>
+
+              <td><%= user.fullName %></td>
+              <td><%= user.fullAddress %></td>
+              <td><%= user.contact %></td>
+              <td class="action-cell">
+                <div class="action-container">
+                  <a href="/admin/household/<%= user._id %>"
+                    ><img src="/img/visibility.svg" class="action-icons" alt=""
+                  /></a>
+                  <a
+                    id="<%= user._id  %>"
+                    class="delete-btn"
+                    onclick="openModal(this.id)"
+                    ><img src="/img/delete.svg" class="action-icons" alt=""
+                  /></a>
+                </div>
+              </td>
+            </tr>
+            <% } %> <% } %> <% } else {%> <% if(users.length < 1){ %>
+            <tr>
+              <td colspan="5" style="font-weight: 600">
+                -- There Are Currently No Registered Users. --
+              </td>
+            </tr>
+            <% } else { %> <% for(user of users){ %>
+            <tr>
+              <% if(user.image.length > 0) {%>
+              <td>
+                <img
+                  src="<%= user.image[user.image.length - 1].url  %>"
+                  class="user-img"
+                />
+              </td>
+              <% } else {%>
+              <td>
+                <img src="/img/profile.svg" alt="" class="dummy-img" />
+              </td>
+              <% } %>
+
+              <td><%= user.fullName %></td>
+              <td><%= user.fullAddress %></td>
+              <td><%= user.contact %></td>
+              <td class="action-cell">
+                <div class="action-container">
+                  <a href="/admin/household/<%= user._id %>"
+                    ><img src="/img/visibility.svg" class="action-icons" alt=""
+                  /></a>
+                  <a
+                    id="<%= user._id  %>"
+                    class="delete-btn"
+                    onclick="openModal(this.id)"
+                    ><img src="/img/delete.svg" class="action-icons" alt=""
+                  /></a>
+                </div>
+              </td>
+            </tr>
+            <% } %> <% } %> <% } %>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <%- include('../partials/addAnnouncement') %>
+
+    <div id="id01" class="modal">
+      <span
+        onclick="document.getElementById('id01').style.display='none'"
+        class="close"
+        title="Close Modal"
+        >×</span
+      >
+      <form class="modal-content delete-form" method="post">
+        <div class="container">
+          <h1>Delete Household</h1>
+          <p>Are you sure you want to delete this household?</p>
+
+          <div class="clearfix">
+            <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+            >
+              Cancel
+            </button>
+            <button type="button" onclick="deleteHousehold()" class="deletebtn">
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+    <script>
+      const sortForm = document.querySelector(".sort-sitio");
+      const sortInput = document.querySelector(".sort-sitio-input");
+
+      sortInput.addEventListener("change", (event) => {
+        sortForm.submit();
+      });
+
+    </script>
+    <script src="/js/adminDropdown.js"></script>
+    <script src="/js/deleteHousehold.js"></script>
+    <script src="/js/announcementModal.js"></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/census.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %> <%- include('../partials/success') %>
+    <%- include('../partials/error') %> <% if(!user.answeredCensus) { %>
+
+    <main class="main-form">
+      <div class="title">
+        <h1>Household Census</h1>
+        <p>
+          Fill in the data for all the people that currently lives in your
+          household. (except you)
+        </p>
+      </div>
+      <form action="/user/census" method="post">
+        <div class="personContainer">
+          <div class="group">
+            <div class="form-control">
+              <label>Name:</label>
+              <input
+                type="text"
+                name="people[1][name]"
+                required
+                data-name
+                placeholder="John Doe"
+              />
+            </div>
+            <div class="form-control">
+              <label>Birthday:</label>
+              <input
+                type="date"
+                data-birthday
+                required
+                class="birthdays"
+                name="people[1][birthday]"
+              />
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="form-control">
+              <label>Educational Attainment:</label>
+              <select name="people[1][education]" required data-education>
+                <option value="elementary">Elementary</option>
+                <option value="high school">High School</option>
+                <option value="college">College</option>
+              </select>
+            </div>
+
+            <div class="form-control">
+              <label>Marital Status:</label>
+              <select
+                name="people[1][maritalStatus]"
+                required
+                data-maritalStatus
+              >
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="separated">Separated</option>
+                <option value="widowed">Widowed</option>
+              </select>
+            </div>
+          </div>
+          <div class="group">
+            <div class="form-control">
+              <label>Relationship to Him/Her:</label>
+              <select name="people[1][relationship]" required data-relationship>
+                <option value="Father">Father</option>
+                <option value="Mother">Mother</option>
+                <option value="sibling">Sibling</option>
+                <option value="relative">Relative</option>
+                <option value="partner">Partner</option>
+                <option value="child">Child</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label>Gender:</label>
+              <div class="separator">
+                <label class="male">Male</label>
+                <input
+                  type="radio"
+                  name="people[1][gender]"
+                  required
+                  value="male"
+                  data-gender
+                />
+              </div>
+              <div class="separator">
+                <label class="female">Female</label>
+                <input
+                  type="radio"
+                  name="people[1][gender]"
+                  required
+                  value="female"
+                  data-gender
+                />
+              </div>
+            </div>
+          </div>
+          <div class="group">
+            <div class="form-control">
+              <label>Vaccine Dosage</label>
+              <select
+                name="people[1][vaccineDosage]"
+                required
+                data-vaccineDosage
+              >
+                <option value="0">Not Vaccinated</option>
+                <option value="1">1st Dose</option>
+                <option value="2">2nd Dose</option>
+              </select>
+            </div>
+
+            <div class="form-control">
+              <label>Vaccine Name</label>
+              <select name="people[1][vaccineName]" required data-vaccineName>
+                <option value="0">Not Vaccinated</option>
+                <option value="pfizer">Pfizer</option>
+                <option value="janssen">Janssen</option>
+                <option value="astrazenica">Astrazenica</option>
+                <option value="coronavac">Coronavac</option>
+                <option value="sinopharm">Sinopharm</option>
+                <option value="moderna">Moderna</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="group">
+            <div class="form-control">
+              <label>Booster Dosage</label>
+              <select
+                name="people[1][boosterDosage]"
+                required
+                data-boosterDosage
+              >
+                <option value="0">No Booster Shot</option>
+                <option value="1">1st Booster Shot</option>
+                <option value="2">2nd Booster Shot</option>
+              </select>
+            </div>
+
+            <div class="form-control">
+              <label>Booster Name</label>
+              <select name="people[1][boosterName]" required data-boosterName>
+                <option value="0">No Booster Shot</option>
+                <option value="pfizer">Pfizer</option>
+                <option value="janssen">Janssen</option>
+                <option value="astrazenica">Astrazenica</option>
+                <option value="coronavac">Coronavac</option>
+                <option value="sinopharm">Sinopharm</option>
+                <option value="moderna">Moderna</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-control buttons">
+          <button type="button" class="add">Add Field &plus;</button>
+          <button type="button" class="minus">Remove Field &minus;</button>
+        </div>
+        <button type="submit" class="submit">Submit</button>
+      </form>
+    </main>
+    <% } else { %>
+    <main class="main-thanks">
+      <h1 class="thanks-title">Thanks for Participating.</h1>
+      <p class="thanks-subtitle">
+        You've completed this census. <span class="check">&checkmark;</span>
+      </p>
+      <img src="/img/thanks.svg" alt="" />
+    </main>
+    <% } %>
+
+    <script src="/js/loginDropdown.js"></script>
+    <script src="/js/inputGenerate.js"></script>
+    <script>
+      const birthdays = document.querySelectorAll(".birthdays");
+
+      for (birthday of birthdays) {
+        birthday.max = new Date().toLocaleDateString("en-ca");
+      }
+    </script>
+
+    <script>
+      const vaccineDosageTag = document.querySelector("[data-vaccineDosage]");
+      const vaccineNameTag = document.querySelector("[data-vaccineName]");
+      const boosterDosageTag = document.querySelector("[data-boosterDosage]");
+      const boosterNameTag = document.querySelector("[data-boosterName]");
+
+      vaccineDosageTag.addEventListener("change", () => {
+        if (vaccineDosageTag.value === "0") {
+          vaccineNameTag.disabled = true;
+          boosterDosageTag.disabled = true;
+          boosterNameTag.disabled = true;
+          vaccineNameTag.options[0].selected = true;
+          boosterDosageTag.options[0].selected = true;
+          boosterNameTag.options[0].selected = true;
+        } else if (vaccineDosageTag.value === "1") {
+          vaccineNameTag.disabled = false;
+          boosterDosageTag.disabled = true;
+          boosterNameTag.disabled = true;
+        } else if (vaccineDosageTag.value === "2") {
+          vaccineNameTag.disabled = false;
+          boosterDosageTag.disabled = false;
+          boosterNameTag.disabled = false;
+        }
+      });
+
+      // Disable boosterDosage and boosterNameTag initially
+      vaccineNameTag.disabled = true;
+      boosterDosageTag.disabled = true;
+      boosterNameTag.disabled = true;
+    </script>
+  </body>
+</html>

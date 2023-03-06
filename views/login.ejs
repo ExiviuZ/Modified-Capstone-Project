@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <title><%= title %></title>
+    <style>
+      .home-icon {
+        width: 30px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(306deg)
+          brightness(101%) contrast(105%);
+      }
+      .home-link {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/error') %> <%- include('./partials/success') %>
+    <a href="/" class="home-link"
+      ><img src="/img/home.svg" class="home-icon" alt=""
+    /></a>
+
+    <main>
+      <h1><img src="/img/barangay-logo.png" alt="" />LOGIN</h1>
+      <form action="/user/login" method="post" class="form">
+        <div class="form-control">
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            id="username"
+          />
+        </div>
+        <div class="form-control">
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+          />
+        </div>
+
+        <div class="form-control">
+          <select id="form_action" class="selectInput">
+            <option value="">--User Account Type--</option>
+            <option value="/user/login">User</option>
+            <option value="/admin/login">Administrator</option>
+          </select>
+        </div>
+        <button class="btn" type="button" value="Submit" onclick="myfunction()">
+          Login
+        </button>
+      </form>
+      <span class="no-account"
+        >Don't have an account? <a href="/register">Create here</a></span
+      >
+    </main>
+
+    <script src="/js/userAdminOption.js"></script>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/manageAnnouncement.css" />
+    <title><%= title %></title>
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <%- include('../partials/addAnnouncement') %>
+
+    <nav class="first-nav">
+      <span class="brand"
+        ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
+        Records</span
+      >
+      <ul class="nav-actions-wrap">
+        <li class="dashboard">
+          <a href="/admin/">Dashboard</a>
+          <ul class="nav-links">
+            <li>
+              <img src="/img/people.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/household"
+                >Barangay Households</a
+              >
+            </li>
+            <li>
+              <img src="/img/announcement.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/announcement"
+                class="link-active"
+                >Manage Announcement</a
+              >
+            </li>
+            <li>
+              <img src="/img/report.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/report"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <div>
+                <span class="generate"
+                  ><img src="/img/pdf.svg" alt="" />
+                  <span>Generate Data</span></span
+                >
+              </div>
+              <ul>
+                <li>
+                  <a href="/admin/monthly">Monthly Registered</a>
+                </li>
+                <li>
+                  <a href="/admin/covid">Vaccination Status</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <nav class="second-nav">
+        <button class="add-announcement">
+          <img src="/img/add_alert.svg" alt="" /> Add Announcement
+        </button>
+        <span class="admin">
+          <img src="/img/profile.svg" class="nav-profile-img" /> <%=
+          `${currentUser.name}`%> ▼
+          <ul class="dropdown">
+            <li><a href="/logout">Log-out</a></li>
+          </ul>
+        </span>
+      </nav>
+
+      <div class="wrap-table">
+        <table class="announcements" id="announce">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Message</th>
+              <th>Date Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(announcements.length < 1){ %>
+            <tr>
+              <td colspan="4" style="font-weight: 600">
+                -- You Currently Have No Announcements, Try Adding One. --
+              </td>
+            </tr>
+            <% } %> <% announcements.forEach(announcement => { %>
+            <tr>
+              <td style="font-weight: bold"><%= announcement.title %></td>
+              <td class="announcement-message">
+                <% announcement.message.split('\n').forEach(function(paragraph)
+                { %>
+                <p><%= paragraph %></p>
+                <% }); %>
+              </td>
+              <% const date = new Date(announcement.createdAt); const month =
+              date.toLocaleString('default', { month: 'short' }); const day =
+              date.getDate(); const year = date.getFullYear(); const hour =
+              date.getHours(); const hour12 = (hour % 12) || 12; const ampm =
+              hour >= 12 ? 'PM' : 'AM'; const formattedDate = `${month} ${day},
+              ${year} - ${hour12}${ampm}`; %>
+              <td><%= formattedDate %></td>
+              <td>
+                <div class="action-container">
+                  <a id="<%= announcement._id  %>" class="delete-btn"
+                    ><img src="/img/delete.svg" class="action-icons" alt=""
+                  /></a>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script src="/js/adminDropdown.js"></script>
+    <script src="/js/announcementModal.js"></script>
+    <script>
+      const deleteBtns = document.querySelectorAll(".delete-btn");
+      deleteBtns.forEach((btn) => {
+        const btnId = btn.id;
+        btn.addEventListener("click", function () {
+          if (confirm("Are you sure you want to delete this announcement?")) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("delete", `/admin/announcement/${btnId}`);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onload = function () {
+              if (xhr.status === 200) {
+                location.reload();
+              } else {
+                console.error("Error deleting element from MongoDB");
+              }
+            };
+
+            xhr.onerror = function () {
+              console.error("Error deleting element from MongoDB");
+            };
+
+            xhr.send(JSON.stringify({ btnId }));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

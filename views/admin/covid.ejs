@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/generate.css" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/addAnnouncement') %>
+
+    <nav class="first-nav">
+      <span class="brand"
+        ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
+        Records</span
+      >
+      <ul class="nav-actions-wrap">
+        <li class="dashboard">
+          <a href="/admin/">Dashboard</a>
+          <ul class="nav-links">
+            <li>
+              <img src="/img/people.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/household"
+                >Barangay Households</a
+              >
+            </li>
+            <li>
+              <img src="/img/announcement.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/announcement"
+                >Manage Announcement</a
+              >
+            </li>
+            <li>
+              <img src="/img/report.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/report"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <div>
+                <span class="generate"
+                  ><img src="/img/pdf.svg" alt="" />
+                  <span class="generate">Generate Data</span></span
+                >
+              </div>
+              <ul>
+                <li>
+                  <a href="/admin/monthly">Monthly Registered</a>
+                </li>
+                <li>
+                  <a href="/admin/covid" class="link-active"
+                    >Vaccination Status</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <nav class="second-nav">
+        <button class="add-announcement">
+          <img src="/img/add_alert.svg" alt="" /> Add Announcement
+        </button>
+        <span class="admin">
+          <img src="/img/profile.svg" class="nav-profile-img" /> <%=
+          `${currentUser.name}`%> ▼
+          <ul class="dropdown">
+            <li><a href="/logout">Log-out</a></li>
+          </ul>
+        </span>
+      </nav>
+
+      <!-- <button id="download-btn">Download PDF</button> -->
+
+      <button id="download-btn-2">Download PDF</button>
+
+      <div id="covid-container">
+        <h1>
+          <img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Covid
+          Vaccination Status
+        </h1>
+
+        <% for (let sitio in sitios) { %>
+        <h2 style="text-decoration: underline; page-break-inside: avoid">
+          <%= sitios[sitio].name %>
+        </h2>
+
+        <% if(sitios[sitio].members.length < 1){ %>
+        <table>
+          <colgroup>
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+          </colgroup>
+          <thead>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Dosage #</th>
+            <th>Name</th>
+            <th>Booster #</th>
+            <th>Name</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="6" style="font-weight: 900; color: red">
+                --There is Currently Nobody Registered in this Sitio--
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <% } else { %> <% for(holder of sitios[sitio].members){ %>
+
+        <table>
+          <colgroup>
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+            <col style="width: 16.6666666667%" />
+          </colgroup>
+          <thead>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Dosage #</th>
+            <th>Name</th>
+            <th>Booster #</th>
+            <th>Name</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>* <%= holder.fullName %></td>
+              <td><%= holder.contact %></td>
+              <td>
+                <%= (holder.vaccineDosage == '0' ) ? 'Unvaccinated' :
+                (holder.vaccineDosage == '1') ? '1st' : '1st & 2nd' %>
+              </td>
+              <td style="text-transform: capitalize">
+                <%= (holder.vaccineName == '0') ? 'Unvaccinated' :
+                holder.vaccineName %>
+              </td>
+              <td>
+                <%= (holder.boosterDosage == '0') ? 'Unvaccinated' :
+                (holder.boosterDosage == '1') ? '1st' : '1st & 2nd' %>
+              </td>
+              <td style="text-transform: capitalize">
+                <%= (holder.boosterName == '0') ? 'Unvaccinated' :
+                holder.boosterName %>
+              </td>
+            </tr>
+            <% for(familyMember of holder.household) {%>
+            <tr>
+              <td><%= familyMember.name %></td>
+              <td></td>
+              <td>
+                <%= (familyMember.vaccineDosage == '0') ? 'Unvaccinated' :
+                (familyMember.vaccineDosage == '1') ? '1st' : '1st & 2nd' %>
+              </td>
+              <td style="text-transform: capitalize">
+                <%= (familyMember.vaccineName == '0') ? 'Unvaccinated' :
+                familyMember.vaccineName %>
+              </td>
+              <td>
+                <%= (familyMember.boosterDosage == '0') ? 'Unvaccinated' :
+                (familyMember.boosterDosage == '1') ? '1st' : '1st & 2nd' %>
+              </td>
+              <td style="text-transform: capitalize">
+                <%= (familyMember.boosterName == '0') ? 'Unvaccinated' :
+                familyMember.boosterName %>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        <% } %> <% } %> <% } %>
+      </div>
+    </main>
+    <script src="/js/adminDropdown.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"
+      integrity="sha512-vNrhFyg0jANLJzCuvgtlfTuPR21gf5Uq1uuSs/EcBfVOz6oAHmjqfyPoB5rc9iWGSnVE41iuQU4jmpXMyhBrsw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/js/announcementModal.js"></script>
+
+    <script>
+      // const downloadBtn = document.getElementById("download-btn");
+      // var opt = {
+      //   filename: "Monthly Registered User Report.pdf",
+      //   image: { type: "jpeg", quality: 0.98 },
+      //   margin: [0.3, 0],
+      //   html2canvas: { scale: 2 },
+      //   jsPDF: { unit: "in", format: "legal", orientation: "landscape" },
+      // };
+      // downloadBtn.addEventListener("click", (event) => {
+      //   const monthly = document.getElementById("container");
+      //   html2pdf().from(monthly).set(opt).save();
+      // });
+      const downloadBtn2 = document.getElementById("download-btn-2");
+      var opt2 = {
+        filename: "Vaccination Status Report.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        margin: [0.3, 0],
+        jsPDF: { unit: "in", format: "legal", orientation: "landscape" },
+      };
+      downloadBtn2.addEventListener("click", (event) => {
+        const covid = document.getElementById("covid-container");
+        html2pdf().from(covid).set(opt2).save();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %> <%- include('../partials/success') %>
+    <%- include('../partials/error') %>
+
+    <main>
+      <div class="user-card">
+        <div class="user-image-name">
+          <section class="wrap-image">
+            <% if(user.image.length > 0) {%>
+            <img
+              src="<%= user.image[user.image.length - 1].url  %>"
+              class="user-img"
+            />
+            <form
+              class="round form-img"
+              enctype="multipart/form-data"
+              action="/user/upload"
+              method="post"
+            >
+              <input type="file" name="image" accept="image/*" />
+              <img
+                src="/img/add-photo.svg"
+                class="add-photo have-photo"
+                alt=""
+              />
+            </form>
+            <% } else {%>
+            <img src="/img/profile.svg" alt="" class="dummy-img" />
+            <form
+              class="round form-img"
+              enctype="multipart/form-data"
+              action="/user/upload"
+              method="post"
+            >
+              <input type="file" name="image" accept="image/*" />
+              <img src="/img/add-photo.svg" class="add-photo no-photo" alt="" />
+            </form>
+            <% } %>
+          </section>
+          <span class="user-name" ><%= user.fullName %></span>
+        </div>
+        <div class="user-information-wrap">
+          <span class="card-title">Personal Information </span>
+          <button class="edit-btn" href="/user/profile"
+            ><img src="/img/edit.svg" alt=""
+          /></button>
+          <div class="user-information">
+            <div class="address">
+              <span class="title-label">Address</span>
+              <span class="title-value" style="text-transform: capitalize"
+                ><%= user.fullAddress %></span
+              >
+            </div>
+            <div class="birthday">
+              <span class="title-label">Birthday</span>
+              <span class="title-value">
+                <%= user.birthday.toLocaleString("en-US", { month: 'short', day:
+                'numeric', year: 'numeric'}) %>
+              </span>
+            </div>
+            <div class="gender">
+              <span class="title-label">Gender</span>
+              <span class="title-value" style="text-transform: capitalize"
+                ><%= user.gender %></span
+              >
+            </div>
+            <div class="status">
+              <span class="title-label">Marital Status</span>
+              <span class="title-value" style="text-transform: capitalize"><%= user.maritalStatus %></span>
+            </div>
+            <div class="vacDoseName">
+              <span class="title-label">Vax Dose/Name</span>
+              <span class="title-value" style="text-transform: capitalize">
+                 <%= (user.vaccineDosage == '0' ) ? 'Unvaccinated' :
+                (user.vaccineDosage == '1') ? `1st Dose ${user.vaccineName}` : `2nd Dose ${user.vaccineName}` %></span>
+            </div>
+            <div class="boostDoseName">
+              <span class="title-label">Boost Dose/Name</span>
+              <span class="title-value" style="text-transform: capitalize"
+                ><%= (user.boosterDosage == '0' ) ? 'Unvaccinated' :
+                (user.boosterDosage == '1') ? `1st Booster ${user.boosterName}` : `2nd Dose ${user.boosterName}` %></span
+              >
+            </div>
+            <div class="contactNumber">
+              <span class="title-label">Contact No.</span>
+              <span class="title-value" style="text-transform: capitalize"><%= user.contact %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table id="household-list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Relationship</th>
+            <th>Marital Status</th>
+            <th>Educ. Attainment</th>
+            <th>Vaccine Dosage</th>
+            <th>Vaccine Name</th>
+            <th>Booster Dosage</th>
+            <th>Booster Name</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(!user.answeredCensus) { %>
+          <tr>
+            <td colspan="11" style="font-weight: 600">
+              -- Your Household Data Will Appear Here After Answering The
+              Census. --
+            </td>
+          </tr>
+          <% } else {%> <% for(member of user.household) { %>
+          <tr>
+            <td style="text-transform: capitalize"><%= member.name %></td>
+            <td style="text-transform: capitalize"><%= member.gender %></td>
+            <td style="width: 150px;">
+              <%= member.birthday.toLocaleString("en-US", { month: 'short', day:
+              'numeric', year: 'numeric'}) %>
+            </td>
+            <td style="text-transform: capitalize">
+              <%= member.relationship %>
+            </td>
+            <td style="text-transform: capitalize">
+              <%= member.maritalStatus %>
+            </td>
+            <td style="text-transform: capitalize"><%= member.education%></td>
+            <td style="text-transform: capitalize"><%= (member.vaccineDosage === '0') ? "Not Vaccinated" : (member.vaccineDosage === '1') ? 'First Dose' : 'Second Dose'%></td>
+            <td style="text-transform: capitalize"><%= (member.vaccineName === '0') ? "Not Vaccinated" : member.vaccineName %></td>
+            <td style="text-transform: capitalize"><%= (member.boosterDosage === '0') ? "No Booster Shot" : (member.boosterDosage === '1') ? 'First Dose' : 'Second Dose'%></td>
+            <td style="text-transform: capitalize"><%= (member.boosterName === '0') ? "No Booster Shot" : member.boosterName %></td>
+            <td class="action-cell">
+              <div class="action-container">
+                <button
+                    id="<%= member._id  %>"
+                    class="delete-btn"
+                    onclick="openModalFunc(this.id)"
+                    ><img src="/img/delete.svg" class="action-icons" alt=""
+                  />
+                  </button>
+              <button class="edit-member" 
+              ><img src="/img/edit.svg" alt=""
+            /></button></td>
+          </div>
+            
+            <!-- href="/user/profile/edit/<= member._id  %>" -->
+          </tr>
+          <% } %>
+          <tr>
+            <td colspan="11" class="add-another" style="font-weight: 600">
+              <button>Add another member?</button>
+            </td>
+          </tr>
+          <% } %>
+         
+        </tbody>
+        
+      </table>
+    </main>
+
+    <!-- Personal Information Edit Dialog -->
+    <dialog class="profile-dialog">
+      <h2>Edit Personal Information</h2>
+      <form action="/user/profile/<%= user._id  %>" method="post" class="edit-form">
+      <div class="form-control">
+        <input
+          type="text"
+          placeholder="First Name"
+          name="firstName"
+          id="firstName"
+          value="<%= user.firstName  %>"
+          required
+          maxlength="20"
+        />
+        <span class="error-message"></span>
+      </div>
+
+      <div class="form-control">
+       <input
+         type="text"
+         maxlength="20"
+         placeholder="Last Name"
+         name="lastName"
+         id="lastName"
+         required
+         value="<%= user.lastName%>"
+       />
+       <span class="error-message"></span>
+      </div>
+
+     <div class="form-control">
+      <input
+      placeholder="House #"
+      name="houseNumber"
+      id="houseNumber"
+      required
+      value="<%= user.address.houseNumber %>"
+      type="text"
+      pattern="\d*"
+      maxlength="3"
+      oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+    />
+     </div>
+
+     <div class="form-control">      
+       <select name="sitio" id="sitio" required>
+        <option value="">-- Sitio --</option>
+        <option <%= user.address.sitio == "Ibabaw" ? "selected" : ""  %> value="Ibabaw">Ibabaw</option>
+        <option <%= user.address.sitio == "Sulucan I" ? "selected" : ""  %> value="Sulucan I">Sulucan I</option>
+        <option <%= user.address.sitio == "Sulucan II" ? "selected" : ""  %> value="Sulucan II">Sulucan II</option>
+        <option <%= user.address.sitio == "Sulucan III" ? "selected" : ""  %> value="Sulucan III">Sulucan III</option>
+        <option <%= user.address.sitio == "Centro" ? "selected" : ""  %> value="Centro">Centro</option>
+        <option <%= user.address.sitio == "Hulo" ? "selected" : ""  %> value="Hulo">Hulo</option>
+        <option <%= user.address.sitio == "Pulong Bocaue" ? "selected" : ""  %> value="Pulong Bocaue">Pulong Bocaue</option>
+        <option <%= user.address.sitio == "Putol" ? "selected" : ""  %> value="Putol">Putol</option>
+        <option <%= user.address.sitio == "Banca Banca" ? "selected" : ""  %> value="Banca Banca">Banca Banca</option>
+        <option <%= user.address.sitio == "El Pueblo" ? "selected" : ""  %> value="El Pueblo">El Pueblo</option>
+      </select>
+     </div>
+
+     <div class="form-control">
+       <input type="text" placeholder="Contact #" pattern="\d*"
+       oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+       minlength="11"
+       maxlength="11" required name="contact" value="<%= user.contact  %>" id="contact" />
+       <span class="error-message"></span>
+     </div>
+
+<!-- Form control group -->
+     <div class="form-control">
+       <input type="date" name="birthday" required value="<%= `${user.birthday.getFullYear()}-${user.birthday.getMonth()+1 < 10 ? '0'+(user.birthday.getMonth()+1) : user.birthday.getMonth()+1}-${user.birthday.getDate() < 10 ? '0'+user.birthday.getDate() : user.birthday.getDate()}`  %>"  id="birthday" max="" />
+
+       <span class="error-message"></span>
+     </div>
+     <div class="form-control">
+       <select name="maritalStatus" required id="maritalStatus">
+         <option value="">-- Marital Status --</option>
+         <option <%= user.maritalStatus == "single" ? "selected" : ""  %> value="single">Single</option>
+         <option <%= user.maritalStatus == "married" ? "selected" : ""  %> value="married">Married</option>
+         <option <%= user.maritalStatus == "divorced" ? "selected" : ""  %> value="divorced">Divorced</option>
+         <option <%= user.maritalStatus == "separated" ? "selected" : ""  %> value="separated">Separated</option>
+         <option <%= user.maritalStatus == "widowed" ? "selected" : ""  %> value="widowed">Widowed</option>
+       </select>
+       <span class="error-message"></span>
+     </div>
+     <div class="form-control">
+       <select name="gender" required id="gender">
+         <option value="">-- Gender --</option>
+         <option <%= user.gender == "male" ? "selected" : ""  %>  value="male">Male</option>
+         <option  <%= user.gender == "female" ? "selected" : ""  %> value="female">Female</option>
+       </select>
+       <span class="error-message"></span>
+     </div>
+
+     
+     <select class="form-control" name="vaccineDosage" data-userVaccineDosage>
+      <option value="0" <%= user.vaccineDosage == "0" ? "selected" : ""  %>>Not Vaccinated</option>
+      <option value="1" <%= user.vaccineDosage == "1" ? "selected" : ""  %>>1st Dose</option>
+      <option value="2" <%= user.vaccineDosage == "2" ? "selected" : ""  %>>2nd Dose</option>
+  </select>
+  
+
+  <select class="form-control" name="vaccineName" data-userVaccineName>
+      <option value="0" <%= user.vaccineName == "0" ? "selected" : ""  %>>Not Vaccinated</option>
+      <option value="pfizer" <%= user.vaccineName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
+      <option value="janssen" <%= user.vaccineName == "janssen" ? "selected" : ""  %>>Janssen</option>
+      <option value="astrazenica" <%= user.vaccineName == "astrazenica" ? "selected" : ""  %>>Astrazenica</option>
+      <option value="coronavac" <%= user.vaccineName == "coronavac" ? "selected" : ""  %>>Coronavac</option>
+      <option value="sinopharm" <%= user.vaccineName == "sinopharm" ? "selected" : ""  %>>Sinopharm</option>
+      <option value="moderna" <%= user.vaccineName == "moderna" ? "selected" : ""  %>>Moderna</option>
+    </select>
+
+
+    <select class="form-control" name="boosterDosage" data-userBoosterDosage>
+      <option value="0" <%= user.boosterDosage == "0" ? "selected" : ""  %>>No Booster Shot</option>
+      <option value="1" <%= user.boosterDosage == "1" ? "selected" : ""  %>>1st Dose</option>
+      <option value="2" <%= user.boosterDosage == "2" ? "selected" : ""  %>>2nd Dose</option>
+  </select>
+
+  <select class="form-control" name="boosterName" data-userBoosterName>
+      <option value="0" <%= user.boosterName == "0" ? "selected" : ""  %>>No Booster Shot</option>
+      <option value="pfizer" <%= user.boosterName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
+      <option value="janssen" <%= user.boosterName == "janssen" ? "selected" : ""  %>>Janssen</option>
+      <option value="astrazenica" <%= user.boosterName == "astrazenica" ? "selected" : ""  %>>Astrazenica</option>
+      <option value="coronavac" <%= user.boosterName == "coronavac" ? "selected" : ""  %>>Coronavac</option>
+      <option value="sinopharm" <%= user.boosterName == "sinopharm" ? "selected" : ""  %>>Sinopharm</option>
+      <option value="moderna" <%= user.boosterName == "moderna" ? "selected" : ""  %>>Moderna</option>
+    </select>
+
+
+     <button class="close-btn" type="button">Close</button>
+     <button class="btn" type="submit">Edit</button>
+     </form>
+    </dialog>
+    
+   <% for(member of user.household) { %> 
+    <dialog class="all-edit-member-form">
+      <h2>Edit Information of <%= `${member.name}`  %></h2>
+      <form action="/user/profile/edit/<%= member._id  %>"  method="post">
+  
+        <input type="text" name="name" value="<%= member.name %>">
+        <input type="date" name="birthday" value="<%= `${member.birthday.getFullYear()}-${member.birthday.getMonth()+1 < 10 ? '0'+(member.birthday.getMonth()+1) : member.birthday.getMonth()+1}-${member.birthday.getDate() < 10 ? '0'+member.birthday.getDate() : member.birthday.getDate()}`  %>">
+        <select name="education">
+            <option value="elementary" <%= member.education == "elementary" ? "selected" : ""  %>>Elementary</option>
+            <option value="high school" <%= member.education == "high school" ? "selected" : ""  %>>High School</option>
+            <option value="college" <%= member.education == "college" ? "selected" : ""  %>>College</option>
+        </select>
+  
+        <select name="maritalStatus">
+            <option value="single" <%= member.maritalStatus == "single" ? "selected" : ""  %>>Single</option>
+            <option value="married" <%= member.maritalStatus == "married" ? "selected" : ""  %>>Married</option>
+            <option value="divorced" <%= member.maritalStatus == "divorced" ? "selected" : ""  %>>Divorced</option>
+            <option value="separated" <%= member.maritalStatus == "separated" ? "selected" : ""  %>>Separated</option>
+            <option value="widowed" <%= member.maritalStatus == "widowed" ? "selected" : ""  %>>Widowed</option>
+        </select>
+  
+        <select name="relationship">
+            <option value="father" <%= member.relationship == "father" ? "selected" : ""  %>>Father</option>
+            <option value="mother" <%= member.relationship == "mother" ? "selected" : ""  %>>Mother</option>
+            <option value="sibling" <%= member.relationship == "sibling" ? "selected" : ""  %>>Sibling</option>
+            <option value="relative" <%= member.relationship == "relative" ? "selected" : ""  %>>Relative</option>
+            <option value="partner" <%= member.relationship == "partner" ? "selected" : ""  %>>Partner</option>
+            <option value="child" <%= member.relationship == "child" ? "selected" : ""  %>>Child</option>
+        </select>
+  
+        <div class="wrap-radio">
+          <div>
+            <label class="female">Male</label>
+          <input type="radio" name="gender" <%= member.gender == "male" ? "checked" : ""  %> value="male"/>
+          </div>
+          <div>
+            <label class="female">Female</label>
+          <input type="radio" name="gender" <%= member.gender == "female" ? "checked" : ""  %> value="female"/>
+          </div>
+        </div>
+  
+        <select name="vaccineDosage" data-vaccineDosage>
+            <option value="0" <%= member.vaccineDosage == "0" ? "selected" : ""  %>>Not Vaccinated</option>
+            <option value="1" <%= member.vaccineDosage == "1" ? "selected" : ""  %>>1st Dose</option>
+            <option value="2" <%= member.vaccineDosage == "2" ? "selected" : ""  %>>2nd Dose</option>
+        </select>
+    
+        <select name="vaccineName" data-vaccineName>
+            <option value="0" <%= member.vaccineName == "0" ? "selected" : ""  %>>Not Vaccinated</option>
+            <option value="pfizer" <%= member.vaccineName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
+            <option value="janssen" <%= member.vaccineName == "janssen" ? "selected" : ""  %>>Janssen</option>
+            <option value="astrazenica" <%= member.vaccineName == "astrazenica" ? "selected" : ""  %>>Astrazenica</option>
+            <option value="coronavac" <%= member.vaccineName == "coronavac" ? "selected" : ""  %>>Coronavac</option>
+            <option value="sinopharm" <%= member.vaccineName == "sinopharm" ? "selected" : ""  %>>Sinopharm</option>
+            <option value="moderna" <%= member.vaccineName == "moderna" ? "selected" : ""  %>>Moderna</option>
+          </select>
+
+
+          <select name="boosterDosage" data-boosterDosage>
+            <option value="0" <%= member.boosterDosage == "0" ? "selected" : ""  %>>No Booster Shot</option>
+            <option value="1" <%= member.boosterDosage == "1" ? "selected" : ""  %>>1st Booster Shot</option>
+            <option value="2" <%= member.boosterDosage == "2" ? "selected" : ""  %>>2nd Booster Shot</option>
+        </select>
+    
+        <select name="boosterName" data-boosterName>
+            <option value="0" <%= member.boosterName == "0" ? "selected" : ""  %>>No Booster Shot</option>
+            <option value="pfizer" <%= member.boosterName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
+            <option value="janssen" <%= member.boosterName == "janssen" ? "selected" : ""  %>>Janssen</option>
+            <option value="astrazenica" <%= member.boosterName == "astrazenica" ? "selected" : ""  %>>Astrazenica</option>
+            <option value="coronavac" <%= member.boosterName == "coronavac" ? "selected" : ""  %>>Coronavac</option>
+            <option value="sinopharm" <%= member.boosterName == "sinopharm" ? "selected" : ""  %>>Sinopharm</option>
+            <option value="moderna" <%= member.boosterName == "moderna" ? "selected" : ""  %>>Moderna</option>
+          </select>
+  
+          <button type="button" class="close-member-edit">Close</button>
+        <button class="submit-edit">Submit</button>
+        
+    </form>
+    </dialog>
+   <% } %> 
+
+   <!-- New Member Dialog -->
+   <dialog class="new-member-dialog">
+      <h2>New Member Information</h2>
+      <form action="/user/census/new" method="post">
+  
+        <input type="text" required placeholder="Name Here" name="name" >
+        <input type="date" required name="birthday">
+        <select name="education" required>
+            <option value="elementary" >Elementary</option>
+            <option value="high school" >High School</option>
+            <option value="college" >College</option>
+        </select>
+  
+        <select name="maritalStatus" required> 
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="divorced">Divorced</option>
+            <option value="separated">Separated</option>
+            <option value="widowed">Widowed</option>
+        </select>
+  
+        <select name="relationship" required>
+            <option value="father">Father</option>
+            <option value="mother">Mother</option>
+            <option value="relative">Relative</option>
+            <option value="partner">Partner</option>
+            <option value="sibling">Sibling</option>
+            <option value="child">Child</option>
+        </select>
+  
+        <div class="wrap-radio">
+          <div>
+            <label class="female">Male</label>
+          <input type="radio" required name="gender" value="male"/>
+          </div>
+          <div>
+            <label class="female">Female</label>
+          <input type="radio" required name="gender" value="female"/>
+          </div>
+        </div>
+  
+        <select name="vaccineDosage" data-newUserVaccineDosage required>
+            <option value="0">Not Vaccinated</option>
+            <option value="1">1st Dose</option>
+            <option value="2">2nd Dose</option>
+        </select>
+        
+    
+        <select name="vaccineName" data-newUserVaccineName required>
+            <option value="0" >Not Vaccinated</option>
+            <option value="pfizer">Pfizer</option>
+            <option value="janssen">Janssen</option>
+            <option value="astrazenica">Astrazenica</option>
+            <option value="coronavac">Coronavac</option>
+            <option value="sinopharm">Sinopharm</option>
+            <option value="moderna">Moderna</option>
+          </select>
+
+          <select name="boosterDosage" data-newUserBoosterDosage required>
+            <option value="0">No Booster Shot</option>
+            <option value="1">1st Booster Shot</option>
+            <option value="2">2nd Booster Shot</option>
+        </select>
+        
+    
+        <select name="boosterName" data-newUserBoosterName required>
+            <option value="0" >No Booster Shot</option>
+            <option value="pfizer">Pfizer</option>
+            <option value="janssen">Janssen</option>
+            <option value="astrazenica">Astrazenica</option>
+            <option value="coronavac">Coronavac</option>
+            <option value="sinopharm">Sinopharm</option>
+            <option value="moderna">Moderna</option>
+          </select>
+  
+          <button type="button" class="close-new-member">Close</button>
+        <button class="submit-new-member">Submit</button>
+        
+    </form>
+    </dialog>
+
+    <div id="id01" class="modal">
+      <span
+        onclick="document.getElementById('id01').style.display='none'"
+        class="close"
+        title="Close Modal"
+        >×</span
+      >
+      <form class="modal-content delete-form" method="post">
+        <div class="container">
+          <h1>Delete Member</h1>
+          <p>Are you sure you want to delete this member?</p>
+
+          <div class="clearfix">
+            <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+            >
+              Cancel
+            </button>
+            <button type="button" onclick="deleteHousehold()" class="deletebtn">
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+    <script src="/js/loginDropdown.js"></script>
+    <script>
+      
+      // Get the modal
+var modal = document.getElementById("id01");
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+var toDelete = "";
+function openModalFunc(clicked_id) {
+  document.getElementById("id01").style.display = "block";
+  toDelete = clicked_id;
+}
+
+var deleteForm = document.querySelector(".delete-form");
+function deleteHousehold() {
+  deleteForm.action = `/user/profile/${toDelete}?_method=DELETE`;
+  deleteForm.submit();
+}
+
+      </script>
+    <script>
+      const uploadForms = document.querySelectorAll(".form-img");
+      uploadForms.forEach((form) => {
+        form.querySelector('input[type="file"]').onchange = function () {
+          form.submit();
+        };
+      });
+
+      const editMembersBtn = document.querySelectorAll('.edit-member')
+      const closeMembersBtn = document.querySelectorAll('.close-member-edit')
+      const editMembersForm = document.querySelectorAll('.all-edit-member-form')  
+      const deleteMembersBtn = document.querySelectorAll('.delete-btn')  
+
+      editMembersBtn.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    editMembersForm[index].showModal()
+    editMembersForm[index].classList.add('shown')
+    document.querySelector('body').classList.add('modal-active')
+  });
+});
+
+deleteMembersBtn.forEach((button, index) => {
+  button.addEventListener("click", () => {
+   
+  });
+});
+
+closeMembersBtn.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    editMembersForm[index].close()
+    editMembersForm[index].classList.remove('shown')
+    document.querySelector('body').classList.remove('modal-active')
+
+  });
+});
+
+      const openModal = document.querySelector('.edit-btn')
+      const closeModal = document.querySelector('.close-btn')
+      const profileDialog = document.querySelector('.profile-dialog')
+
+      openModal.addEventListener('click', (e) => {
+       profileDialog.showModal()
+       profileDialog.classList.add('active')
+       document.querySelector('body').classList.add('modal-active')
+      })
+      closeModal.addEventListener('click', (e) => {
+       profileDialog.close()
+       profileDialog.classList.remove('active')
+       document.querySelector('body').classList.remove('modal-active')
+
+      })
+
+    </script>
+
+    <script>
+      const newMemberDialog = document.querySelector('.new-member-dialog')
+      const addAnotherBtn = document.querySelector('.add-another button')
+      const closeAnotherBtn = document.querySelector('.close-new-member')
+      
+      if(addAnotherBtn){
+        addAnotherBtn.addEventListener('click', function(event) {
+         newMemberDialog.showModal()
+         newMemberDialog.classList.add('shown')
+         document.querySelector('body').classList.add('modal-active')
+      })
+      closeAnotherBtn.addEventListener('click', function(event) {
+         newMemberDialog.close()
+         newMemberDialog.classList.remove('shown')
+         document.querySelector('body').classList.remove('modal-active')
+      })
+      }
+
+      const userVaccineDosageTag = document.querySelector("[data-userVaccineDosage]");
+      const userVaccineNameTag = document.querySelector("[data-userVaccineName]");
+      const userBoosterDosageTag = document.querySelector("[data-userBoosterDosage]");
+      const userBoosterNameTag = document.querySelector("[data-userBoosterName]");
+
+      userVaccineDosageTag.addEventListener("change", () => {
+        if (userVaccineDosageTag.value === "0") {
+          userVaccineNameTag.disabled = true;
+          userBoosterDosageTag.disabled = true;
+          userBoosterNameTag.disabled = true;
+          userVaccineNameTag.options[0].selected = true
+          userBoosterDosageTag.options[0].selected = true
+          userBoosterNameTag.options[0].selected = true
+        } else if (userVaccineDosageTag.value === "1") {
+          userVaccineNameTag.disabled = false;
+          userBoosterDosageTag.disabled = true;
+          userBoosterNameTag.disabled = true;
+        } else if (userVaccineDosageTag.value === "2") {
+          userVaccineNameTag.disabled = false;
+          userBoosterDosageTag.disabled = false;
+          userBoosterNameTag.disabled = false;
+        } 
+      });
+
+      // Disable boosterDosage and boosterNameTag initially
+
+      
+      if(userVaccineDosageTag.value == '0'){
+        userVaccineNameTag.disabled = true;
+        userBoosterDosageTag.disabled = true;
+      userBoosterNameTag.disabled = true;
+      }
+      
+
+      const newUserVaccineDosageTag = document.querySelector("[data-newUserVaccineDosage]");
+      const newUserVaccineNameTag = document.querySelector("[data-newUserVaccineName]");
+      const newUserBoosterDosageTag = document.querySelector("[data-newUserBoosterDosage]");
+      const newUserBoosterNameTag = document.querySelector("[data-newUserBoosterName]");
+
+      newUserVaccineDosageTag.addEventListener("change", () => {
+        if (newUserVaccineDosageTag.value === "0") {
+          newUserVaccineNameTag.disabled = true;
+          newUserBoosterDosageTag.disabled = true;
+          newUserBoosterNameTag.disabled = true;
+          newUserVaccineNameTag.options[0].selected = true
+          newUserBoosterDosageTag.options[0].selected = true
+          newUserBoosterNameTag.options[0].selected = true
+        } else if (newUserVaccineDosageTag.value === "1") {
+          newUserVaccineNameTag.disabled = false;
+          newUserBoosterDosageTag.disabled = true;
+          newUserBoosterNameTag.disabled = true;
+        } else if (newUserVaccineDosageTag.value === "2") {
+          newUserVaccineNameTag.disabled = false;
+          newUserBoosterDosageTag.disabled = false;
+          newUserBoosterNameTag.disabled = false;
+        } 
+      });
+
+      newUserVaccineNameTag.disabled = true;
+      newUserBoosterDosageTag.disabled = true;
+      newUserBoosterNameTag.disabled = true;
+
+
+      const vaccineDosageTags = document.querySelectorAll("[data-vaccineDosage]");
+      const vaccineNameTags = document.querySelectorAll("[data-vaccineName]");
+      const boosterDosageTags = document.querySelectorAll("[data-boosterDosage]");
+      const boosterNameTags = document.querySelectorAll("[data-boosterName]");
+
+      vaccineDosageTags.forEach((tag,index) => {
+    if (tag.value === "0") {
+      vaccineNameTags[index].disabled = true;
+      boosterDosageTags[index].disabled = true;
+      boosterNameTags[index].disabled = true;
+      vaccineNameTags[index].options[0].selected = true
+      boosterDosageTags[index].options[0].selected = true
+      boosterNameTags[index].options[0].selected = true
+    } else if (tag.value === "1") {
+      vaccineNameTags[index].disabled = false;
+      boosterDosageTags[index].disabled = true;
+      boosterNameTags[index].disabled = true;
+    } else if (tag.value === "2") {
+      vaccineNameTags[index].disabled = false;
+      boosterDosageTags[index].disabled = false;
+      boosterNameTags[index].disabled = false;
+    } 
+});
+
+      vaccineDosageTags.forEach((tag,index) => {
+  tag.addEventListener("change", function(){
+    if (tag.value === "0") {
+      vaccineNameTags[index].disabled = true;
+      boosterDosageTags[index].disabled = true;
+      boosterNameTags[index].disabled = true;
+      vaccineNameTags[index].options[0].selected = true
+      boosterDosageTags[index].options[0].selected = true
+      boosterNameTags[index].options[0].selected = true
+    } else if (tag.value === "1") {
+      vaccineNameTags[index].disabled = false;
+      boosterDosageTags[index].disabled = true;
+      boosterNameTags[index].disabled = true;
+    } else if (tag.value === "2") {
+      vaccineNameTags[index].disabled = false;
+      boosterDosageTags[index].disabled = false;
+      boosterNameTags[index].disabled = false;
+    } 
+  });
+});
+  
+
+      </script>
+      
+  </body>
+</html>
+
+
+
+
+
+
+
+

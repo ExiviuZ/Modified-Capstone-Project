@@ -1,0 +1,481 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #a8a89e;
+  &.modal-active {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+main {
+  width: 90%;
+  padding-block: 5rem;
+  margin: auto;
+  position: relative;
+}
+.card-title {
+  letter-spacing: 1px;
+}
+
+.edit-btn {
+  border: none;
+  cursor: pointer;
+  right: 5%;
+  top: 15%;
+  position: absolute;
+  width: 30px;
+  padding: 0.2rem;
+  border-radius: 5px;
+  background-color: hsl(108, 72%, 40%);
+  img {
+    filter: invert(96%) sepia(4%) saturate(17%) hue-rotate(151deg)
+      brightness(104%) contrast(104%);
+  }
+}
+
+.user-card {
+  animation: appear 0.5s ease-in-out;
+  width: max-content;
+  margin: auto;
+  display: flex;
+  background-color: #001122;
+  color: white;
+  box-shadow: 0px 0px 5px black;
+
+  > * {
+    padding: 2rem;
+    &:nth-child(1) {
+      border-right: 1px solid white;
+    }
+  }
+  .user-image-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    .wrap-image {
+      width: max-content;
+      margin-inline: auto;
+      position: relative;
+    }
+    .dummy-img {
+      width: 125px;
+      border-radius: 50%;
+      border: solid 3px gray;
+      filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(243deg)
+        brightness(102%) contrast(101%);
+      margin-inline: auto;
+    }
+    .user-img {
+      border: solid 3px gray;
+      border-radius: 50%;
+      width: 125px;
+      margin-inline: auto;
+    }
+    .user-name {
+      text-align: center;
+      font-size: 1.2rem;
+      width: 80%;
+      margin: auto;
+    }
+    .round {
+      bottom: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      line-height: 33px;
+      position: absolute;
+      text-align: center;
+      overflow: hidden;
+      input[type="file"] {
+        opacity: 0;
+        z-index: 1;
+        position: absolute;
+        left: 5px;
+        top: 15px;
+        scale: 2;
+        cursor: pointer;
+        &::-webkit-file-upload-button {
+          cursor: pointer;
+        }
+      }
+    }
+    .add-photo {
+      z-index: 0;
+      width: 40px;
+      &.no-photo {
+        filter: invert(38%) sepia(13%) saturate(21%) hue-rotate(350deg)
+          brightness(94%) contrast(89%);
+      }
+      &.have-photo {
+        filter: invert(97%) sepia(74%) saturate(7244%) hue-rotate(179deg)
+          brightness(75%) contrast(88%);
+      }
+    }
+  }
+  .user-information-wrap {
+    width: 800px;
+    position: relative;
+  }
+  .card-title {
+    display: block;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid gray;
+  }
+  .user-information {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns:30% 30% 20% 20%;
+    gap: 0.75rem;
+    row-gap: 0.9rem;
+  }
+
+  .address {
+    display: block;
+  }
+  .title-label {
+    display: block;
+    font-weight: 600;
+    font-size: 1.10rem;
+    margin-bottom: 0.2rem;
+  }
+  .title-value {
+    color: #a8a89e;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+}
+
+#household-list {
+  animation: appear 0.5s ease-in-out;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 4rem;
+  text-align: center;
+  background-color: white;
+  width: 90%;
+  margin-inline: auto;
+  border-collapse: collapse;
+  td,
+  th {
+    padding: 1.5rem 1rem;
+  }
+  th {
+    font-size: 1.1rem;
+  }
+  td {
+    font-size: 1rem;
+  }
+
+  thead {
+    color: white;
+    background-color: #001122;
+  }
+
+  
+
+  tbody  {
+    tr{
+      border-bottom: 1px solid rgba(128 , 128, 128, 0.4);
+    &:nth-child(odd) {
+      background-color: #f4f6fb;
+    }
+    .action-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      > button {
+        cursor: pointer;
+        border: none;
+        padding: 0.2rem;
+        width: 25px;
+        border-radius: 5px;
+        padding: 0.2rem;
+      }
+      > button:nth-child(1), a:nth-child(1) {
+        background-color: #e14744;
+      }
+    
+      > button:nth-child(2) {
+        background-color: #3aaf1d;
+      }
+      img {
+        filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg)
+          brightness(102%) contrast(109%);
+      }
+    }
+    .add-another {
+      > button {
+        display: block;
+        letter-spacing: 1px;
+        padding-block: 0.75rem;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        margin: auto;
+        padding-inline: 1rem;
+        color: white;
+        border: none;
+        transition: background-color 0.1s linear;
+        background-color: rgb(72, 196, 68);
+        &:hover {
+          background-color: rgb(55, 150, 52);;
+        }
+      }
+    }
+    }
+  }
+}
+
+// Profile Form Design
+
+.profile-dialog {
+  background-color: #001122;
+  color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 5px;
+  margin: auto;
+  border: none;
+  max-width: max-content;
+  border: 0;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: ease-in-out opacity 0.75s, transform 0.5s ease-in-out;
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  h2 {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid hsla(0, 0%, 50%, 0.8);
+  }
+}
+
+.edit-form {
+  margin-top: 1.5rem;
+  select,
+  input,
+  button {
+    padding: 1rem 1.5rem;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    background-color: hsl(60, 5%, 84%);
+  }
+  button {
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .close-btn {
+    background-color: hsl(0, 0%, 15%);
+    color: white;
+    transition: 0.25s background-color ease-in-out;
+    border: none;
+    &:hover {
+      background-color: hsl(0, 0%, 0%);
+    }
+  }
+  .btn {
+    color: white;
+    background-color: hsl(108, 72%, 40%);
+    transition: 0.25s background-color ease-in-out;
+    border: none;
+    &:hover {
+      background-color: hsl(108, 72%, 35%);
+    }
+  }
+  display: grid;
+  column-gap: 1rem;
+  row-gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+// For All Edit Member Form
+
+.all-edit-member-form, .new-member-dialog{
+  opacity: 0;
+  background-color: #001122;
+  color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 5px;
+  margin: auto;
+  border: none;
+  max-width: max-content;
+  border: 0;
+  transition: opacity 1s linear;
+  transform: translateY(-100%);
+  transition: ease-in-out opacity 0.75s, transform 0.5s ease-in-out;
+  &.shown {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  h2 {
+    font-size: 32px;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid hsla(0deg, 0%, 50%, 0.8);
+  }
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  input:not([type='radio']), button, select {
+    padding: 1rem 1.5rem;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    background-color: hsl(60deg, 5%, 84%);
+  }
+  button {
+    cursor: pointer;
+    &.close-member-edit, &.close-new-member {
+      background-color: hsl(0, 0%, 15%);
+      color: white;
+      transition: 0.25s background-color ease-in-out;
+      border: none;
+      &:hover {
+        background-color: hsl(0, 0%, 0%);
+      }
+    }
+    &.submit-edit, &.submit-new-member {
+      color: white;
+      transition: 0.25s background-color ease-in-out;
+      border: none;
+      background-color: rgb(72, 196, 68);
+      &:hover {
+        background-color: rgb(55, 150, 52);;
+      }
+    }
+  }
+  .wrap-radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    label {
+      font-size: 18px;
+    }
+  }
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: hsla(210, 100%, 7%, 0.95);
+  padding-top: 50px;
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+
+  /* Style the horizontal ruler */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  /* The Modal Close Button (x) */
+  .close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+    transition: color 0.1s linear;
+
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #f44336;
+    cursor: pointer;
+  }
+
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* Set a style for all buttons */
+  button {
+    background-color: #04aa6d;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    transition: opacity 0.1s linear;
+  }
+
+  button:hover {
+    opacity: 1;
+  }
+
+  /* Float cancel and delete buttons and add an equal width */
+  .cancelbtn,
+  .deletebtn {
+    float: left;
+    width: 50%;
+  }
+
+  /* Add a color to the cancel button */
+  .cancelbtn {
+    background-color: #ccc;
+    color: black;
+  }
+
+  /* Add a color to the delete button */
+  .deletebtn {
+    background-color: #f44336;
+  }
+
+  /* Add padding and center-align text to the container */
+  .container {
+    border: none;
+    background-color: hsl(210deg, 100%, 10%);
+    color: white;
+    padding: 1.6rem;
+    padding: 16px;
+    text-align: center;
+  }
+}
+
+
+@keyframes appear {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+

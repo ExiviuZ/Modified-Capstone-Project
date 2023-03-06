@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/adminDashboard.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <%- include('../partials/success') %> <%- include('../partials/error') %>
+    <nav class="first-nav">
+      <span class="brand"
+        ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
+        Records</span
+      >
+
+      <ul class="nav-actions-wrap">
+        <li class="dashboard">
+          <a href="/admin/" class="link-active">Dashboard</a>
+          <ul class="nav-links">
+            <li>
+              <img src="/img/people.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/household"
+                >Barangay Households</a
+              >
+            </li>
+            <li>
+              <img src="/img/announcement.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/announcement"
+                >Manage Announcement</a
+              >
+            </li>
+            <li>
+              <img src="/img/report.svg" class="dashboard-svg" alt="" /><a
+                href="/admin/report"
+                >Statistics</a
+              >
+            </li>
+            <li>
+              <div>
+                <span class="generate"
+                  ><img src="/img/pdf.svg" alt="" />
+                  <span>Generate Data</span></span
+                >
+              </div>
+              <ul>
+                <li>
+                  <a href="/admin/monthly">Monthly Registered</a>
+                </li>
+                <li>
+                  <a href="/admin/covid">Vaccination Status</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <nav class="second-nav">
+        <button class="add-announcement">
+          <img src="/img/add_alert.svg" alt="" /> Add Announcement
+        </button>
+        <span class="admin">
+          <img src="/img/profile.svg" class="nav-profile-img" /> <%=
+          `${currentUser.name}`%> ▼
+          <ul class="dropdown">
+            <li><a href="/logout">Log-out</a></li>
+          </ul>
+        </span>
+      </nav>
+      <div class="content">
+        <h1>Dashboard</h1>
+        <div class="statistics">
+          <div>
+            <div class="icon-wrapper">
+              <img
+                src="/img/house.svg"
+                class="statistics-icon house-icon"
+                alt=""
+              />
+            </div>
+            <div class="statistics-container">
+              <h2>Total Household</h2>
+              <span class="statistics-count"><%= householdCount %> </span>
+            </div>
+          </div>
+          <div>
+            <div class="icon-wrapper">
+              <img src="/img/group.svg" class="statistics-icon" alt="" />
+            </div>
+            <div class="statistics-container">
+              <h2>Total Residents</h2>
+              <span class="statistics-count"><%= residentCount %> </span>
+            </div>
+          </div>
+          <div>
+            <div class="icon-wrapper">
+              <img
+                src="/img/male.svg"
+                class="statistics-icon male-icon"
+                alt=""
+              />
+            </div>
+            <div class="statistics-container">
+              <h2>Total Male</h2>
+              <span class="statistics-count"><%= maleCount %> </span>
+            </div>
+          </div>
+          <div>
+            <div class="icon-wrapper">
+              <img
+                src="/img/female.svg"
+                class="statistics-icon female-icon"
+                alt=""
+              />
+            </div>
+            <div class="statistics-container">
+              <h2>Total Female</h2>
+              <span class="statistics-count"><%= femaleCount %> </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../partials/addAnnouncement') %>
+
+    <script src="/js/adminDropdown.js"></script>
+    <script src="/js/announcementModal.js"></script>
+  </body>
+</html>

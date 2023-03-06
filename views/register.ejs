@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/registration.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <title><%= title %></title>
+    <style>
+      .alert {
+        left: 15%;
+        margin: 0;
+      }
+      .home-icon {
+        width: 30px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(306deg)
+          brightness(101%) contrast(105%);
+      }
+      .home-link {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/" class="home-link"
+      ><img src="/img/home.svg" class="home-icon" alt=""
+    /></a>
+    <%- include('./partials/error') %>
+
+    <main>
+      <div>
+        <h1>a faster way of answering census on your barangay.</h1>
+        <p class="description">
+          Answer questions quickly and straight away from the web all the way to
+          your barangay.
+        </p>
+      </div>
+
+      <form action="/user/register" method="post" class="form">
+        <!-- form control group -->
+
+        <div class="group-form-control first">
+          <div class="form-control">
+            <input
+              type="text"
+              placeholder="First Name"
+              name="firstName"
+              id="firstName"
+            />
+            <span class="error-message"></span>
+          </div>
+          <div class="form-control">
+            <input
+              type="text"
+              placeholder="Last Name"
+              name="lastName"
+              id="lastName"
+            />
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <!-- form control group -->
+        <div class="group-form-control second">
+          <div class="form-control">
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              id="username"
+            />
+            <img
+              src="https://www.svgrepo.com/show/117084/i-letter.svg"
+              class="tooltip"
+              title="For Login Purposes"
+              alt=""
+            />
+            <span class="error-message"></span>
+          </div>
+          <div class="form-control">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+            />
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <!-- form control group -->
+        <div class="group-form-control third">
+          <div class="form-control">
+            <input
+              placeholder="House #"
+              name="houseNumber"
+              id="houseNumber"
+              type="text"
+              pattern="\d*"
+              maxlength="3"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+            />
+            <span class="error-message"></span>
+          </div>
+          <div class="form-control">
+            <select name="sitio" id="sitio">
+              <option value="">-- Sitio --</option>
+              <option value="Ibabaw">Ibabaw</option>
+              <option value="Sulucan I">Sulucan I</option>
+              <option value="Sulucan II">Sulucan II</option>
+              <option value="Sulucan III">Sulucan III</option>
+              <option value="Centro">Centro</option>
+              <option value="Hulo">Hulo</option>
+              <option value="Pulong Bocaue">Pulong Bocaue</option>
+              <option value="Putol">Putol</option>
+              <option value="Banca Banca">Banca Banca</option>
+              <option value="El Pueblo">El Pueblo</option>
+            </select>
+            <span class="error-message"></span>
+          </div>
+          <div class="form-control">
+            <input
+              name="contact"
+              id="contact"
+              type="text"
+              pattern="\d*"
+              oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+              minlength="11"
+              maxlength="11"
+              placeholder="Contact Number"
+            />
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <!-- Form control group -->
+        <div class="group-form-control fourth">
+          <div class="form-control">
+            <input type="date" name="birthday" id="birthday" max="" />
+            <span class="error-message"></span>
+          </div>
+          <div class="form-control">
+            <select name="maritalStatus" id="maritalStatus">
+              <option value="">-- Marital Status --</option>
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+              <option value="separated">Separated</option>
+              <option value="widowed">Widowed</option>
+            </select>
+            <span class="error-message"></span>
+          </div>
+          <div class="form-control">
+            <select name="gender" id="gender">
+              <option value="">-- Gender --</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <span class="error-message"></span>
+          </div>
+        </div>
+
+        <button class="btn" type="submit">Register</button>
+        <span class="have-account"
+          >Already registered? <a href="/login">Login here</a></span
+        >
+      </form>
+    </main>
+    <script src="/js/validateRegistration.js"></script>
+  </body>
+</html>

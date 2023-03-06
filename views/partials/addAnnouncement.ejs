@@ -1,0 +1,35 @@
+<dialog class="announcement-modal">
+  <span>Add Announcement</span>
+  <form
+    action="/admin/announcement"
+    class="form-announcement"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div class="form-control">
+      <label for="announcementTitle">Announcement Title</label>
+      <input name="title" required class="title" type="text" />
+    </div>
+    <div class="form-control">
+      <label for="announcementContent">Announcement Message</label>
+      <textarea
+        name="message"
+        class="message"
+        id=""
+        cols="30"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <div class="form-control">
+      <label for="announcementImage">Announcement Image</label>
+      <input name="image" required class="image" accept="image/*" type="file" />
+    </div>
+
+    <div class="wrap-buttons">
+      <button type="button" class="close-announcement">Close</button>
+      <button type="submit" class="submit-announcement">Submit</button>
+    </div>
+  </form>
+</dialog>

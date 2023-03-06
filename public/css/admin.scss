@@ -1,0 +1,251 @@
+body {
+  display: flex;
+}
+
+.first-nav {
+  height: 100%;
+  position: fixed;
+  width: 20%;
+  padding: 1rem;
+  background-color: #001122;
+  color: white;
+  .brand {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-weight: 700;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #a8a89e;
+  }
+  .nav-logo {
+    width: 50px;
+  }
+
+  .nav-actions-wrap {
+    padding: 1rem;
+  }
+  .dashboard {
+    font-size: 1.1rem;
+    > a {
+      text-decoration: none;
+      color: hsl(0, 0%, 60%);
+      transition: color 0.25s linear;
+      &:hover {
+        color: hsl(0, 0%, 95%);
+      }
+      &.link-active {
+        color: white;
+      }
+    }
+  }
+
+  .nav-links {
+    padding-left: 0.5rem;
+    font-size: 1rem;
+
+    > li:nth-child(4){
+      display: block;
+      padding-left: 0.5rem;
+      cursor: default;
+      > div > span{
+        color: hsl(0, 0%, 60%);
+display: flex;
+gap: 0.5rem;
+align-items: center;
+>img {
+  display: inline-block;
+width: 25px;
+filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg)
+brightness(102%) contrast(109%);
+}
+      }
+ ul {
+  padding-left: 0.5rem;
+ }       
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      
+      a {
+        color: hsl(0, 0%, 60%);
+        text-decoration: none;
+        transition: color 0.25s linear;
+        &.link-active {
+          color: white;
+        }
+      }
+      &:not(:nth-child(4)):hover a {
+        color: hsl(0, 0%, 95%);
+      }
+    }
+  }
+
+  .dashboard-svg {
+    width: 25px;
+    filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg)
+      brightness(102%) contrast(109%);
+  }
+}
+
+main {
+  width: 80%;
+  margin-left: auto;
+  background-color: #a8a89e;
+}
+
+.announcement-modal{
+  width: 30%;
+  margin: auto;
+  border: none;
+  box-shadow: 0px 0px 100px hsla(0, 0%, 0%, 0.5);
+  padding: 2rem;
+  background-color: #001122;
+  color: white;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease-in-out, opacity 0.75s ease-in-out;
+  opacity: 0;
+  &.active{
+  transform: translateX(0);
+  opacity: 1;
+  }
+  .close-announcement {
+      background-color: hsl(0, 0%, 15%);
+      color: white;
+      transition: 0.25s background-color ease-in-out;
+      &:hover {
+        background-color: hsl(0, 0%, 5%);
+    }
+  }
+  .submit-announcement {
+    color: white;
+    background-color: hsl(210, 93%, 54%);
+    transition: 0.25s background-color ease-in-out;
+    &:hover {
+    background-color: hsl(210, 93%, 39%)
+  }
+  }
+  > span {
+    display: block;
+    text-transform: capitalize;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    padding-bottom: 1rem;
+  }
+  .title {
+padding: 0.5rem 1rem;
+font-size: 1.1rem; 
+  }
+  .message {
+    padding: 0.5rem 1rem;
+
+  }
+  .form-control {
+    margin-bottom: 1rem;
+  
+    label {
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    input, textarea{
+      width: 100%;
+    }
+    textarea {
+      resize: none;
+    }
+  }
+  .wrap-buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      width: 100%;
+      border-radius: 5px;
+    }
+  }
+  &::backdrop{
+    background-color: rgba(0, 0, 0, 0.568);
+  }
+}
+
+.second-nav {
+  background-color: hsl(210, 100%, 10%);
+  color: white;
+  padding: 1.6rem;
+  display: flex;
+  justify-content: end;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .add-announcement {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    img {
+      width: 40px;
+    }
+  }
+
+  .admin {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+    .nav-profile-img {
+      width: 30px;
+      filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg)
+        brightness(102%) contrast(109%);
+    }
+    .dropdown {
+      background-color: red;
+      width: 17%;
+      right: 0;
+      position: absolute;
+      top: 100%;
+      background-color: hsl(210, 100%, 12%);
+      border-bottom-left-radius: 10px;
+      opacity: 0;
+      z-index: 1;
+      visibility: hidden;
+      transition: visibility 0.25s ease-in-out, opacity ease-in-out 0.25s;
+      &.active {
+        visibility: visible;
+        opacity: 1;
+      }
+      li {
+        cursor: default;
+        padding: 1.5rem 2.5rem;
+        margin: auto;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        &:not(:last-child) {
+          border-bottom: 1px solid whitesmoke;
+        }
+        a {
+          text-decoration: none;
+          font-weight: 800;
+          transition: color 0.25s ease-in-out;
+          color: hsl(60, 5%, 60%);
+          &:hover {
+            color: hsl(60, 5%, 100%);
+          }
+        }
+      }
+    }
+  }
+}

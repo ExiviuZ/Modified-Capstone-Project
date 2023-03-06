@@ -1,0 +1,136 @@
+.content {
+  padding: 1rem;
+}
+
+h1 {
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+.content-wrapper > section {
+  border-radius: 5px;
+}
+
+.resident-profile {
+  border-top: 4px solid #001122;
+  background-color: white;
+  width: 30%;
+  height: -moz-max-content;
+  height: max-content;
+  padding-bottom: 1rem;
+}
+
+.resident-about {
+  display: block;
+  font-size: 1.1rem;
+  padding: 0.75rem 0.75rem;
+  border-bottom: 1px solid gray;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.resident-info {
+  padding: 1.25rem 0.75rem;
+}
+
+.more-resident-info {
+  margin-top: 1rem;
+}
+.more-resident-info > li {
+  padding-inline: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+  border-bottom: 1px solid gray;
+}
+
+.wrap-title-icon {
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+.wrap-title-icon > img {
+  width: 30px;
+}
+
+.dummy-img,
+.user-img {
+  width: 125px;
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+}
+
+.dummy-img {
+  filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(299deg) brightness(95%) contrast(106%);
+  margin-inline: auto;
+}
+
+.user-img {
+  border: 2px solid gray;
+}
+
+.resident-name {
+  letter-spacing: 1px;
+  display: block;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.resident-household {
+  border-top: 4px solid #001122;
+  text-transform: capitalize;
+  background-color: white;
+  width: 70%;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.household-members {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  padding: 0.75rem 0.75rem;
+  border-bottom: 1px solid gray;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.household-members #back {
+  background-color: rgb(205, 205, 205);
+  padding: 0.5rem;
+  border-radius: 7px;
+  transition: background-color 0.25s linear;
+  cursor: pointer;
+}
+.household-members #back:hover {
+  background-color: rgb(160, 160, 160);
+}
+
+.table {
+  box-shadow: 0px 5px 10px #e1e5ee;
+  width: 95%;
+  margin-inline: auto;
+  margin-block: 2rem;
+  border-collapse: collapse;
+}
+.table td,
+.table th {
+  padding: 1rem;
+  text-align: center;
+}
+.table thead {
+  box-shadow: 0px 5px 10px #e1e5ee;
+}
+.table tbody tr:nth-child(odd) {
+  background-color: #f4f6fb;
+}/*# sourceMappingURL=specificHousehold.css.map */

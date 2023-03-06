@@ -1,0 +1,206 @@
+.content {
+  border-top: 4px solid #001122;
+  border-radius: 3px;
+  padding: 2rem 1.5rem;
+  width: 95%;
+  background-color: white;
+  margin: auto;
+  margin-block: 2rem;
+}
+
+.stats-svg {
+  font-size: 1rem;
+  width: 30px;
+}
+
+.top-content {
+  justify-content: space-between;
+  display: flex;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid hsl(0, 0%, 70%);
+  align-items: center;
+}
+
+.search-forms {
+  display: flex;
+  gap: 1rem;
+}
+
+.search {
+  font-size: 0.9rem;
+  background-color: rgba(230, 230, 230, 0.5);
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgb(187, 187, 187);
+  padding: 0.9rem 2rem;
+}
+
+.sort-sitio-input {
+  color: gray;
+  font-size: 0.9rem;
+  background-color: rgba(230, 230, 230, 0.5);
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgb(187, 187, 187);
+  padding: 0.9rem 1rem;
+}
+
+.resident-head-title {
+  font-size: 1.6rem;
+}
+.resident-head-title span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  box-shadow: 0px 5px 10px #e1e5ee;
+}
+.table td,
+.table th {
+  padding: 1rem;
+  text-align: center;
+}
+.table thead {
+  box-shadow: 0px 5px 10px #e1e5ee;
+}
+.table tbody tr {
+  transition: transform 0.25s ease-in-out;
+}
+.table tbody tr:hover {
+  transform: translateY(3%);
+}
+
+.dummy-img,
+.user-img {
+  display: block;
+  margin: auto;
+  width: 75px;
+  border-radius: 50%;
+}
+
+.dummy-img {
+  filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(299deg) brightness(95%) contrast(106%);
+  margin-inline: auto;
+}
+
+.user-img {
+  border: 2px solid gray;
+}
+
+.action-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.action-container > a {
+  padding: 0.2rem;
+  border-radius: 5px;
+}
+.action-container > a:nth-child(1) {
+  background-color: #0074fe;
+}
+.action-container > a:nth-child(2) {
+  background-color: #e14744;
+}
+.action-container img {
+  filter: invert(100%) sepia(5%) saturate(7462%) hue-rotate(214deg) brightness(102%) contrast(109%);
+}
+
+.action-icons {
+  cursor: pointer;
+  width: 25px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: hsla(210, 100%, 7%, 0.95);
+  padding-top: 50px;
+  /* Modal Content/Box */
+  /* Style the horizontal ruler */
+  /* The Modal Close Button (x) */
+  /* Clear floats */
+  /* Set a style for all buttons */
+  /* Float cancel and delete buttons and add an equal width */
+  /* Add a color to the cancel button */
+  /* Add a color to the delete button */
+  /* Add padding and center-align text to the container */
+}
+.modal .modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+.modal hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.modal .close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+  opacity: 0.9;
+  transition: color 0.1s linear;
+}
+.modal .close:hover,
+.modal .close:focus {
+  opacity: 1;
+  color: #f44336;
+  cursor: pointer;
+}
+.modal .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.modal button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  transition: opacity 0.1s linear;
+}
+.modal button:hover {
+  opacity: 1;
+}
+.modal .cancelbtn,
+.modal .deletebtn {
+  float: left;
+  width: 50%;
+}
+.modal .cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+.modal .deletebtn {
+  background-color: #f44336;
+}
+.modal .container {
+  border: none;
+  background-color: hsl(210, 100%, 10%);
+  color: white;
+  padding: 1.6rem;
+  padding: 16px;
+  text-align: center;
+}/*# sourceMappingURL=household.css.map */
