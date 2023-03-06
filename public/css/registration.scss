@@ -77,8 +77,8 @@ form {
   }
 }
 
-.form-control {
-  margin-bottom: 2.3rem;
+.form-control, .terms-privacy {
+  margin-bottom: 2rem;
   position: relative;
   &.error {
     input {
@@ -198,4 +198,34 @@ select {
   .form-control {
     width: 100%;
   }
+}
+
+.terms-privacy{
+  margin-bottom: 1.4rem;
+ #agree-terms{
+  display: none;
+  &:checked + label:before {
+    background-color: mediumseagreen;
+    color: #fff;
+  }
+ }
+ label {
+  margin: 0.2em;
+  font-size: 0.85rem;
+  display: block;
+  color: rgb(128, 128, 128);
+  &::before{
+    content: '\2714';
+    border: 0.1em solid rgb(150, 150, 150);
+    border-radius: 0.2em;
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    padding-left: 0.1em;
+    padding-bottom: 1.1em;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    color: transparent;
+  }
+ }
 }

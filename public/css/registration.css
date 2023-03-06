@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   display: flex;
   align-items: center;
@@ -73,33 +74,33 @@ form .btn:hover {
   box-shadow: 0px 2px 2px 0px rgb(62, 165, 62);
 }
 
-.form-control {
-  margin-bottom: 2.3rem;
+.form-control, .terms-privacy {
+  margin-bottom: 2rem;
   position: relative;
 }
-.form-control.error input {
+.form-control.error input, .terms-privacy.error input {
   border-color: rgb(252, 104, 104);
 }
-.form-control.error select {
+.form-control.error select, .terms-privacy.error select {
   border-color: rgb(252, 104, 104);
 }
-.form-control.error .error-message {
+.form-control.error .error-message, .terms-privacy.error .error-message {
   visibility: visible;
   opacity: 1;
   color: rgb(252, 104, 104);
 }
-.form-control.success input {
+.form-control.success input, .terms-privacy.success input {
   border-color: rgb(101, 255, 101);
 }
-.form-control.success select {
+.form-control.success select, .terms-privacy.success select {
   border-color: rgb(101, 255, 101);
 }
-.form-control.success .error-message {
+.form-control.success .error-message, .terms-privacy.success .error-message {
   visibility: visible;
   opacity: 1;
   color: rgb(66, 201, 66);
 }
-.form-control .error-message {
+.form-control .error-message, .terms-privacy .error-message {
   transition: visibility 0.25s linear, opacity 0.25s linear;
   visibility: hidden;
   opacity: 0;
@@ -190,4 +191,34 @@ select {
 }
 .group-form-control .form-control {
   width: 100%;
+}
+
+.terms-privacy {
+  margin-bottom: 1.4rem;
+}
+.terms-privacy #agree-terms {
+  display: none;
+}
+.terms-privacy #agree-terms:checked + label:before {
+  background-color: mediumseagreen;
+  color: #fff;
+}
+.terms-privacy label {
+  margin: 0.2em;
+  font-size: 0.85rem;
+  display: block;
+  color: rgb(128, 128, 128);
+}
+.terms-privacy label::before {
+  content: "✔";
+  border: 0.1em solid rgb(150, 150, 150);
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  padding-left: 0.1em;
+  padding-bottom: 1.1em;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  color: transparent;
 }/*# sourceMappingURL=registration.css.map */

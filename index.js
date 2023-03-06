@@ -54,6 +54,7 @@ const sessionOptions = {
 // Database Connection
 mongoose.set('strictQuery', false)
 
+
 const connectDB = async()=> {
   try {
 
@@ -124,8 +125,11 @@ app.use((req, res, next) => {
 app.get("/", loggedIn, async (req, res) => {
   res.render("home", { title: "Barangay Mag-Asawang Sapa" });
 });
-app.get("/about", loggedIn, async (req, res) => {
-  res.render("about", { title: "About || Barangay Mag-Asawang Sapa" });
+app.get("/terms-and-conditions", loggedIn, async (req, res) => {
+  res.render("terms", { title: "Terms and Condition || Barangay Mag-Asawang Sapa" });
+});
+app.get("/privacy-policy", loggedIn, async (req, res) => {
+  res.render("privacy", { title: "Privacy Policy || Barangay Mag-Asawang Sapa" });
 });
 
 app.use("/", logRegRoute);

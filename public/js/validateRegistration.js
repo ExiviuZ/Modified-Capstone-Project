@@ -11,6 +11,7 @@ const formControls = document.querySelectorAll(".form-control");
 const gender = document.querySelector("#gender");
 const maritalStatus = document.querySelector("#maritalStatus");
 const birthday = document.querySelector("#birthday");
+const checkbox = document.querySelector("#agree-terms");
 
   contact.addEventListener('input', () => {
     const firstChar = contact.value[0];
@@ -127,9 +128,7 @@ function checkInputs(e) {
   if (houseNumberValue == "") {
     setErrorFor(houseNumber, "House # is blank");
     e.preventDefault();
-  } else if (contactValue.length > 4){
-    setErrorFor(sitio, "Contact should not be 4 characters length");
-  }else {
+  } else {
     setSuccessFor(houseNumber);
   }
   if (sitioValue == "") {
@@ -146,6 +145,12 @@ function checkInputs(e) {
   } 
   else {
     setSuccessFor(contact);
+  }
+  if (!checkbox.checked) {
+    setErrorFor(checkbox, "You must agree to Terms and Privacy Policy before proceeding.");
+    e.preventDefault();
+  } else {
+    setSuccessFor(checkbox);
   }
 }
 
