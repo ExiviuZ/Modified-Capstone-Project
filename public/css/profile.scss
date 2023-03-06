@@ -14,9 +14,6 @@ main {
   margin: auto;
   position: relative;
 }
-.card-title {
-  letter-spacing: 1px;
-}
 
 .edit-btn {
   border: none;
@@ -119,7 +116,9 @@ main {
     position: relative;
   }
   .card-title {
-    display: block;
+    letter-spacing: 1px;
+    gap: 0.3rem;
+    display: flex;
     font-size: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid gray;
@@ -466,6 +465,12 @@ main {
     padding: 16px;
     text-align: center;
   }
+}
+
+.verification-status {
+  width: 35px;
+  filter: invert(96%) sepia(4%) saturate(17%) hue-rotate(151deg)
+      brightness(104%) contrast(104%);
 }
 
 

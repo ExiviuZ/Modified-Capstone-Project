@@ -22,6 +22,9 @@ const { ObjectId } = require('mongodb');
    res.send('new admin')
  })
 
+ router.get('/verification', notLoggedIn, notAdmin, async (req, res) => {
+res.render('admin/verification')
+ })
 
 router.get('/covid', notLoggedIn, notAdmin, async (req, res) => {
   const allUser = await User.find();

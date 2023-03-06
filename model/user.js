@@ -15,6 +15,22 @@ const UserSchema = Schema({
       fileName: String,
     },
   ],
+  idImage: [
+    {
+      url: String,
+      fileName: String,
+    },
+  ],
+  faceImage: [
+    {
+      url: String,
+      fileName: String,
+    },
+  ],
+  verified: {
+    type: Boolean,
+    default: false,
+  },
   firstName: {
     type: String,
     required: true,

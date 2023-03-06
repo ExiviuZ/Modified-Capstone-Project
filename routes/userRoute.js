@@ -85,6 +85,7 @@ router.get("/profile", notLoggedIn, notUser, async (req, res) => {
   res.render("user/profile", {
     title: "Profile || Barangay Mag-Asawang Sapa",
     user,
+    currentUser: req.user
   });
 });
 

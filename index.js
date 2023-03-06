@@ -125,6 +125,9 @@ app.use((req, res, next) => {
 app.get("/", loggedIn, async (req, res) => {
   res.render("home", { title: "Barangay Mag-Asawang Sapa" });
 });
+app.get("/about", loggedIn, async (req, res) => {
+  res.render("about", { title: "About || Barangay Mag-Asawang Sapa" });
+});
 app.get("/terms-and-conditions", loggedIn, async (req, res) => {
   res.render("terms", { title: "Terms and Condition || Barangay Mag-Asawang Sapa" });
 });

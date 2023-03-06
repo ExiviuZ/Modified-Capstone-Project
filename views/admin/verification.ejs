@@ -4,32 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/alert.css" />
+    <link rel="stylesheet" href="/css/generate.css" />
     <link
       rel="shortcut icon"
       href="/img/barangay-logo.png"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="/css/reset.css" />
-    <link rel="stylesheet" href="/css/alert.css" />
-    <link rel="stylesheet" href="/css/admin.css" />
-    <link rel="stylesheet" href="/css/adminDashboard.css" />
-    <title><%= title %></title>
+
+    <title></title>
   </head>
   <body>
-    <%- include('../partials/success') %> <%- include('../partials/error') %>
+    <%- include('../partials/addAnnouncement') %>
+
     <nav class="first-nav">
       <span class="brand"
         ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
         Records</span
       >
-
       <ul class="nav-actions-wrap">
         <li class="dashboard">
-          <a href="/admin/" class="link-active">Dashboard</a>
+          <a href="/admin/">Dashboard</a>
           <ul class="nav-links">
             <li>
               <img src="/img/unverified.svg" class="dashboard-svg" alt="" /><a
                 href="/admin/verification"
+                class="link-active"
                 >Verify Users</a
               >
             </li>
@@ -55,7 +57,7 @@
               <div>
                 <span class="generate"
                   ><img src="/img/pdf.svg" alt="" />
-                  <span>Generate Data</span></span
+                  <span class="generate">Generate Data</span></span
                 >
               </div>
               <ul>
@@ -84,63 +86,7 @@
           </ul>
         </span>
       </nav>
-      <div class="content">
-        <h1>Dashboard</h1>
-        <div class="statistics">
-          <div>
-            <div class="icon-wrapper">
-              <img
-                src="/img/house.svg"
-                class="statistics-icon house-icon"
-                alt=""
-              />
-            </div>
-            <div class="statistics-container">
-              <h2>Total Household</h2>
-              <span class="statistics-count"><%= householdCount %> </span>
-            </div>
-          </div>
-          <div>
-            <div class="icon-wrapper">
-              <img src="/img/group.svg" class="statistics-icon" alt="" />
-            </div>
-            <div class="statistics-container">
-              <h2>Total Residents</h2>
-              <span class="statistics-count"><%= residentCount %> </span>
-            </div>
-          </div>
-          <div>
-            <div class="icon-wrapper">
-              <img
-                src="/img/male.svg"
-                class="statistics-icon male-icon"
-                alt=""
-              />
-            </div>
-            <div class="statistics-container">
-              <h2>Total Male</h2>
-              <span class="statistics-count"><%= maleCount %> </span>
-            </div>
-          </div>
-          <div>
-            <div class="icon-wrapper">
-              <img
-                src="/img/female.svg"
-                class="statistics-icon female-icon"
-                alt=""
-              />
-            </div>
-            <div class="statistics-container">
-              <h2>Total Female</h2>
-              <span class="statistics-count"><%= femaleCount %> </span>
-            </div>
-          </div>
-        </div>
-      </div>
     </main>
-
-    <%- include('../partials/addAnnouncement') %>
-
     <script src="/js/adminDropdown.js"></script>
     <script src="/js/announcementModal.js"></script>
   </body>
