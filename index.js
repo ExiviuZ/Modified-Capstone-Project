@@ -16,6 +16,9 @@ const LocalStrategy = require("passport-local");
 const path = require("path");
 const port = process.env.PORT || 3235;
 const MongoStore = require('connect-mongo');
+// const multer = require("multer");
+// const { idCardStorage } = require("./cloudinary/index");
+// const idCardUpload = multer({ storage: idCardStorage });
 
 // My Modules
 const User = require("./model/user");
@@ -139,7 +142,7 @@ app.use((err, req, res, next) => {
 });
 
 app.all("*", (req, res) => {
-  res.status(404).send("Page not Found");
+  res.render('notFound')
 });
 
 

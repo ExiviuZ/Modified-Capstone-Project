@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      href="/img/barangay-logo.png"
+      type="image/x-icon"
+    />
+    <title>Page Not Found || Barangay Mag-Asawang Sapa</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .error-page {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .error-code {
+        font-size: 6rem;
+        font-weight: bold;
+        color: hsl(210, 100%, 7%);
+        text-shadow: 1px 1px #ccc;
+        margin-bottom: 1rem;
+      }
+
+      .error-message {
+        font-size: 2rem;
+        color: hsl(210, 100%, 13%);
+        text-shadow: 1px 1px #b9b9b9;
+        margin-bottom: 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: hsl(210, 100%, 7%);
+        color: #fff;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: hsl(210, 100%, 13%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-page">
+      <div class="error-code">404</div>
+      <div class="error-message">Page Not Found</div>
+      <a href="#" class="btn">Go Back Home</a>
+    </div>
+  </body>
+  <script>
+    const btn = document.querySelector(".btn");
+
+    btn.addEventListener("click", () => {
+      window.history.back();
+    });
+  </script>
+</html>

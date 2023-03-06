@@ -5,12 +5,12 @@ const { notLoggedIn, loggedIn, notUser } = require("../middleware");
 const { catchAsync } = require("../utils/errorHandler");
 const User = require("../model/user");
 const passport = require("passport");
-const multer = require("multer");
-const { profilePictureStorage, idCardStorage } = require("../cloudinary/index");
 const Admin = require("../model/admin");
-const idCardUpload = multer({ storage: idCardStorage });
 const sharp = require('sharp')
 const request = require('request-promise-native')
+const multer = require("multer");
+const { profilePictureStorage, idCardStorage } = require("../cloudinary/index");
+const idCardUpload = multer({ storage: idCardStorage });
 const profilePicUpload = multer({ storage: profilePictureStorage });
 
 
