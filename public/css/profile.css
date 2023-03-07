@@ -16,12 +16,27 @@ main {
   position: relative;
 }
 
+.verify-account, .pending-account {
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 5px;
+  color: white;
+  padding: 0.2rem 0.5rem;
+}
+
+.verify-account {
+  background-color: hsl(108, 72%, 40%);
+}
+
+.pending-account {
+  background-color: gray;
+  cursor: default;
+}
+
 .edit-btn {
   border: none;
   cursor: pointer;
-  right: 5%;
-  top: 15%;
-  position: absolute;
   width: 30px;
   padding: 0.2rem;
   border-radius: 5px;
@@ -114,13 +129,22 @@ main {
   width: 800px;
   position: relative;
 }
+.user-card .user-information-wrap .user-top {
+  border-bottom: 1px solid gray;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.user-card .user-information-wrap .user-top > div {
+  display: flex;
+  gap: 0.5rem;
+}
 .user-card .card-title {
   letter-spacing: 1px;
   gap: 0.3rem;
   display: flex;
   font-size: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid gray;
 }
 .user-card .user-information {
   margin-top: 1rem;
@@ -215,7 +239,7 @@ main {
   background-color: rgb(55, 150, 52);
 }
 
-.profile-dialog {
+.profile-dialog, .image-dialog {
   background-color: #001122;
   color: white;
   padding: 2rem 1.5rem;
@@ -229,17 +253,58 @@ main {
   transform: translateY(-100%);
   transition: ease-in-out opacity 0.75s, transform 0.5s ease-in-out;
 }
-.profile-dialog.active {
+.profile-dialog.active, .image-dialog.active {
   opacity: 1;
   transform: translateY(0);
 }
-.profile-dialog::backdrop {
+.profile-dialog::backdrop, .image-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.7);
 }
-.profile-dialog h2 {
+.profile-dialog h2, .image-dialog h2 {
   font-size: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid hsla(0, 0%, 50%, 0.8);
+}
+
+.image-dialog img {
+  width: 250px;
+}
+.image-dialog form {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.image-dialog form > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 1.25rem;
+}
+.image-dialog button {
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: hsl(60, 5%, 84%);
+  cursor: pointer;
+}
+.image-dialog .close-btn-img-dialog {
+  background-color: hsl(0, 0%, 15%);
+  color: white;
+  transition: 0.25s background-color ease-in-out;
+  border: none;
+}
+.image-dialog .close-btn-img-dialog:hover {
+  background-color: hsl(0, 0%, 0%);
+}
+.image-dialog .btn {
+  color: white;
+  background-color: hsl(108, 72%, 40%);
+  transition: 0.25s background-color ease-in-out;
+  border: none;
+}
+.image-dialog .btn:hover {
+  background-color: hsl(108, 72%, 35%);
 }
 
 .edit-form {

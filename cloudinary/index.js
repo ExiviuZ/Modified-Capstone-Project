@@ -15,17 +15,18 @@ const profilePictureStorage = new CloudinaryStorage({
   },
 });
 
-const idCardStorage = new CloudinaryStorage({
+const identityVerificationStoage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'idcards',
-    allowed_formats: ['jpg', 'jpeg', 'png']
-  }
+    folder: "idcard-and-person",
+    allowedFormats: ["jpeg", "png", "jpg"],
+  },
 });
+
 
 
 module.exports = {
   cloudinary,
   profilePictureStorage,
-  idCardStorage
+  identityVerificationStoage,
 };

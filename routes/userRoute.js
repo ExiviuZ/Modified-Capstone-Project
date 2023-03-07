@@ -9,10 +9,9 @@ const Admin = require("../model/admin");
 const sharp = require('sharp')
 const request = require('request-promise-native')
 const multer = require("multer");
-const { profilePictureStorage, idCardStorage } = require("../cloudinary/index");
-const idCardUpload = multer({ storage: idCardStorage });
+const { profilePictureStorage, identityVerificationStoage  } = require("../cloudinary/index");
 const profilePicUpload = multer({ storage: profilePictureStorage });
-
+const upload = multer({storage: identityVerificationStoage,});
 
 router.post(
   "/register",
@@ -89,6 +88,45 @@ router.get("/profile", notLoggedIn, notUser, async (req, res) => {
   });
 });
 
+  //  const user = await User.findById(req.user._id);
+  //   console.log(req)
+  //   user.image.push({
+  //     url: req.file.path,
+  //     fileName: req.fileName,
+  //   });
+  //   await user.save();
+  //   req.flash("success", "Successfully Changed Your Picture");
+  //   res.redirect("/user/profile");
+
+    // router.post("/identification", notLoggedIn, notUser, idCardUpload.single("idImage"), idPersonUpload.single("idImagePerson"), async => {
+      
+    // })
+
+    // Use uploadIdentity middleware to handle the file uploads
+    router.post('/verification', upload.fields([{ name: 'id-alone' }, { name: 'id-person'}]) ,async (req, res) => {
+      const user = await User.findById(req.user._id);
+      const idAlone = req.files['id-alone'][0]
+      const idPerson = req.files['id-person'][0]
+
+     console.log(idAlone)
+
+      user.idImage.push({
+        url: idAlone.path,
+        fileName: idAlone.filename
+      })
+      user.faceImage.push({
+        url: idPerson.path,
+        fileName: idPerson.filename,
+      });
+
+      user.verificationStatus = 'pending'
+
+      await user.save()
+  req.flash("success", "Successfully Uploaded Identification");
+  res.redirect("/user/profile");
+    });
+    
+
 router.post("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   const { id } = req.params;
   console.log('The Submitted Values:')
@@ -159,8 +197,9 @@ router.post("/profile/edit/:id", notLoggedIn, notUser, async (req, res) => {
 
 req.flash("success", `Successfully Updated ${name}'s information`);
 res.redirect('/user/profile')
-  
 })
+
+
 
 router.delete("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   const { id } = req.params;
@@ -171,16 +210,8 @@ router.delete("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   req.flash("success", "Successfully Deleted a Member");
   res.redirect('/user/profile#household-list')
 })
+    
 
- //   const user = await User.findById(req.user._id);
-    // console.log(req)
-    // user.image.push({
-    //   url: req.file.path,
-    //   fileName: req.fileName,
-    // });
-    // await user.save();
-    // req.flash("success", "Successfully Changed Your Picture");
-    // res.redirect("/user/profile");
     router.post(
       "/upload",
       notLoggedIn,

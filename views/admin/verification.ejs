@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/admin.css" />
     <link rel="stylesheet" href="/css/alert.css" />
-    <link rel="stylesheet" href="/css/generate.css" />
+    <link rel="stylesheet" href="/css/verification.css" />
     <link
       rel="shortcut icon"
       href="/img/barangay-logo.png"
@@ -17,8 +17,8 @@
     <title></title>
   </head>
   <body>
-    <%- include('../partials/addAnnouncement') %>
-
+    <%- include('../partials/addAnnouncement') %> <%-
+    include('../partials/success') %> <%- include('../partials/error') %>
     <nav class="first-nav">
       <span class="brand"
         ><img src="/img/barangay-logo.png" class="nav-logo" alt="" /> Barangay
@@ -57,7 +57,7 @@
               <div>
                 <span class="generate"
                   ><img src="/img/pdf.svg" alt="" />
-                  <span class="generate">Generate Data</span></span
+                  <span>Generate Data</span></span
                 >
               </div>
               <ul>
@@ -86,8 +86,128 @@
           </ul>
         </span>
       </nav>
+
+      <section class="content">
+        <h1 class="resident-head-title">
+          <img src="/img/unverified.svg" class="verification-svg" alt="" />
+          Verification Requests
+        </h1>
+        <table class="table">
+          <colgroup>
+            <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 30%" />
+            <col style="width: 15%" />
+            <col style="width: 15%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th style="text-align: left">Photos</th>
+              <th>Address</th>
+              <th>Contact</th>
+              <th>Approve / Reject</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(user of unverifiedUsers){ %>
+            <tr>
+              <!-- <td class="identity-images">
+                <img
+                  src="<%= user.idImage[user.idImage.length - 1].url %>"
+                  alt=""
+                />
+                <img
+                  src="<%= user.faceImage[user.faceImage.length - 1].url %>"
+                  alt=""
+                />
+              </td> -->
+              <td><%= user.fullName %></td>
+              <td>
+                <ul style="text-align: left">
+                  <li style="margin-bottom: 0.3rem">
+                    <a
+                      href="<%= user.idImage[user.idImage.length - 1].url  %>"
+                      target="_blank"
+                      style="color: black"
+                      >Identity Card</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="<%= user.faceImage[user.idImage.length - 1].url   %>"
+                      target="_blank"
+                      style="color: black"
+                      >Identity Card with Selfie</a
+                    >
+                  </li>
+                </ul>
+              </td>
+              <td><%= user.fullAddress %></td>
+              <td><%= user.contact %></td>
+              <td>
+                <div class="actions-container">
+                  <form
+                    id="approve-form"
+                    action="/admin/verify/<%= user._id %>?action=approve"
+                    method="POST"
+                  >
+                    <input type="hidden" name="action" value="approve" />
+                    <button class="approve" data-name="<%= user.fullName %>">
+                      <img src="/img/approve.svg" />
+                    </button>
+                  </form>
+                  <form
+                    id="reject-form"
+                    action="/admin/verify/<%= user._id %>?action=reject"
+                    method="POST"
+                  >
+                    <input type="hidden" name="action" value="reject" />
+                    <button class="reject" data-name="<%= user.fullName %>">
+                      <img src="/img/reject.svg" />
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </section>
     </main>
     <script src="/js/adminDropdown.js"></script>
     <script src="/js/announcementModal.js"></script>
+    <script>
+      const approveBtns = document.querySelectorAll(".approve");
+      const rejectBtns = document.querySelectorAll(".reject");
+
+      approveBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          console.log("clicking approve");
+          const form = btn.parentElement;
+          const name = btn.getAttribute("data-name");
+          if (
+            confirm(`Are you sure you want to approve this registrant? ${name}`)
+          ) {
+            form.submit();
+          }
+        });
+      });
+
+      rejectBtns.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          console.log("clicking reject");
+          const form = btn.parentElement;
+          const name = btn.getAttribute("data-name");
+          if (
+            confirm(`Are you sure you want to reject this registrant? ${name}`)
+          ) {
+            form.submit();
+          }
+        });
+      });
+    </script>
   </body>
 </html>

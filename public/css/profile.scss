@@ -15,12 +15,27 @@ main {
   position: relative;
 }
 
+.verify-account, .pending-account {
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 5px;
+  color: white;
+  padding: 0.2rem 0.5rem;
+} 
+
+.verify-account {
+  background-color: hsl(108, 72%, 40%);
+}
+
+.pending-account {
+  background-color: gray;
+  cursor: default;
+}
+
 .edit-btn {
   border: none;
   cursor: pointer;
-  right: 5%;
-  top: 15%;
-  position: absolute;
   width: 30px;
   padding: 0.2rem;
   border-radius: 5px;
@@ -114,6 +129,16 @@ main {
   .user-information-wrap {
     width: 800px;
     position: relative;
+    .user-top {
+    border-bottom: 1px solid gray;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      > div {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
   }
   .card-title {
     letter-spacing: 1px;
@@ -121,7 +146,6 @@ main {
     display: flex;
     font-size: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid gray;
   }
   .user-information {
     margin-top: 1rem;
@@ -231,7 +255,7 @@ main {
 
 // Profile Form Design
 
-.profile-dialog {
+.profile-dialog, .image-dialog {
   background-color: #001122;
   color: white;
   padding: 2rem 1.5rem;
@@ -254,6 +278,49 @@ main {
     font-size: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid hsla(0, 0%, 50%, 0.8);
+  }
+}
+
+.image-dialog {
+  img {
+    width: 250px;
+  }
+  form {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    > div{
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 1.25rem;
+    }
+  }
+  button {
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    border: none;
+    background-color: hsl(60, 5%, 84%);
+    cursor: pointer;
+  }
+  .close-btn-img-dialog {
+    background-color: hsl(0, 0%, 15%);
+    color: white;
+    transition: 0.25s background-color ease-in-out;
+    border: none;
+    &:hover {
+      background-color: hsl(0, 0%, 0%);
+    }
+  }
+  .btn {
+    color: white;
+    background-color: hsl(108, 72%, 40%);
+    transition: 0.25s background-color ease-in-out;
+    border: none;
+    &:hover {
+      background-color: hsl(108, 72%, 35%);
+    }
   }
 }
 

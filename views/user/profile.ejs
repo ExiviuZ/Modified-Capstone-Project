@@ -58,16 +58,25 @@
           <span class="user-name" ><%= user.fullName %></span>
         </div>
         <div class="user-information-wrap">
-          <span class="card-title"><span>Personal Information</span> 
-            <% if(currentUser.verified){ %>
-              <img src="/img/verified.svg" title="Verified Account" class="verification-status" alt="">
-            <% } else {%>
-              <img src="/img/unverified.svg" class="verification-status" title="Unverified Account" alt="">
+          <div class="user-top">
+            <span class="card-title"><span>Personal Information</span> 
+            <% if(user.verificationStatus == 'unverified' || user.verificationStatus == 'pending'){ %>
+              <img src="/img/unverified.svg"title="Unverified Account" class="verification-status" alt="">
+            <% } else if(user.verificationStatus == 'verified'){%>
+              <img src="/img/verified.svg"  title="Verified Account"  class="verification-status"  alt="">
               <% } %>
           </span>
-          <button class="edit-btn" href="/user/profile"
+          <div>
+            <% if(user.verificationStatus == 'unverified'){ %>
+              <button class="verify-account"  >Verify an Account</button>
+            <% } else if (user.verificationStatus == 'pending'){%>
+              <button class="pending-account" disabled >Pending Verification</button>
+              <% } %>
+            <button class="edit-btn" href="/user/profile"
             ><img src="/img/edit.svg" alt=""
           /></button>
+          </div>
+          </div>
           <div class="user-information">
             <div class="address">
               <span class="title-label">Address</span>
@@ -318,6 +327,24 @@
      <button class="close-btn" type="button">Close</button>
      <button class="btn" type="submit">Edit</button>
      </form>
+    </dialog>
+
+    <dialog class="image-dialog">
+      <h2>Identity Verification</h2>
+      <form action="/user/verification" enctype="multipart/form-data" method="post">
+        <div>
+          <img src="/img/id-card.png" alt="">
+          <label for="id-alone">Picture of your Identity Card</label>
+          <input type="file" name="id-alone" accept="image/*" />
+        </div>
+        <div>
+          <img src="/img/id-with-person.svg" alt="">
+          <label for="id-person">Picture of you holding your Identity Card</label>
+          <input type="file" name="id-person" accept="image/*" />
+        </div>
+        <button class="close-btn-img-dialog" type="button">Close</button>
+        <button class="btn" type="submit">Upload</button>
+      </form>
     </dialog>
     
    <% for(member of user.household) { %> 

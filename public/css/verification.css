@@ -1,0 +1,68 @@
+.content {
+  border-top: 4px solid #001122;
+  border-radius: 3px;
+  padding: 2rem 1.5rem;
+  width: 95%;
+  background-color: white;
+  margin: auto;
+  margin-block: 2rem;
+}
+.content h1 {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.3rem;
+}
+.content .verification-svg {
+  width: 30px;
+}
+
+.identity-images {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.actions-container button {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.actions-container button.approve {
+  background-color: green;
+}
+.actions-container button.reject {
+  background-color: red;
+}
+.actions-container button img {
+  width: 30px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+.actions-container img {
+  width: 50px;
+}
+
+table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  box-shadow: 0px 5px 10px #e1e5ee;
+}
+table td,
+table th {
+  padding: 1rem;
+  text-align: center;
+}
+table thead {
+  box-shadow: 0px 5px 10px #e1e5ee;
+}
+table tbody tr {
+  transition: transform 0.25s ease-in-out;
+}
+table tbody tr:hover {
+  transform: translateY(3%);
+}/*# sourceMappingURL=verification.css.map */

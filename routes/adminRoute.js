@@ -10,115 +10,79 @@ const upload = multer({storage})
 const { ObjectId } = require('mongodb');
 
 //Create Admin
- router.get('/new', async (req,res) => {
+//  router.get('/new', async (req,res) => {
 
-   const user = new Admin({
-     name: "Administrator",
-     username: 'admin'
-   });
+//    const user = new Admin({
+//      name: "Administrator",
+//      username: 'admin'
+//    });
 
-   const registeredUser = await Admin.register(user, 'admin');
-   await user.save();
-   res.send('new admin')
- })
+//    const registeredUser = await Admin.register(user, 'admin');
+//    await user.save();
+//    res.send('new admin')
+//  })
 
- router.get('/verification', notLoggedIn, notAdmin, async (req, res) => {
-res.render('admin/verification')
- })
 
-router.get('/covid', notLoggedIn, notAdmin, async (req, res) => {
-  const allUser = await User.find();
-  allUser.sort((a, b) => (a.address.sitio > b.address.sitio) ? 1 : -1)
 
-    var sitios = {
-      'ibabaw': {
-        members: [],
-        name: 'Ibabaw'
+router.post('/announcement', upload.single('image') ,notLoggedIn, notAdmin, async (req,res) => {
+  const admin = await Admin.findOne()
+  req.body.image = {
+    link: req.file.path,
+    fileName: req.file.filename
+  }
+  admin.announcements.push(req.body)
+  await admin.save()
 
-      },
-      'sulucanI': {
-        members: [],
-        name: 'Sulucan I'
+  req.flash('success', "Successfully Added An Announcement")
+  res.redirect('/admin/announcement')
+})
 
-      },
-      'sulucanII': {
-        members: [],
-        name: 'Sulucan II'
-      },
-      'sulucanIII': {
-        members: [],
-        name: 'Sulucan III'
-      },
-      'centro': {
-        members: [],
-        name: 'Centro'
-      },
-      'hulo': {
-        members: [],
-        name: 'Hulo'
-      },
-      'pulongBocaue': {
-        members: [],
-        name: 'Pulong Bocaue'
-      },
-      'putol': {
-        members: [],
-        name: 'Putol'
-      },
-      'bancaBanca': {
-        members: [],
-        name: 'Banca Banca'
-      },
-      'elPueblo': {
-        members: [],
-        name: 'El Pueblo'
-      },
-    }
-
-    for(registree of allUser){
-      if(registree.address.sitio == 'Ibabaw'){
-        sitios.ibabaw.members.push(registree)
-      }else if(registree.address.sitio == 'Sulucan I'){
-        sitios.sulucanI.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Sulucan II'){
-        sitios.sulucanII.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Sulucan III'){
-        sitios.sulucanIII.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Centro'){
-        sitios.centro.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Hulo'){
-        sitios.hulo.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Pulong Bocaue'){
-        sitios.pulongBocaue.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Putol'){
-        sitios.putol.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Banca Banca'){
-        sitios.bancaBanca.members.push(registree)
-      }
-      else if(registree.address.sitio == 'El Pueblo'){
-        sitios.elPueblo.members.push(registree)
-      }
-    }
-
-    for (let sitio in sitios) {
-      if (sitios.hasOwnProperty(sitio)) {
-        console.log(`${sitio}: ${sitios[sitio].members.length}`);
-      }
-    }
-
-  res.render('admin/covid', {title: 'Generate Data || Barangay Mag-Asawang Sapa', sitios})
+router.get("/household", notLoggedIn, notAdmin, async (req, res) => {
+  if(req.query.sitio){
+    console.log("the user is sorting");
+    var sorting = true;
+    var searching = false;
+    const sitioUsers = await User.find({'address.sitio': req.query.sitio, 'verificationStatus': 'verified'})
+    return res.render("admin/household", {
+      title: "Sorted Households || Barangay Mag-Asawang Sapa",
+      sitioUsers,
+      sitioPlace: req.query.sitio,
+      sorting,
+      searching
+    });
+  }
+  if (req.query.name) {
+    console.log("the user is searching");
+    var searching = true;
+    var sorting = false;
+    const users = await User.find({
+      combName: { $regex: req.query.name.trim(), $options: "i" }, verificationStatus: 'verified'
+    })
+      .collation({ locale: "en", strength: 2 })
+      .sort({ combName: 1 });
+    return res.render("admin/household", {
+      title: "Searched Households || Barangay Mag-Asawang Sapa",
+      users,
+      searching,
+      sorting
+    });
+  } else {
+    var searching = false;
+    var sorting = false;
+    const users = await User.find({verificationStatus: 'verified'})
+      .collation({ locale: "en", strength: 2 })
+      .sort({ combName: 1 });
+    return res.render("admin/household", {
+      title: "All Households || Barangay Mag-Asawang Sapa",
+      users,
+      searching,
+      sorting
+    });
+  }
 });
 
-
 router.get('/monthly', notLoggedIn, notAdmin, async (req, res) => {
-  const allUser = await User.find();
+  const allUser = await User.find({verificationStatus: 'verified'});
 
   const countPerMonth = [];
 
@@ -224,6 +188,145 @@ router.get('/events', notLoggedIn, notAdmin, async (req, res) => {
   res.json(mappedEvents);
 })
 
+router.post(
+  "/login",
+  (req, res, next) => {
+    req.body.username = req.body.username.toLowerCase();
+    next();
+  },
+  passport.authenticate("admin", {
+    failureFlash: true,
+    failureRedirect: "/login",
+  }),
+  async (req, res) => {
+    req.flash("success", "Welcome Back, Admin!");
+    res.redirect("/admin/");
+  }
+);
+
+ router.get('/verification', notLoggedIn, notAdmin, async (req, res) => {
+  const unverifiedUsers = await User.find({ verificationStatus:  'pending' });
+res.render('admin/verification', {unverifiedUsers})
+ })
+
+ 
+router.get('/covid', notLoggedIn, notAdmin, async (req, res) => {
+  const allUser = await User.find({verificationStatus: 'verified'});
+  allUser.sort((a, b) => (a.address.sitio > b.address.sitio) ? 1 : -1)
+
+    var sitios = {
+      'ibabaw': {
+        members: [],
+        name: 'Ibabaw'
+
+      },
+      'sulucanI': {
+        members: [],
+        name: 'Sulucan I'
+
+      },
+      'sulucanII': {
+        members: [],
+        name: 'Sulucan II'
+      },
+      'sulucanIII': {
+        members: [],
+        name: 'Sulucan III'
+      },
+      'centro': {
+        members: [],
+        name: 'Centro'
+      },
+      'hulo': {
+        members: [],
+        name: 'Hulo'
+      },
+      'pulongBocaue': {
+        members: [],
+        name: 'Pulong Bocaue'
+      },
+      'putol': {
+        members: [],
+        name: 'Putol'
+      },
+      'bancaBanca': {
+        members: [],
+        name: 'Banca Banca'
+      },
+      'elPueblo': {
+        members: [],
+        name: 'El Pueblo'
+      },
+    }
+
+    for(registree of allUser){
+      if(registree.address.sitio == 'Ibabaw'){
+        sitios.ibabaw.members.push(registree)
+      }else if(registree.address.sitio == 'Sulucan I'){
+        sitios.sulucanI.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Sulucan II'){
+        sitios.sulucanII.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Sulucan III'){
+        sitios.sulucanIII.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Centro'){
+        sitios.centro.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Hulo'){
+        sitios.hulo.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Pulong Bocaue'){
+        sitios.pulongBocaue.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Putol'){
+        sitios.putol.members.push(registree)
+      }
+      else if(registree.address.sitio == 'Banca Banca'){
+        sitios.bancaBanca.members.push(registree)
+      }
+      else if(registree.address.sitio == 'El Pueblo'){
+        sitios.elPueblo.members.push(registree)
+      }
+    }
+
+    for (let sitio in sitios) {
+      if (sitios.hasOwnProperty(sitio)) {
+        console.log(`${sitio}: ${sitios[sitio].members.length}`);
+      }
+    }
+
+  res.render('admin/covid', {title: 'Generate Data || Barangay Mag-Asawang Sapa', sitios})
+});
+
+
+ router.post('/verify/:id', notLoggedIn, notAdmin, async (req, res) => {
+  const {id}= req.params
+  const {action} = req.query
+  const user = await User.findById(id)
+
+  if(!user){
+    req.flash('error', 'No User with that ID')
+    return res.redirect('/admin/verification')
+  }
+  const outcome = (action === 'approve') ? 'verified' : 'unverified';
+  if(action == 'approve'){
+    user.verificationStatus = outcome
+    await user.save()
+    req.flash('success', 'Approved a household registrant!')
+ return res.redirect('/admin/verification')
+
+  }
+  else if(action == 'reject'){
+    user.verificationStatus = outcome
+    await user.save()
+    req.flash('error', 'Rejected a household registrant!')
+ return res.redirect('/admin/verification')
+
+  }
+ })
+
 router.delete('/events/:id', notLoggedIn, notAdmin, async (req, res) => {
   const {id} = req.params
   const admin = await Admin.findOne()
@@ -310,13 +413,9 @@ var vaccineCount = {
       'firstBoosterCount': 0,
       'secondBoosterCount': 0
   },
- 
 }
 
-
-const registrees = await User.find();
-
-
+const registrees = await User.find({verificationStatus: 'verified'});
 
 // Function to increment vaccine count
 for (var i = 0; i < registrees.length; i++) {
@@ -416,64 +515,6 @@ var mappedEvents = admin.events.map(event => {
 })
 
 
-
-router.post('/announcement', upload.single('image') ,notLoggedIn, notAdmin, async (req,res) => {
-  const admin = await Admin.findOne()
-  req.body.image = {
-    link: req.file.path,
-    fileName: req.file.filename
-  }
-  admin.announcements.push(req.body)
-  await admin.save()
-
-  req.flash('success', "Successfully Added An Announcement")
-  res.redirect('/admin/announcement')
-})
-
-router.get("/household", notLoggedIn, notAdmin, async (req, res) => {
-  if(req.query.sitio){
-    console.log("the user is sorting");
-    var sorting = true;
-    var searching = false;
-    const sitioUsers = await User.find({'address.sitio': req.query.sitio})
-    return res.render("admin/household", {
-      title: "Sorted Households || Barangay Mag-Asawang Sapa",
-      sitioUsers,
-      sitioPlace: req.query.sitio,
-      sorting,
-      searching
-    });
-  }
-  if (req.query.name) {
-    console.log("the user is searching");
-    var searching = true;
-    var sorting = false;
-    const users = await User.find({
-      combName: { $regex: req.query.name.trim(), $options: "i" },
-    })
-      .collation({ locale: "en", strength: 2 })
-      .sort({ combName: 1 });
-    return res.render("admin/household", {
-      title: "Searched Households || Barangay Mag-Asawang Sapa",
-      users,
-      searching,
-      sorting
-    });
-  } else {
-    var searching = false;
-    var sorting = false;
-    const users = await User.find()
-      .collation({ locale: "en", strength: 2 })
-      .sort({ combName: 1 });
-    return res.render("admin/household", {
-      title: "All Households || Barangay Mag-Asawang Sapa",
-      users,
-      searching,
-      sorting
-    });
-  }
-});
-
 router.get("/household/:id", notLoggedIn, notAdmin, async (req, res) => {
   const { id } = req.params;
   const registree = await User.findById(id);
@@ -503,22 +544,6 @@ router.delete("/household/:id", notLoggedIn, notAdmin, async (req, res) => {
   req.flash("success", "Successfully Deleted a Household!!");
   res.redirect("/admin/household");
 });
-
-router.post(
-  "/login",
-  (req, res, next) => {
-    req.body.username = req.body.username.toLowerCase();
-    next();
-  },
-  passport.authenticate("admin", {
-    failureFlash: true,
-    failureRedirect: "/login",
-  }),
-  async (req, res) => {
-    req.flash("success", "Welcome Back, Admin!");
-    res.redirect("/admin/");
-  }
-);
 
 module.exports = router;
 

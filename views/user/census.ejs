@@ -17,8 +17,8 @@
   </head>
   <body>
     <%- include('../partials/navbar') %> <%- include('../partials/success') %>
-    <%- include('../partials/error') %> <% if(!user.answeredCensus) { %>
-
+    <%- include('../partials/error') %> <% if(user.verificationStatus ==
+    'verified' && !user.answeredCensus) { %>
     <main class="main-form">
       <div class="title">
         <h1>Household Census</h1>
@@ -177,13 +177,23 @@
         <button type="submit" class="submit">Submit</button>
       </form>
     </main>
-    <% } else { %>
+    <% } else if(user.answeredCensus && user.verificationStatus == 'verified'){
+    %>
     <main class="main-thanks">
       <h1 class="thanks-title">Thanks for Participating.</h1>
       <p class="thanks-subtitle">
         You've completed this census. <span class="check">&checkmark;</span>
       </p>
       <img src="/img/thanks.svg" alt="" />
+    </main>
+    <% } else if((user.verificationStatus == 'unverified' ||
+    user.verificationStatus == 'pending')) {%>
+    <main class="main-pending">
+      <h1 class="pending-title">Awaiting Approval</h1>
+      <p class="pending-subtitle">
+        Please wait for identity verification before answering the census.
+      </p>
+      <img src="/img/pending.svg" alt="" />
     </main>
     <% } %>
 

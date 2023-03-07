@@ -27,9 +27,9 @@ const UserSchema = Schema({
       fileName: String,
     },
   ],
-  verified: {
-    type: Boolean,
-    default: false,
+  verificationStatus: {
+    type: String,
+    default: 'unverified',
   },
   firstName: {
     type: String,

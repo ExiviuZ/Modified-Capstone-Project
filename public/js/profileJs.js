@@ -24,6 +24,9 @@
       const boosterDosageTags = document.querySelectorAll("[data-boosterDosage]");
       const boosterNameTags = document.querySelectorAll("[data-boosterName]");
       const uploadForms = document.querySelectorAll(".form-img");
+      const openImageDialog = document.querySelector('.verify-account')
+      const closeImageDialog = document.querySelector('.close-btn-img-dialog')
+      const imageDialog = document.querySelector('.image-dialog')
 
 
 window.onclick = function (event) {
@@ -71,8 +74,6 @@ closeMembersBtn.forEach((button, index) => {
   });
 });
 
-      
-
       openModal.addEventListener('click', (e) => {
        profileDialog.showModal()
        profileDialog.classList.add('active')
@@ -82,7 +83,16 @@ closeMembersBtn.forEach((button, index) => {
        profileDialog.close()
        profileDialog.classList.remove('active')
        document.querySelector('body').classList.remove('modal-active')
-
+      })
+      openImageDialog.addEventListener('click', (e) => {
+       imageDialog.showModal()
+       imageDialog.classList.add('active')
+       document.querySelector('body').classList.add('modal-active')
+      })
+      closeImageDialog.addEventListener('click', (e) => {
+       imageDialog.close()
+       imageDialog.classList.remove('active')
+       document.querySelector('body').classList.remove('modal-active')
       })
 
 

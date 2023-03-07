@@ -125,6 +125,27 @@ main {
     padding: 1rem 2rem;
   }
 }
+.main-pending {
+  animation: appear 0.5s ease-in-out;
+  padding: 2rem;
+  img {
+    width: 400px;
+    margin: auto;
+    display: block;
+  }
+  .pending-title {
+    text-align: center;
+    margin-bottom: 0.3rem;
+    text-transform: capitalize;
+  }
+  .pending-subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-style: italic;
+  }
+}
 .main-thanks {
   animation: appear 0.5s ease-in-out;
   padding: 2rem;
