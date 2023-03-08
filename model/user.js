@@ -39,6 +39,10 @@ const UserSchema = Schema({
     type: String,
     required: true,
   },
+  middleName: {
+    type: String,
+    required: true,
+  },
   gender: {
     type: String,
     required: true,
@@ -150,6 +154,7 @@ UserSchema.plugin(uniqueValidator, {
 
 UserSchema.pre("save", async function () {
   this.firstName = this.firstName.trim();
+  this.middleName = this.middleName.trim();
   this.lastName = this.lastName.trim();
 
   this.address.houseNumber = this.address.houseNumber.trim();
@@ -160,6 +165,7 @@ UserSchema.pre("save", async function () {
 
 UserSchema.pre("findOneAndUpdate", async function () {
   this.firstName = this.firstName.trim();
+  this.middleName = this.middleName.trim();
   this.lastName = this.lastName.trim();
 
   this.address.houseNumber = this.address.houseNumber.trim();

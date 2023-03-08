@@ -174,11 +174,13 @@ select {
     font-size: 0.95rem;
   }
   &.first {
+  grid-template-columns: 1.3fr 1fr 1fr;
     &::before {
       content: "Name Information";
     }
   }
   &.second {
+  grid-template-columns: 1fr 1fr 1fr;
     &::before {
       content: "Account Creation";
     }

@@ -239,6 +239,10 @@ main {
   background-color: rgb(55, 150, 52);
 }
 
+.profile-dialog {
+  width: 40%;
+}
+
 .profile-dialog, .image-dialog {
   background-color: #001122;
   color: white;
@@ -259,6 +263,16 @@ main {
 }
 .profile-dialog::backdrop, .image-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.7);
+}
+.profile-dialog .form-control-group, .image-dialog .form-control-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+.profile-dialog .other-inputs, .image-dialog .other-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 1rem;
 }
 .profile-dialog h2, .image-dialog h2 {
   font-size: 2rem;
@@ -309,11 +323,6 @@ main {
 
 .edit-form {
   margin-top: 1.5rem;
-  display: grid;
-  -moz-column-gap: 1rem;
-       column-gap: 1rem;
-  row-gap: 1.5rem;
-  grid-template-columns: 1fr 1fr;
 }
 .edit-form select,
 .edit-form input,

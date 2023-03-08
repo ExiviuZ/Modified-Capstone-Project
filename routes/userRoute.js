@@ -19,6 +19,7 @@ router.post(
     try {
       const {
         firstName,
+        middleName,
         lastName,
         username,
         gender,
@@ -32,6 +33,7 @@ router.post(
       const user = new User({
         combName: `${firstName} ${lastName}`,
         firstName,
+        middleName,
         lastName,
         gender,
         birthday,
@@ -130,6 +132,7 @@ router.post("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   const user = await User.findById(id);
   const {
     firstName,
+    middleName,
     lastName,
     houseNumber,
     sitio,
@@ -144,6 +147,7 @@ router.post("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   } = req.body;
 
   user.firstName = firstName;
+  user.middleName = middleName;
   user.lastName = lastName;
   user.combName = `${firstName} ${lastName}`;
   user.contact = contact;

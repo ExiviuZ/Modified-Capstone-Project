@@ -1,7 +1,9 @@
 const firstName = document.querySelector("#firstName");
+const middleName = document.querySelector("#middleName");
 const lastName = document.querySelector("#lastName");
 // const email = document.querySelector("#email");
 const password = document.querySelector("#password");
+const confirmPassword = document.querySelector("#confirmPassword");
 const houseNumber = document.querySelector("#houseNumber");
 const sitio = document.querySelector("#sitio");
 const contact = document.querySelector("#contact");
@@ -47,8 +49,10 @@ password.addEventListener("keypress", function (event) {
 
 function checkInputs(e) {
   let firstNameValue = firstName.value.trim();
+  let middleNameValue = middleName.value.trim();
   let lastNameValue = lastName.value.trim();
   let passwordValue = password.value.trim();
+  let confirmPasswordValue = confirmPassword.value.trim();
   let usernameValue = username.value.trim();
   // let emailValue = email.value.trim();
   let houseNumberValue = houseNumber.value.trim();
@@ -60,6 +64,12 @@ function checkInputs(e) {
     e.preventDefault();
   } else {
     setSuccessFor(firstName);
+  }
+  if (middleNameValue == "") {
+    setErrorFor(middleName, "Middle Name is blank");
+    e.preventDefault();
+  } else {
+    setSuccessFor(middleName);
   }
   if (gender.value == "") {
     setErrorFor(gender, "Gender not specified.");
@@ -122,9 +132,23 @@ function checkInputs(e) {
   } else if (passwordValue.length < 8) {
     setErrorFor(password, "Password should be atleast 8 characters");
     e.preventDefault();
-  } else {
+  } else if(passwordValue != confirmPasswordValue){
+    setErrorFor(password, "Passwords doesn't match");
+    setErrorFor(confirmPassword, "Passwords doesn't match");
+    e.preventDefault();
+  } else if(passwordValue == confirmPasswordValue){
     setSuccessFor(password);
+    setSuccessFor(confirmPassword);
   }
+  
+
+  // if (passwordValue !== confirmPasswordValue) {
+  //   setErrorFor(password, "Passwords doesn't match");
+  //   setErrorFor(confirmPassword, "Passwords doesn't match");
+  //   e.preventDefault();
+  // }
+
+
   if (houseNumberValue == "") {
     setErrorFor(houseNumber, "House # is blank");
     e.preventDefault();

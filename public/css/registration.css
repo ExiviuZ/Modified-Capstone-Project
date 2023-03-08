@@ -171,8 +171,14 @@ select {
   left: 4px;
   font-size: 0.95rem;
 }
+.group-form-control.first {
+  grid-template-columns: 1.3fr 1fr 1fr;
+}
 .group-form-control.first::before {
   content: "Name Information";
+}
+.group-form-control.second {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 .group-form-control.second::before {
   content: "Account Creation";

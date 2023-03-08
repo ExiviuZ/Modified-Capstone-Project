@@ -55,7 +55,7 @@
             </form>
             <% } %>
           </section>
-          <span class="user-name" ><%= user.fullName %></span>
+          <span class="user-name" ><%= user.firstName %> <%= user.middleName[0] %>. <%= user.lastName %></span>
         </div>
         <div class="user-information-wrap">
           <div class="user-top">
@@ -198,32 +198,48 @@
     <dialog class="profile-dialog">
       <h2>Edit Personal Information</h2>
       <form action="/user/profile/<%= user._id  %>" method="post" class="edit-form">
-      <div class="form-control">
-        <input
-          type="text"
-          placeholder="First Name"
-          name="firstName"
-          id="firstName"
-          value="<%= user.firstName  %>"
-          required
-          maxlength="20"
-        />
-        <span class="error-message"></span>
-      </div>
+      <div class="form-control-group">
+        <div class="form-control">
+          <input
+            type="text"
+            placeholder="First Name"
+            name="firstName"
+            id="firstName"
+            value="<%= user.firstName  %>"
+            required
+            maxlength="20"
+          />
+          <span class="error-message"></span>
+        </div>
 
-      <div class="form-control">
-       <input
-         type="text"
-         maxlength="20"
-         placeholder="Last Name"
-         name="lastName"
-         id="lastName"
-         required
-         value="<%= user.lastName%>"
-       />
-       <span class="error-message"></span>
+        <div class="form-control">
+          <input
+            type="text"
+            maxlength="20"
+            placeholder="Last Name"
+            name="middleName"
+            id="middleName"
+            required
+            value="<%= user.middleName%>"
+          />
+          <span class="error-message"></span>
+         </div>
+  
+        <div class="form-control">
+         <input
+           type="text"
+           maxlength="20"
+           placeholder="Last Name"
+           name="lastName"
+           id="lastName"
+           required
+           value="<%= user.lastName%>"
+         />
+         <span class="error-message"></span>
+        </div>
       </div>
-
+     <div class="other-inputs">
+      
      <div class="form-control">
       <input
       placeholder="House #"
@@ -326,6 +342,7 @@
 
      <button class="close-btn" type="button">Close</button>
      <button class="btn" type="submit">Edit</button>
+     </div>
      </form>
     </dialog>
 

@@ -139,8 +139,11 @@ userVaccineDosageTag.addEventListener("change", () => {
 console.log(userVaccineDosageTag.value)
 
 if(userVaccineDosageTag.value == '0'){
-  console.log('yawa')
   userVaccineNameTag.disabled = true;
+  userBoosterDosageTag.disabled = true;
+userBoosterNameTag.disabled = true;
+}
+if(userVaccineDosageTag.value == '1'){
   userBoosterDosageTag.disabled = true;
 userBoosterNameTag.disabled = true;
 }
