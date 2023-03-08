@@ -132,15 +132,15 @@ router.get("/", notLoggedIn, notAdmin, async (req, res) => {
   var residentCount = 0;
   var maleCount = 0;
   var femaleCount = 0;
-  const householdCount = await User.count();
-  const registrees = await User.find();
+  const householdCount = await User.count({verificationStatus: 'verified'});
+  const registrees = await User.find({verificationStatus:'verified'});
  
   const admin = await Admin.findOne()
 
   
   // Total Residents
   for (registree of registrees) {
-    if (!registree.answeredCensus) {
+    if (!registree.answeredCensus){
       residentCount += 1;
     } else {
       residentCount += registree.household.length + 1;
