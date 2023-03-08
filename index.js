@@ -36,7 +36,7 @@ const production = true
 // Session Config
 const sessionOptions = {
   store: MongoStore.create({
-     mongoUrl: 'mongodb://127.0.0.1:27017/barangayDB',
+     mongoUrl: process.env.MONGO_URI,
      touchAfter: 24 * 60 * 60,
      secret: 'thisshouldbeabettersecret',
 
