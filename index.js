@@ -31,7 +31,7 @@ const logRegRoute = require("./routes/logRegRoute");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 
-const production = false
+const production = true
 
 // Session Config
 const sessionOptions = {
