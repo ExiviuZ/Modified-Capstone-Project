@@ -186,12 +186,20 @@
       </p>
       <img src="/img/thanks.svg" alt="" />
     </main>
-    <% } else if((user.verificationStatus == 'unverified' ||
-    user.verificationStatus == 'pending')) {%>
+    <% } else if(user.verificationStatus == 'pending') {%>
     <main class="main-pending">
       <h1 class="pending-title">Awaiting Approval</h1>
       <p class="pending-subtitle">
-        Please wait for identity verification before answering the census.
+        Please wait for the admin to verify your Identity before answering
+        census.
+      </p>
+      <img src="/img/wait.svg" alt="" />
+    </main>
+    <% } else if(user.verificationStatus == 'unverified'){%>
+    <main class="main-pending">
+      <h1 class="pending-title">Submit Identity Verification</h1>
+      <p class="pending-subtitle">
+        Submit Identity verification before answering the census.
       </p>
       <img src="/img/pending.svg" alt="" />
     </main>

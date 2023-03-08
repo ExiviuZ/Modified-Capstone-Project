@@ -291,11 +291,11 @@ router.get('/covid', notLoggedIn, notAdmin, async (req, res) => {
       }
     }
 
-    for (let sitio in sitios) {
-      if (sitios.hasOwnProperty(sitio)) {
-        console.log(`${sitio}: ${sitios[sitio].members.length}`);
-      }
-    }
+    // for (let sitio in sitios) {
+    //   if (sitios.hasOwnProperty(sitio)) {
+    //     console.log(`${sitio}: ${sitios[sitio].members.length}`);
+    //   }
+    // }
 
   res.render('admin/covid', {title: 'Generate Data || Barangay Mag-Asawang Sapa', sitios})
 });
@@ -315,15 +315,13 @@ router.get('/covid', notLoggedIn, notAdmin, async (req, res) => {
     user.verificationStatus = outcome
     await user.save()
     req.flash('success', 'Approved a household registrant!')
- return res.redirect('/admin/verification')
-
+    return res.redirect('/admin/verification')
   }
   else if(action == 'reject'){
     user.verificationStatus = outcome
     await user.save()
     req.flash('error', 'Rejected a household registrant!')
- return res.redirect('/admin/verification')
-
+    return res.redirect('/admin/verification')
   }
  })
 

@@ -108,8 +108,6 @@ router.get("/profile", notLoggedIn, notUser, async (req, res) => {
       const idAlone = req.files['id-alone'][0]
       const idPerson = req.files['id-person'][0]
 
-     console.log(idAlone)
-
       user.idImage.push({
         url: idAlone.path,
         fileName: idAlone.filename
@@ -129,8 +127,6 @@ router.get("/profile", notLoggedIn, notUser, async (req, res) => {
 
 router.post("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   const { id } = req.params;
-  console.log('The Submitted Values:')
-  console.log(req.body)
   const user = await User.findById(id);
   const {
     firstName,
@@ -164,8 +160,6 @@ router.post("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   user.boosterName = (boosterName === undefined) ? '0' : boosterName,
   user.boosterDosage = (boosterDosage === undefined) ? '0' : boosterDosage,
 
-  console.log('The Saved Values')
-  console.log(user)
   await user.save();
   req.flash("success", "Successfully Updated Information");
   res.redirect("/user/profile");
@@ -176,7 +170,6 @@ router.get("/profile/edit/:id", notLoggedIn, notUser, async (req, res) => {
   const user = await User.findById(req.user._id);
   user.household.forEach(member => {
     if(`${member._id}` == id){
-      console.log(member)
       res.render("user/editMember", {member})
     }
   })
@@ -204,7 +197,6 @@ res.redirect('/user/profile')
 router.delete("/profile/:id", notLoggedIn, notUser, async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(req.user._id);
-  console.log(id)
   user.household.pull({ _id: id });
   await user.save()
   req.flash("success", "Successfully Deleted a Member");
@@ -259,7 +251,6 @@ router.delete("/profile/:id", notLoggedIn, notUser, async (req, res) => {
 
 router.get("/census", notLoggedIn, notUser, async (req, res) => {
   const user = await User.findById(req.user._id);
-  console.log(user);
   res.render("user/census", {
     title: "Census || Barangay Mag-Asawang Sapa",
     user,

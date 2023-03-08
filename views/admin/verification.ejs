@@ -110,7 +110,13 @@
             </tr>
           </thead>
           <tbody>
-            <% for(user of unverifiedUsers){ %>
+            <% if(unverifiedUsers.length < 1){ %>
+            <tr>
+              <td colspan="5" style="font-weight: 900">
+                --There are currently no users requesting for verification--
+              </td>
+            </tr>
+            <% } else { %> <% for(user of unverifiedUsers){ %>
             <tr>
               <!-- <td class="identity-images">
                 <img
@@ -170,7 +176,7 @@
                 </div>
               </td>
             </tr>
-            <% } %>
+            <% } %> <% } %>
           </tbody>
         </table>
       </section>
