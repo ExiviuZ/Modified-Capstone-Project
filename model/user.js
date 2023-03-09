@@ -85,6 +85,22 @@ const UserSchema = Schema({
     type: String,
     default: '0'
   },
+  religion: {
+    // required: true,
+    type: String,
+  },
+  occupation: {
+    // required: true,
+    type: String,
+  },
+  disability: {
+    // required: true,
+    type: String,
+  },
+  nonCommunicableDisease: {
+    // required: true,
+    type: String,
+  },
   household: [
     {
       name: {

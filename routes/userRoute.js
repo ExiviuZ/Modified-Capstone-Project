@@ -144,7 +144,16 @@ router.post("/profile/:id", notLoggedIn, notUser, async (req, res) => {
     vaccineDosage,
     boosterName,
     boosterDosage,
+    disability,
+    religion,
+    nonCommunicableDisease,
+    occupation,
   } = req.body;
+
+  user.disability = disability;
+  user.religion = religion;
+  user.nonCommunicableDisease = nonCommunicableDisease;
+  user.occupation = occupation;
 
   user.firstName = firstName;
   user.middleName = middleName;

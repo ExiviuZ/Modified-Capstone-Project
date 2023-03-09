@@ -136,7 +136,6 @@ userVaccineDosageTag.addEventListener("change", () => {
 });
 
 // Disable boosterDosage and boosterNameTag initially
-console.log(userVaccineDosageTag.value)
 
 if(userVaccineDosageTag.value == '0'){
   userVaccineNameTag.disabled = true;

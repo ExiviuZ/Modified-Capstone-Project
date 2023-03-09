@@ -357,6 +357,10 @@ main {
   background-color: hsl(108, 72%, 35%);
 }
 
+.all-edit-member-form, .new-member-dialog, .profile-dialog {
+  width: 45%;
+}
+
 .all-edit-member-form, .new-member-dialog {
   opacity: 0;
   background-color: #001122;

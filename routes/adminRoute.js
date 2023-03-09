@@ -205,8 +205,33 @@ router.post(
 );
 
  router.get('/verification', notLoggedIn, notAdmin, async (req, res) => {
-  const unverifiedUsers = await User.find({ verificationStatus:  'pending' });
-res.render('admin/verification', {unverifiedUsers})
+
+  if(req.query.sitio){
+    console.log("the user is sorting");
+    console.log(req.query.sitio)
+    var sorting = true;
+    const toVerifySitioUsers = await User.find({'address.sitio': req.query.sitio, 'verificationStatus': 'pending'})
+    console.log(toVerifySitioUsers)
+    return res.render("admin/verification", {
+      title: "Sorted To Verify Households || Barangay Mag-Asawang Sapa",
+      toVerifySitioUsers,
+      sitioPlace: req.query.sitio,
+      sorting,
+    });
+  }
+   else {
+    var sorting = false;
+    const unverifiedUsers = await User.find({verificationStatus: 'pending'})
+    if(!sorting && !(unverifiedUsers.length < 1)){
+      console.log('yes you are correct')
+    }
+    return res.render("admin/verification", {
+      title: "To Verify Households || Barangay Mag-Asawang Sapa",
+      unverifiedUsers,
+      sorting
+    });
+  }
+
  })
 
  

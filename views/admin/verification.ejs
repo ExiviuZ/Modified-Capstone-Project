@@ -14,7 +14,7 @@
       type="image/x-icon"
     />
 
-    <title></title>
+    <title><%= title  %></title>
   </head>
   <body>
     <%- include('../partials/addAnnouncement') %> <%-
@@ -88,10 +88,29 @@
       </nav>
 
       <section class="content">
-        <h1 class="resident-head-title">
-          <img src="/img/unverified.svg" class="verification-svg" alt="" />
-          Verification Requests
-        </h1>
+        <div class="top-content">
+          <h1 class="resident-head-title">
+            <img src="/img/unverified.svg" class="verification-svg" alt="" />
+            Verification Requests
+          </h1>
+          <div class="search-forms">
+            <form action="/admin/verification" class="sort-sitio">
+                <select name="sitio" id="sitio" class="sort-sitio-input">
+                <option <%= (sorting) == "" ? "selected" : ""  %> value="">-- All Sitio --</option>
+                <option <%= (sorting && sitioPlace == 'Ibabaw') ? "selected" : ""  %> value="Ibabaw">Ibabaw</option>
+                <option <%= (sorting && sitioPlace == 'Sulucan I') ? "selected" : ""  %> value="Sulucan I">Sulucan I</option>
+                <option <%= (sorting && sitioPlace == 'Sulucan II') ? "selected" : ""  %> value="Sulucan II">Sulucan II</option>
+                <option <%= (sorting && sitioPlace == 'Sulucan III') ? "selected" : ""  %> value="Sulucan III">Sulucan III</option>
+                <option <%= (sorting && sitioPlace == 'Centro') ? "selected" : ""  %> value="Centro">Centro</option>
+                <option <%= (sorting && sitioPlace == 'Hulo') ? "selected" : ""  %> value="Hulo">Hulo</option>
+                <option <%= (sorting && sitioPlace == 'Pulong Bocaue') ? "selected" : ""  %> value="Pulong Bocaue">Pulong Bocaue</option>
+                <option <%= (sorting && sitioPlace == 'Putol') ? "selected" : ""  %> value="Putol">Putol</option>
+                <option <%= (sorting && sitioPlace == 'Banca Banca') ? "selected" : ""  %> value="Banca Banca">Banca Banca</option>
+                <option <%= (sorting && sitioPlace == 'El Pueblo') ? "selected" : ""  %> value="El Pueblo">El Pueblo</option>
+              </select>
+            </form>
+          </div>
+        </div>
         <table class="table">
           <colgroup>
             <col style="width: 20%" />
@@ -110,73 +129,122 @@
             </tr>
           </thead>
           <tbody>
-            <% if(unverifiedUsers.length < 1){ %>
-            <tr>
-              <td colspan="5" style="font-weight: 900">
-                --There are currently no users requesting for verification--
-              </td>
-            </tr>
-            <% } else { %> <% for(user of unverifiedUsers){ %>
-            <tr>
-              <!-- <td class="identity-images">
-                <img
-                  src="<%= user.idImage[user.idImage.length - 1].url %>"
-                  alt=""
-                />
-                <img
-                  src="<%= user.faceImage[user.faceImage.length - 1].url %>"
-                  alt=""
-                />
-              </td> -->
-              <td><%= user.fullName %></td>
-              <td>
-                <ul style="text-align: left">
-                  <li style="margin-bottom: 0.3rem">
-                    <a
-                      href="<%= user.idImage[user.idImage.length - 1].url  %>"
-                      target="_blank"
-                      style="color: black"
-                      >Identity Card</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="<%= user.faceImage[user.idImage.length - 1].url   %>"
-                      target="_blank"
-                      style="color: black"
-                      >Identity Card with Selfie</a
-                    >
-                  </li>
-                </ul>
-              </td>
-              <td><%= user.fullAddress %></td>
-              <td><%= user.contact %></td>
-              <td>
-                <div class="actions-container">
-                  <form
-                    id="approve-form"
-                    action="/admin/verify/<%= user._id %>?action=approve"
-                    method="POST"
-                  >
-                    <input type="hidden" name="action" value="approve" />
-                    <button class="approve" data-name="<%= user.fullName %>">
-                      <img src="/img/approve.svg" />
-                    </button>
-                  </form>
-                  <form
-                    id="reject-form"
-                    action="/admin/verify/<%= user._id %>?action=reject"
-                    method="POST"
-                  >
-                    <input type="hidden" name="action" value="reject" />
-                    <button class="reject" data-name="<%= user.fullName %>">
-                      <img src="/img/reject.svg" />
-                    </button>
-                  </form>
-                </div>
-              </td>
-            </tr>
-            <% } %> <% } %>
+            <% if(sorting && !(toVerifySitioUsers.length < 1)){ %>
+               <% for(user of toVerifySitioUsers){ %>
+                <tr>
+                  <td><%= user.fullName %></td>
+                  <td>
+                    <ul style="text-align: left">
+                      <li style="margin-bottom: 0.3rem">
+                        <a
+                          href="<%= user.idImage[user.idImage.length - 1].url  %>"
+                          target="_blank"
+                          style="color: black"
+                          >Identity Card</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="<%= user.faceImage[user.idImage.length - 1].url   %>"
+                          target="_blank"
+                          style="color: black"
+                          >Identity Card with Selfie</a
+                        >
+                      </li>
+                    </ul>
+                  </td>
+                  <td><%= user.fullAddress %></td>
+                  <td><%= user.contact %></td>
+                  <td>
+                    <div class="actions-container">
+                      <form
+                        id="approve-form"
+                        action="/admin/verify/<%= user._id %>?action=approve"
+                        method="POST"
+                      >
+                        <input type="hidden" name="action" value="approve" />
+                        <button class="approve" data-name="<%= user.fullName %>">
+                          <img src="/img/approve.svg" />
+                        </button>
+                      </form>
+                      <form
+                        id="reject-form"
+                        action="/admin/verify/<%= user._id %>?action=reject"
+                        method="POST"
+                      >
+                        <input type="hidden" name="action" value="reject" />
+                        <button class="reject" data-name="<%= user.fullName %>">
+                          <img src="/img/reject.svg" />
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+                  <% } } else if(sorting && toVerifySitioUsers.length < 1){%>
+                    <tr>
+                      <td colspan="5" style="font-weight: 900">
+                        --There are currently no users requesting for verification from this Sitio--
+                      </td>
+                    </tr>
+                 <% } else if(!sorting && !(unverifiedUsers.length < 1)) { %>
+                  <% for(user of unverifiedUsers){ %>
+                    <tr>
+                      <td><%= user.fullName %></td>
+                      <td>
+                        <ul style="text-align: left">
+                          <li style="margin-bottom: 0.3rem">
+                            <a
+                              href="<%= user.idImage[user.idImage.length - 1].url  %>"
+                              target="_blank"
+                              style="color: black"
+                              >Identity Card</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="<%= user.faceImage[user.idImage.length - 1].url   %>"
+                              target="_blank"
+                              style="color: black"
+                              >Identity Card with Selfie</a
+                            >
+                          </li>
+                        </ul>
+                      </td>
+                      <td><%= user.fullAddress %></td>
+                      <td><%= user.contact %></td>
+                      <td>
+                        <div class="actions-container">
+                          <form
+                            id="approve-form"
+                            action="/admin/verify/<%= user._id %>?action=approve"
+                            method="POST"
+                          >
+                            <input type="hidden" name="action" value="approve" />
+                            <button class="approve" data-name="<%= user.fullName %>">
+                              <img src="/img/approve.svg" />
+                            </button>
+                          </form>
+                          <form
+                            id="reject-form"
+                            action="/admin/verify/<%= user._id %>?action=reject"
+                            method="POST"
+                          >
+                            <input type="hidden" name="action" value="reject" />
+                            <button class="reject" data-name="<%= user.fullName %>">
+                              <img src="/img/reject.svg" />
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                    <% } %>
+            <% } else if(!sorting && unverifiedUsers.length < 1) { %> 
+              <tr>
+                <td colspan="5" style="font-weight: 900">
+                  --There are currently no users requesting for verification--
+                </td>
+              </tr>
+              <% } %>
           </tbody>
         </table>
       </section>
@@ -213,6 +281,13 @@
             form.submit();
           }
         });
+      });
+
+      const sortForm = document.querySelector(".sort-sitio");
+      const sortInput = document.querySelector(".sort-sitio-input");
+
+      sortInput.addEventListener("change", (event) => {
+        sortForm.submit();
       });
     </script>
   </body>

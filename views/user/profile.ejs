@@ -197,7 +197,7 @@
     <!-- Personal Information Edit Dialog -->
     <dialog class="profile-dialog">
       <h2>Edit Personal Information</h2>
-      <form action="/user/profile/<%= user._id  %>" method="post" class="edit-form">
+      <form onsubmit="clean(event, this)" action="/user/profile/<%= user._id  %>" method="post" class="edit-form">
       <div class="form-control-group">
         <div class="form-control">
           <input
@@ -305,14 +305,16 @@
      </div>
 
      
-     <select class="form-control" name="vaccineDosage" data-userVaccineDosage>
+     <select class="form-control" required name="vaccineDosage" data-userVaccineDosage>
+      <option value="" >--Vaccine Dosage--</option>
       <option value="0" <%= user.vaccineDosage == "0" ? "selected" : ""  %>>Not Vaccinated</option>
       <option value="1" <%= user.vaccineDosage == "1" ? "selected" : ""  %>>1st Dose</option>
       <option value="2" <%= user.vaccineDosage == "2" ? "selected" : ""  %>>2nd Dose</option>
   </select>
   
 
-  <select class="form-control" name="vaccineName" data-userVaccineName>
+  <select class="form-control" name="vaccineName" required data-userVaccineName>
+      <option value="">--Vaccine Name--</option>
       <option value="0" <%= user.vaccineName == "0" ? "selected" : ""  %>>Not Vaccinated</option>
       <option value="pfizer" <%= user.vaccineName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
       <option value="janssen" <%= user.vaccineName == "janssen" ? "selected" : ""  %>>Janssen</option>
@@ -323,13 +325,15 @@
     </select>
 
 
-    <select class="form-control" name="boosterDosage" data-userBoosterDosage>
+    <select class="form-control" required name="boosterDosage" data-userBoosterDosage>
+      <option value="" >--Booster Dosage--</option>
       <option value="0" <%= user.boosterDosage == "0" ? "selected" : ""  %>>No Booster Shot</option>
       <option value="1" <%= user.boosterDosage == "1" ? "selected" : ""  %>>1st Dose</option>
       <option value="2" <%= user.boosterDosage == "2" ? "selected" : ""  %>>2nd Dose</option>
   </select>
 
-  <select class="form-control" name="boosterName" data-userBoosterName>
+  <select class="form-control" required name="boosterName" data-userBoosterName>
+      <option value="">--Booster Name--</option>
       <option value="0" <%= user.boosterName == "0" ? "selected" : ""  %>>No Booster Shot</option>
       <option value="pfizer" <%= user.boosterName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
       <option value="janssen" <%= user.boosterName == "janssen" ? "selected" : ""  %>>Janssen</option>
@@ -339,6 +343,123 @@
       <option value="moderna" <%= user.boosterName == "moderna" ? "selected" : ""  %>>Moderna</option>
     </select>
 
+    <div class="form-control">
+      <select
+        data-occupation
+        required
+        name="occupation"
+        class="occupationDropdown"
+        onchange="showOther(this)"
+      >
+        <option <%= user.occupation == "" ? "selected" : ""  %> value="">--Occupational Status--</option>
+        <option <%= user.occupation == "ge" ? "selected" : ""  %> value="ge">Government Employee</option>
+        <option <%= user.occupation == "pe" ? "selected" : ""  %> value="pe">Private Employee</option>
+        <option <%= user.occupation == "ue" ? "selected" : ""  %> value="ue">Unemployed</option>
+        <option <%= user.occupation == "st" ? "selected" : ""  %> value="st">Student</option>
+        <option <%= user.occupation == "ofw" ? "selected" : ""  %> value="ofw">OFW</option>
+        <% if(user.occupation == "pe" || user.occupation == "ge" || user.occupation == 'ofw' || user.occupation == 'ue' || user.occupation == 'st' || !(user.occupation)){ %>
+          <option value="other" >Other</option>
+        <% } else {%>
+          <option value="other" selected >Other</option>
+          <% } %>
+
+      </select>
+
+      <% if(user.occupation == "pe" || user.occupation == "ge" || user.occupation == 'ofw' || user.occupation == 'ue' || user.occupation == 'st' || !(user.occupation)){ %>
+        <div class="otherField" style='display: none; margin-top: 1rem;'  %> >
+          <label for="other">Enter other option:</label>
+          <input type="text" oninput="updateOption(this)" />
+        </div>
+      <% } else { %>
+        <div class="otherField" style='display:block; margin-top: 1rem;'  %> >
+          <label for="other">Enter other option:</label>
+          <input type="text" value="<%= user.occupation %>" oninput="updateOption(this)" />
+        </div>
+        <% } %>
+
+      
+    </div>
+    <div class="form-control">
+      <select
+        required
+        data-religion
+        name="religion"
+        class="religionDropdown"
+        onchange="showOther(this)"
+      >
+        <option value="">--Religion--</option>
+        <option <%= user.religion == "Roman Catholic" ? "selected" : ""  %>  value="Roman Catholic">Roman Catholic</option>
+        <option <%= user.religion == "Iglesia Ni Cristo" ? "selected" : ""  %>  value="Iglesia Ni Cristo">Iglesia Ni Cristo</option>
+        <option <%= user.religion == "Born Again" ? "selected" : ""  %>  value="Born Again">Born Again</option>
+        <option <%= user.religion == "Islam" ? "selected" : ""  %>  value="Islam">Islam</option>
+        <% if(user.religion == "Roman Catholic" || user.religion == "Iglesia Ni Cristo" || user.religion == 'Born Again' || user.religion == 'Islam' || !(user.religion)){ %>
+          <option value="other" >Other</option>
+        <% } else {%>
+          <option value="other" selected >Other</option>
+          <% } %>
+
+      </select>
+
+      <% if(user.religion == "Roman Catholic" || user.religion == "Iglesia Ni Cristo" || user.religion == 'Born Again' || user.religion == 'Islam' || !(user.religion)){ %>
+        <div class="otherField" style='display: none; margin-top: 1rem;'  %> >
+          <label for="other">Enter other option:</label>
+          <input type="text" oninput="updateOption(this)" />
+        </div>
+      <% } else { %>
+        <div class="otherField" style='display:block; margin-top: 1rem;'  %> >
+          <label for="other">Enter other option:</label>
+          <input type="text" value="<%= user.religion %>" oninput="updateOption(this)" />
+        </div>
+        <% } %>
+    </div>
+
+    <div class="form-control">
+      <select
+        required
+        data-nonCommunicableDisease
+        name="nonCommunicableDisease"
+        class="nonCommunicableDiseaseDropdown"
+      >
+        <option value="">--Non Communicable Disease--</option>
+        <option <%= user.nonCommunicableDisease == "0" ? "selected" : ""  %> value="0">Not Applicable</option>
+        <option <%= user.nonCommunicableDisease == "Cardiovascular Disease" ? "selected" : ""  %> value="Cardiovascular Disease">
+          Cardiovascular Disease
+        </option>
+        <option <%= user.nonCommunicableDisease == "Diabetes" ? "selected" : ""  %> value="Diabetes">Diabetes</option>
+        <option <%= user.nonCommunicableDisease == "Preventable Cancers" ? "selected" : ""  %> value="Preventable Cancers">Preventable Cancers</option>
+        <option <%= user.nonCommunicableDisease == "Chronic Respiratory Disease" ? "selected" : ""  %> value="Chronic Respiratory Disease">
+          Chronic Respiratory Disease
+        </option>
+        <option <%= user.nonCommunicableDisease == "Mental Health Condition" ? "selected" : ""  %> value="Mental Health Condition">
+          Mental Health Condition
+        </option>
+        <option <%= user.nonCommunicableDisease == "Injuries" ? "selected" : ""  %> value="Injuries">Injuries</option>
+      </select>
+    </div>
+    <div class="form-control">
+      <select
+        required
+        data-disability
+        name="disability"
+        class="pwdDropdown"
+      >
+        <option  value="">--Disability--</option>
+        <option <%= user.disability == "0" ? "selected" : ""  %> value="0">Not Applicable</option>
+        <option <%= user.disability == "Psychosocial Disability" ? "selected" : "" %> value="Psychosocial Disability">
+          Psychosocial Disability
+        </option>
+        <option <%= user.disability == "Chronic Illness" ? "selected" : "" %> value="Chronic Illness">Chronic Illness</option>
+        <option <%= user.disability == "Learning Disability" ? "selected" : "" %> value="Learning Disability">Learning Disability</option>
+        <option <%= user.disability == "Mental Disability" ? "selected" : "" %> value="Mental Disability">Mental Disability</option>
+        <option <%= user.disability == "Visual Disability" ? "selected" : "" %> value="Visual Disability">Visual Disability</option>
+        <option value="Orthopedic Disability">
+          Orthopedic Disability
+        </option>
+        <option <%= user.disability == "Communication Disability" ? "selected" : "" %> value="Communication Disability">
+          Communication Disability
+        </option>
+      </select>
+    </div>
 
      <button class="close-btn" type="button">Close</button>
      <button class="btn" type="submit">Edit</button>
@@ -367,17 +488,19 @@
    <% for(member of user.household) { %> 
     <dialog class="all-edit-member-form">
       <h2>Edit Information of <%= `${member.name}`  %></h2>
-      <form action="/user/profile/edit/<%= member._id  %>"  method="post">
+      <form action="/user/profile/edit/<%= member._id  %>" onsubmit="clean(event, this)"  method="post">
   
-        <input type="text" name="name" value="<%= member.name %>">
-        <input type="date" name="birthday" value="<%= `${member.birthday.getFullYear()}-${member.birthday.getMonth()+1 < 10 ? '0'+(member.birthday.getMonth()+1) : member.birthday.getMonth()+1}-${member.birthday.getDate() < 10 ? '0'+member.birthday.getDate() : member.birthday.getDate()}`  %>">
-        <select name="education">
+        <input type="text" name="name" required value="<%= member.name %>">
+        <input type="date" name="birthday" required value="<%= `${member.birthday.getFullYear()}-${member.birthday.getMonth()+1 < 10 ? '0'+(member.birthday.getMonth()+1) : member.birthday.getMonth()+1}-${member.birthday.getDate() < 10 ? '0'+member.birthday.getDate() : member.birthday.getDate()}`  %>">
+        <select name="education" required>
+            <option value="">--Educational Attainment--</option>
             <option value="elementary" <%= member.education == "elementary" ? "selected" : ""  %>>Elementary</option>
             <option value="high school" <%= member.education == "high school" ? "selected" : ""  %>>High School</option>
             <option value="college" <%= member.education == "college" ? "selected" : ""  %>>College</option>
         </select>
   
-        <select name="maritalStatus">
+        <select name="maritalStatus" required>
+            <option value="">--Marital Status--</option>
             <option value="single" <%= member.maritalStatus == "single" ? "selected" : ""  %>>Single</option>
             <option value="married" <%= member.maritalStatus == "married" ? "selected" : ""  %>>Married</option>
             <option value="divorced" <%= member.maritalStatus == "divorced" ? "selected" : ""  %>>Divorced</option>
@@ -385,7 +508,8 @@
             <option value="widowed" <%= member.maritalStatus == "widowed" ? "selected" : ""  %>>Widowed</option>
         </select>
   
-        <select name="relationship">
+        <select name="relationship" required>
+            <option value="">--Relationship--</option>
             <option value="father" <%= member.relationship == "father" ? "selected" : ""  %>>Father</option>
             <option value="mother" <%= member.relationship == "mother" ? "selected" : ""  %>>Mother</option>
             <option value="sibling" <%= member.relationship == "sibling" ? "selected" : ""  %>>Sibling</option>
@@ -397,21 +521,23 @@
         <div class="wrap-radio">
           <div>
             <label class="female">Male</label>
-          <input type="radio" name="gender" <%= member.gender == "male" ? "checked" : ""  %> value="male"/>
+          <input type="radio" required name="gender" <%= member.gender == "male" ? "checked" : ""  %> value="male"/>
           </div>
           <div>
             <label class="female">Female</label>
-          <input type="radio" name="gender" <%= member.gender == "female" ? "checked" : ""  %> value="female"/>
+          <input type="radio" required name="gender" <%= member.gender == "female" ? "checked" : ""  %> value="female"/>
           </div>
         </div>
   
-        <select name="vaccineDosage" data-vaccineDosage>
+        <select name="vaccineDosage" required data-vaccineDosage>
+            <option value="">--Vaccine Dosage--</option>
             <option value="0" <%= member.vaccineDosage == "0" ? "selected" : ""  %>>Not Vaccinated</option>
             <option value="1" <%= member.vaccineDosage == "1" ? "selected" : ""  %>>1st Dose</option>
             <option value="2" <%= member.vaccineDosage == "2" ? "selected" : ""  %>>2nd Dose</option>
         </select>
     
-        <select name="vaccineName" data-vaccineName>
+        <select name="vaccineName" required data-vaccineName>
+            <option value="">--Vaccine Name--</option>
             <option value="0" <%= member.vaccineName == "0" ? "selected" : ""  %>>Not Vaccinated</option>
             <option value="pfizer" <%= member.vaccineName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
             <option value="janssen" <%= member.vaccineName == "janssen" ? "selected" : ""  %>>Janssen</option>
@@ -422,13 +548,15 @@
           </select>
 
 
-          <select name="boosterDosage" data-boosterDosage>
+          <select name="boosterDosage" required data-boosterDosage>
+            <option value="">--Booster Dosage--</option>
             <option value="0" <%= member.boosterDosage == "0" ? "selected" : ""  %>>No Booster Shot</option>
             <option value="1" <%= member.boosterDosage == "1" ? "selected" : ""  %>>1st Booster Shot</option>
             <option value="2" <%= member.boosterDosage == "2" ? "selected" : ""  %>>2nd Booster Shot</option>
         </select>
     
-        <select name="boosterName" data-boosterName>
+        <select name="boosterName" required data-boosterName>
+            <option value="">--Booster Name--</option>
             <option value="0" <%= member.boosterName == "0" ? "selected" : ""  %>>No Booster Shot</option>
             <option value="pfizer" <%= member.boosterName == "pfizer" ? "selected" : ""  %>>Pfizer</option>
             <option value="janssen" <%= member.boosterName == "janssen" ? "selected" : ""  %>>Janssen</option>
@@ -445,12 +573,13 @@
               class="occupationDropdown"
               onchange="showOther(this)"
             >
-              <option value="">--Select an option--</option>
+              <option value="">--Occupational Status--</option>
               <option <%= member.occupation == "ge" ? "selected" : ""  %> value="ge">Government Employee</option>
               <option <%= member.occupation == "pe" ? "selected" : ""  %> value="pe">Private Employee</option>
-              <option <%= member.occupation == "ue" ? "selected" : ""  %> value="pe">Unemployed</option>
+              <option <%= member.occupation == "ue" ? "selected" : ""  %> value="ue">Unemployed</option>
+              <option <%= member.occupation == "st" ? "selected" : ""  %> value="st">Student</option>
               <option <%= member.occupation == "ofw" ? "selected" : ""  %> value="ofw">OFW</option>
-              <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue'){ %>
+              <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue' || member.occupation == 'st'){ %>
                 <option value="other" >Other</option>
               <% } else {%>
                 <option value="other" selected >Other</option>
@@ -458,13 +587,13 @@
 
             </select>
 
-            <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue'){ %>
-              <div class="otherField" style='display: none; width: 279.2px; margin-top: 1rem;'  %> >
+            <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue' || member.occupation == 'st'){ %>
+              <div class="otherField" style='display: none; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)" />
               </div>
             <% } else { %>
-              <div class="otherField" style='display: block; width: 279.2px; margin-top: 1rem;'  %> >
+              <div class="otherField" style='display:block; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" value="<%= member.occupation %>" oninput="updateOption(this)" />
               </div>
@@ -480,7 +609,7 @@
               class="religionDropdown"
               onchange="showOther(this)"
             >
-              <option value="">--Select an option--</option>
+              <option value="">--Religion--</option>
               <option <%= member.religion == "Roman Catholic" ? "selected" : ""  %>  value="Roman Catholic">Roman Catholic</option>
               <option <%= member.religion == "Iglesia Ni Cristo" ? "selected" : ""  %>  value="Iglesia Ni Cristo">Iglesia Ni Cristo</option>
               <option <%= member.religion == "Born Again" ? "selected" : ""  %>  value="Born Again">Born Again</option>
@@ -494,12 +623,12 @@
             </select>
 
             <% if(member.religion == "Roman Catholic" || member.religion == "Iglesia Ni Cristo" || member.religion == 'Born Again' || member.religion == 'Islam'){ %>
-              <div class="otherField" style='display: none; width: 279.2px; margin-top: 1rem;'  %> >
+              <div class="otherField" style='display: none; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)" />
               </div>
             <% } else { %>
-              <div class="otherField" style='display: block; width: 279.2px; margin-top: 1rem;'  %> >
+              <div class="otherField" style='display:block; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" value="<%= member.religion %>" oninput="updateOption(this)" />
               </div>
@@ -513,7 +642,7 @@
               name="nonCommunicableDisease"
               class="nonCommunicableDisease"
             >
-              <option value="">--Select an option--</option>
+              <option value="">--Non Communicable Disease--</option>
               <option <%= member.nonCommunicableDisease == "0" ? "selected" : ""  %> value="0">Not Applicable</option>
               <option <%= member.nonCommunicableDisease == "Cardiovascular Disease" ? "selected" : ""  %> value="Cardiovascular Disease">
                 Cardiovascular Disease
@@ -536,7 +665,7 @@
               name="disability"
               class="pwdDropdown"
             >
-              <option  value="">--Select an option--</option>
+              <option  value="">--Disability--</option>
               <option <%= member.disability == "0" ? "selected" : ""  %> value="0">Not Applicable</option>
               <option <%= member.disability == "Psychosocial Disability" ? "selected" : "" %> value="Psychosocial Disability">
                 Psychosocial Disability
@@ -568,12 +697,14 @@
         <input type="text" required placeholder="Name Here" name="name" >
         <input type="date" required name="birthday">
         <select name="education" required>
+            <option value="" >--Educational Attainment--</option>
             <option value="elementary" >Elementary</option>
             <option value="high school" >High School</option>
             <option value="college" >College</option>
         </select>
   
         <select name="maritalStatus" required> 
+            <option value="">--Marital Status--</option>
             <option value="single">Single</option>
             <option value="married">Married</option>
             <option value="divorced">Divorced</option>
@@ -582,6 +713,7 @@
         </select>
   
         <select name="relationship" required>
+            <option value="">--Relationship--</option>
             <option value="father">Father</option>
             <option value="mother">Mother</option>
             <option value="relative">Relative</option>
@@ -602,12 +734,14 @@
         </div>
   
         <select name="vaccineDosage" data-newUserVaccineDosage required>
+            <option value="">--Vaccine Dosage--</option>
             <option value="0">Not Vaccinated</option>
             <option value="1">1st Dose</option>
             <option value="2">2nd Dose</option>
         </select>
         
         <select name="vaccineName" data-newUserVaccineName required>
+            <option value="" >--Vaccine Name--</option>
             <option value="0" >Not Vaccinated</option>
             <option value="pfizer">Pfizer</option>
             <option value="janssen">Janssen</option>
@@ -618,12 +752,14 @@
           </select>
 
           <select name="boosterDosage" data-newUserBoosterDosage required>
+            <option value="">--Booster Dosage--</option>
             <option value="0">No Booster Shot</option>
             <option value="1">1st Booster Shot</option>
             <option value="2">2nd Booster Shot</option>
         </select>
     
         <select name="boosterName" data-newUserBoosterName required>
+            <option value="" >--Booster Name--</option>
             <option value="0" >No Booster Shot</option>
             <option value="pfizer">Pfizer</option>
             <option value="janssen">Janssen</option>
@@ -633,7 +769,7 @@
             <option value="moderna">Moderna</option>
           </select>
 
-
+            
             <div class="form-control" style="margin-bottom: 0">
               <select
                 data-occupation
@@ -642,15 +778,16 @@
                 class="occupationDropdown"
                 onchange="showOther(this)"
               >
-                <option value="">--Select an option--</option>
+                <option value="">--Occupational Status--</option>
                 <option value="ge">Government Employee</option>
                 <option value="pe">Private Employee</option>
+                <option value="st">Student</option>
                 <option value="ue">Unemployed</option>
                 <option value="ofw">OFW</option>
                 <option value="other">Other</option>
               </select>
 
-              <div class="otherField" style="display: none; width: 279.2px; margin-top: 1rem;">
+              <div class="otherField" style="display: none;  margin-top: 1rem;">
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)" />
               </div>
@@ -664,7 +801,7 @@
                 class="religionDropdown"
                 onchange="showOther(this)"
               >
-                <option value="">--Select an option--</option>
+                <option value="">--Religion--</option>
                 <option value="Roman Catholic">Roman Catholic</option>
                 <option value="Iglesia Ni Cristo">Iglesia Ni Cristo</option>
                 <option value="Born Again">Born Again</option>
@@ -672,7 +809,7 @@
                 <option value="other">Other</option>
               </select>
 
-              <div class="otherField" style="display: none; width: 279.2px; margin-top: 1rem;" >
+              <div class="otherField" style="display: none;  margin-top: 1rem;" >
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)"  />
               </div>
@@ -685,7 +822,7 @@
                 name="nonCommunicableDisease"
                 class="nonCommunicableDisease"
               >
-                <option value="">--Select an option--</option>
+                <option value="">--Non Communicable Disease--</option>
                 <option value="0">Not Applicable</option>
                 <option value="Cardiovascular Disease">
                   Cardiovascular Disease
@@ -709,7 +846,7 @@
                 name="disability"
                 class="pwdDropdown"
               >
-                <option value="">--Select an option--</option>
+                <option value="">--Disability--</option>
                 <option value="0">Not Applicable</option>
                 <option value="Psychosocial Disability">
                   Psychosocial Disability
@@ -787,6 +924,7 @@
             selectedValue == "pe" ||
             selectedValue == "ge" ||
             selectedValue == "ofw" ||
+            selectedValue == "st" ||
             selectedValue == "ue"
           ) {
             console.log("inside");
@@ -810,6 +948,28 @@
           otherOption.innerHTML = element.value.trim();
         }
       }
+
+      function clean(event, form) {
+    event.preventDefault()
+
+    
+        const occupationDropdown = form.querySelector('.occupationDropdown')
+        const otherTagOccupation = occupationDropdown.nextElementSibling.querySelector('input');
+        if (occupationDropdown.options[occupationDropdown.length - 1].value = "other") {
+          occupationDropdown.options[occupationDropdown.length - 1].value = otherTagOccupation.value
+        }
+    
+        const religionDropdown = form.querySelector('.religionDropdown')
+        const otherTagReligion = religionDropdown.nextElementSibling.querySelector('input');
+        if (religionDropdown.options[religionDropdown.length - 1].value = "other") {
+          religionDropdown.options[religionDropdown.length - 1].value = otherTagReligion.value
+        }
+    
+
+    form.submit()
+}
+
+      
     </script>
   </body>
 </html>
