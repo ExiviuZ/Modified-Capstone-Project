@@ -168,6 +168,110 @@
               </select>
             </div>
           </div>
+
+          <div class="group" style="margin-bottom: 0">
+            <div class="form-control">
+              <label for="occupationDropdown">Occupation</label>
+              <select
+                data-occupation
+                required
+                name="people[1][occupation]"
+                class="occupationDropdown"
+                style="margin-bottom: 1rem"
+                onchange="showOther(this)"
+              >
+                <option value="">--Select an option--</option>
+                <option value="ge">Government Employee</option>
+                <option value="pe">Private Employee</option>
+                <option value="ofw">OFW</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="otherField" style="display: none">
+                <label for="other">Enter other option:</label>
+                <input type="text" oninput="updateOption(this)" />
+              </div>
+            </div>
+            <div class="form-control">
+              <label for="religionDropdown">Religion</label>
+              <select
+                required
+                data-religion
+                name="people[1][religion]"
+                class="religionDropdown"
+                style="margin-bottom: 1rem"
+                onchange="showOther(this)"
+              >
+                <option value="">--Select an option--</option>
+                <option value="Roman Catholic">Roman Catholic</option>
+                <option value="Iglesia Ni Cristo">Iglesia Ni Cristo</option>
+                <option value="Born Again">Born Again</option>
+                <option value="Islam">Islam</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="otherField" style="display: none">
+                <label for="other">Enter other option:</label>
+                <input type="text" oninput="updateOption(this)" />
+              </div>
+            </div>
+          </div>
+
+          <div class="group" style="margin-bottom: 0">
+            <div class="form-control">
+              <label for="nonCommunicableDisease"
+                >Non Communicable Disease</label
+              >
+              <select
+                required
+                data-nonCommunicableDisease
+                name="people[1][nonCommunicableDisease]"
+                class="nonCommunicableDisease"
+                style="margin-bottom: 1rem"
+              >
+                <option value="">--Select an option--</option>
+                <option value="0">Not Applicable</option>
+                <option value="Cardiovascular Disease">
+                  Cardiovascular Disease
+                </option>
+                <option value="Diabetes">Diabetes</option>
+                <option value="Preventable Cancers">Preventable Cancers</option>
+                <option value="Chronic Respiratory Disease">
+                  Chronic Respiratory Disease
+                </option>
+                <option value="Mental Health Condition">
+                  Mental Health Condition
+                </option>
+                <option value="Injuries">Injuries</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="pwdDropdown">Disability: </label>
+              <select
+                required
+                data-disability
+                name="people[1][disability]"
+                class="pwdDropdown"
+                style="margin-bottom: 1rem"
+              >
+                <option value="">--Select an option--</option>
+                <option value="0">Not Applicable</option>
+                <option value="Psychosocial Disability">
+                  Psychosocial Disability
+                </option>
+                <option value="Chronic Illness">Chronic Illness</option>
+                <option value="Learning Disability">Learning Disability</option>
+                <option value="Mental Disability">Mental Disability</option>
+                <option value="Visual Disability">Visual Disability</option>
+                <option value="Orthopedic Disability">
+                  Orthopedic Disability
+                </option>
+                <option value="Communication Disability">
+                  Communication Disability
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="form-control buttons">
@@ -244,6 +348,27 @@
       vaccineNameTag.disabled = true;
       boosterDosageTag.disabled = true;
       boosterNameTag.disabled = true;
+
+      function showOther(element) {
+        var selectedValue = element.options[element.selectedIndex].value;
+        var otherField = element.nextElementSibling;
+
+        if (selectedValue == "other") {
+          otherField.style.display = "block";
+        } else {
+          otherField.style.display = "none";
+        }
+      }
+
+      function updateOption(element) {
+        var selectBox = element.parentElement.previousElementSibling;
+        var otherOption = selectBox.options[selectBox.length - 1];
+
+        if (element.value.trim() != "") {
+          otherOption.value = element.value.trim();
+          otherOption.innerHTML = element.value.trim();
+        }
+      }
     </script>
   </body>
 </html>

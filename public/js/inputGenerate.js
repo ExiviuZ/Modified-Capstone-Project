@@ -58,6 +58,28 @@ function clone() {
   cloned.querySelector("[data-boosterName]").selectedIndex = "0";
   cloned.querySelector("[data-boosterName]").setAttribute("disabled", true);
 
+  //Religion
+  cloned.querySelector("[data-religion]").setAttribute("name", `people[${globalCount + 1}][religion]`);
+  cloned.querySelector("[data-religion]").selectedIndex = "0";
+
+  // Occupation
+  cloned.querySelector("[data-occupation]").setAttribute("name", `people[${globalCount + 1}][occupation]`);
+  cloned.querySelector("[data-occupation]").selectedIndex = "0";
+  
+  // disability
+  cloned.querySelector("[data-disability]").setAttribute("name", `people[${globalCount + 1}][disability]`);
+  cloned.querySelector("[data-disability]").selectedIndex = "0";
+
+  // nonCommunicableDisease
+  cloned.querySelector("[data-nonCommunicableDisease]").setAttribute("name", `people[${globalCount + 1}][nonCommunicableDisease]`);
+  cloned.querySelector("[data-nonCommunicableDisease]").selectedIndex = "0";
+
+  //Other Fields
+  const otherFields = cloned.querySelectorAll(".otherField")
+  otherFields.forEach(field => {
+      field.style.backgroundColor = 'none';
+  })
+
   // Gender
   const genderRadio = cloned.querySelectorAll("[data-gender]");
 
@@ -113,3 +135,5 @@ minus.addEventListener("click", (e) => {
 // remove.addEventListener('click', (e) => {
 //     form.
 // })
+
+

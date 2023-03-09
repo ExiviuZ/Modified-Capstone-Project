@@ -251,7 +251,6 @@ router.delete("/profile/:id", notLoggedIn, notUser, async (req, res) => {
         }
       }
     );
-    
 
 router.get("/census", notLoggedIn, notUser, async (req, res) => {
   const user = await User.findById(req.user._id);
@@ -264,6 +263,7 @@ router.get("/census", notLoggedIn, notUser, async (req, res) => {
 router.post("/census", notLoggedIn, notUser, async (req, res) => {
   const household = req.body;
   const user = await User.findById(req.user._id);
+  console.log(household.people)
 
   household.people.forEach(function (person) {
     person.vaccineName = (person.vaccineName === undefined) ? '0' : person.vaccineName,

@@ -91,6 +91,22 @@ const UserSchema = Schema({
         required: true,
         type: String,
       },
+      religion: {
+        required: true,
+        type: String,
+      },
+      occupation: {
+        required: true,
+        type: String,
+      },
+      disability: {
+        required: true,
+        type: String,
+      },
+      nonCommunicableDisease: {
+        required: true,
+        type: String,
+      },
       birthday: {
         required: true,
         type: Date,
