@@ -61,11 +61,13 @@ function clone() {
   //Religion
   cloned.querySelector("[data-religion]").setAttribute("name", `people[${globalCount + 1}][religion]`);
   cloned.querySelector("[data-religion]").selectedIndex = "0";
-
+  cloned.querySelector("[data-religion]").options[cloned.querySelector("[data-religion]").length - 1].value = 'other';
+  cloned.querySelector("[data-religion]").options[cloned.querySelector("[data-religion]").length - 1].innerHTML = 'Other';
   // Occupation
   cloned.querySelector("[data-occupation]").setAttribute("name", `people[${globalCount + 1}][occupation]`);
   cloned.querySelector("[data-occupation]").selectedIndex = "0";
-  
+  cloned.querySelector("[data-occupation]").options[cloned.querySelector("[data-occupation]").length - 1].value = 'other';
+  cloned.querySelector("[data-occupation]").options[cloned.querySelector("[data-occupation]").length - 1].innerHTML = 'Other';
   // disability
   cloned.querySelector("[data-disability]").setAttribute("name", `people[${globalCount + 1}][disability]`);
   cloned.querySelector("[data-disability]").selectedIndex = "0";
@@ -77,7 +79,8 @@ function clone() {
   //Other Fields
   const otherFields = cloned.querySelectorAll(".otherField")
   otherFields.forEach(field => {
-      field.style.backgroundColor = 'none';
+      field.value = ''
+      field.style.display = 'none';
   })
 
   // Gender

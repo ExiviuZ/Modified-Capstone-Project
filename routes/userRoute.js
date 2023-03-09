@@ -179,10 +179,11 @@ router.get("/profile/edit/:id", notLoggedIn, notUser, async (req, res) => {
   })
 })
 router.post("/profile/edit/:id", notLoggedIn, notUser, async (req, res) => {
+  console.log(req.body)
   const {id} = req.params
-  var {name,birthday,education,maritalStatus,relationship,gender,vaccineDosage,vaccineName, boosterDosage, boosterName} = req.body
+  var {name,birthday,education,maritalStatus,relationship,gender,vaccineDosage,vaccineName, boosterDosage, boosterName, disability, nonCommunicableDisease, occupation, religion} = req.body
   User.updateOne({ _id: req.user._id, "household._id":  id},
-{ $set: { 'household.$.name': name, 'household.$.birthday' : birthday, 'household.$.education' : education, 'household.$.maritalStatus' : maritalStatus,  'household.$.relationship' : relationship, 'household.$.gender' : gender, 'household.$.vaccineDosage' : vaccineDosage, 'household.$.vaccineName' : vaccineName = (vaccineName === undefined) ? '0' : vaccineName, 'household.$.boosterDosage' : boosterDosage = (boosterDosage === undefined) ? '0' : boosterDosage , 'household.$.boosterName' : boosterName = (boosterName === undefined) ? '0' : boosterName} },
+{ $set: { 'household.$.name': name, 'household.$.birthday' : birthday, 'household.$.education' : education, 'household.$.maritalStatus' : maritalStatus,  'household.$.relationship' : relationship, 'household.$.gender' : gender, 'household.$.vaccineDosage' : vaccineDosage, 'household.$.vaccineName' : vaccineName = (vaccineName === undefined) ? '0' : vaccineName, 'household.$.boosterDosage' : boosterDosage = (boosterDosage === undefined) ? '0' : boosterDosage , 'household.$.boosterName' : boosterName = (boosterName === undefined) ? '0' : boosterName, 'household.$.religion' : religion , 'household.$.disability' : disability, 'household.$.nonCommunicableDisease' : nonCommunicableDisease , 'household.$.occupation' : occupation} },
 { new: true },
 (err, doc) => {
     if (err) {

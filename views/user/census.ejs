@@ -183,6 +183,7 @@
                 <option value="">--Select an option--</option>
                 <option value="ge">Government Employee</option>
                 <option value="pe">Private Employee</option>
+                <option value="ue">Unemployed</option>
                 <option value="ofw">OFW</option>
                 <option value="other">Other</option>
               </select>
@@ -352,7 +353,31 @@
       function showOther(element) {
         var selectedValue = element.options[element.selectedIndex].value;
         var otherField = element.nextElementSibling;
-
+        console.log(selectedValue);
+        if (element.className == "religionDropdown") {
+          if (
+            selectedValue == "Roman Catholic" ||
+            selectedValue == "Iglesia Ni Cristo" ||
+            selectedValue == "Born Again" ||
+            selectedValue == "Islam"
+          ) {
+            console.log("inside");
+            element.options[element.length - 1].value = "other";
+            element.options[element.length - 1].innerHTML = "Other";
+          }
+        } else if (element.className == "occupationDropdown") {
+          console.log("occupation");
+          if (
+            selectedValue == "pe" ||
+            selectedValue == "ge" ||
+            selectedValue == "ofw" ||
+            selectedValue == "ue"
+          ) {
+            console.log("inside");
+            element.options[element.length - 1].value = "other";
+            element.options[element.length - 1].innerHTML = "Other";
+          }
+        }
         if (selectedValue == "other") {
           otherField.style.display = "block";
         } else {
