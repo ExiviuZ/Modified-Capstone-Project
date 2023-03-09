@@ -83,8 +83,8 @@ main {
 }
 .user-card .user-image-name .user-img {
   border: solid 3px gray;
-  border-radius: 50%;
   width: 125px;
+  border-radius: 50%;
   margin-inline: auto;
 }
 .user-card .user-image-name .user-name {
