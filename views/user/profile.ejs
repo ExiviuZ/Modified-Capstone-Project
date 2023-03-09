@@ -459,12 +459,12 @@
             </select>
 
             <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue'){ %>
-              <div class="otherField" style='display: none; width: 279.2px;'  %> >
+              <div class="otherField" style='display: none; width: 279.2px; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)" />
               </div>
             <% } else { %>
-              <div class="otherField" style='display: block; width: 279.2px;'  %> >
+              <div class="otherField" style='display: block; width: 279.2px; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" value="<%= member.occupation %>" oninput="updateOption(this)" />
               </div>
@@ -494,12 +494,12 @@
             </select>
 
             <% if(member.religion == "Roman Catholic" || member.religion == "Iglesia Ni Cristo" || member.religion == 'Born Again' || member.religion == 'Islam'){ %>
-              <div class="otherField" style='display: none; width: 279.2px;'  %> >
+              <div class="otherField" style='display: none; width: 279.2px; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)" />
               </div>
             <% } else { %>
-              <div class="otherField" style='display: block; width: 279.2px;'  %> >
+              <div class="otherField" style='display: block; width: 279.2px; margin-top: 1rem;'  %> >
                 <label for="other">Enter other option:</label>
                 <input type="text" value="<%= member.religion %>" oninput="updateOption(this)" />
               </div>
@@ -607,7 +607,6 @@
             <option value="2">2nd Dose</option>
         </select>
         
-    
         <select name="vaccineName" data-newUserVaccineName required>
             <option value="0" >Not Vaccinated</option>
             <option value="pfizer">Pfizer</option>
@@ -623,7 +622,6 @@
             <option value="1">1st Booster Shot</option>
             <option value="2">2nd Booster Shot</option>
         </select>
-        
     
         <select name="boosterName" data-newUserBoosterName required>
             <option value="0" >No Booster Shot</option>
@@ -635,122 +633,101 @@
             <option value="moderna">Moderna</option>
           </select>
 
-          <div class="form-control">
-            <select
-              data-occupation
-              required
-              name="occupation"
-              class="occupationDropdown"
-              onchange="showOther(this)"
-            >
-              <option value="">--Select an option--</option>
-              <option <%= member.occupation == "ge" ? "selected" : ""  %> value="ge">Government Employee</option>
-              <option <%= member.occupation == "pe" ? "selected" : ""  %> value="pe">Private Employee</option>
-              <option <%= member.occupation == "ue" ? "selected" : ""  %> value="pe">Unemployed</option>
-              <option <%= member.occupation == "ofw" ? "selected" : ""  %> value="ofw">OFW</option>
-              <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue'){ %>
-                <option value="other" >Other</option>
-              <% } else {%>
-                <option value="other" selected >Other</option>
-                <% } %>
 
-            </select>
+            <div class="form-control" style="margin-bottom: 0">
+              <select
+                data-occupation
+                required
+                name="occupation"
+                class="occupationDropdown"
+                onchange="showOther(this)"
+              >
+                <option value="">--Select an option--</option>
+                <option value="ge">Government Employee</option>
+                <option value="pe">Private Employee</option>
+                <option value="ue">Unemployed</option>
+                <option value="ofw">OFW</option>
+                <option value="other">Other</option>
+              </select>
 
-            <% if(member.occupation == "pe" || member.occupation == "ge" || member.occupation == 'ofw' || member.occupation == 'ue'){ %>
-              <div class="otherField" style='display: none; width: 279.2px;'  %> >
+              <div class="otherField" style="display: none; width: 279.2px; margin-top: 1rem;">
                 <label for="other">Enter other option:</label>
                 <input type="text" oninput="updateOption(this)" />
               </div>
-            <% } else { %>
-              <div class="otherField" style='display: block; width: 279.2px;'  %> >
+            </div>
+
+            <div class="form-control">
+              <select
+                required
+                data-religion
+                name="religion"
+                class="religionDropdown"
+                onchange="showOther(this)"
+              >
+                <option value="">--Select an option--</option>
+                <option value="Roman Catholic">Roman Catholic</option>
+                <option value="Iglesia Ni Cristo">Iglesia Ni Cristo</option>
+                <option value="Born Again">Born Again</option>
+                <option value="Islam">Islam</option>
+                <option value="other">Other</option>
+              </select>
+
+              <div class="otherField" style="display: none; width: 279.2px; margin-top: 1rem;" >
                 <label for="other">Enter other option:</label>
-                <input type="text" value="<%= member.occupation %>" oninput="updateOption(this)" />
+                <input type="text" oninput="updateOption(this)"  />
               </div>
-              <% } %>
+            </div>
 
-            
-          </div>
-          <div class="form-control">
-            <select
-              required
-              data-religion
-              name="religion"
-              class="religionDropdown"
-              onchange="showOther(this)"
-            >
-              <option value="">--Select an option--</option>
-              <option <%= member.religion == "Roman Catholic" ? "selected" : ""  %>  value="Roman Catholic">Roman Catholic</option>
-              <option <%= member.religion == "Iglesia Ni Cristo" ? "selected" : ""  %>  value="Iglesia Ni Cristo">Iglesia Ni Cristo</option>
-              <option <%= member.religion == "Born Again" ? "selected" : ""  %>  value="Born Again">Born Again</option>
-              <option <%= member.religion == "Islam" ? "selected" : ""  %>  value="Islam">Islam</option>
-              <% if(member.religion == "Roman Catholic" || member.religion == "Iglesia Ni Cristo" || member.religion == 'Born Again' || member.religion == 'Islam'){ %>
-                <option value="other" >Other</option>
-              <% } else {%>
-                <option value="other" selected >Other</option>
-                <% } %>
+            <div class="form-control" style="margin-bottom: 0">
+              <select
+                required
+                data-nonCommunicableDisease
+                name="nonCommunicableDisease"
+                class="nonCommunicableDisease"
+              >
+                <option value="">--Select an option--</option>
+                <option value="0">Not Applicable</option>
+                <option value="Cardiovascular Disease">
+                  Cardiovascular Disease
+                </option>
+                <option value="Diabetes">Diabetes</option>
+                <option value="Preventable Cancers">Preventable Cancers</option>
+                <option value="Chronic Respiratory Disease">
+                  Chronic Respiratory Disease
+                </option>
+                <option value="Mental Health Condition">
+                  Mental Health Condition
+                </option>
+                <option value="Injuries">Injuries</option>
+              </select>
+            </div>
 
-            </select>
-
-            <% if(member.religion == "Roman Catholic" || member.religion == "Iglesia Ni Cristo" || member.religion == 'Born Again' || member.religion == 'Islam'){ %>
-              <div class="otherField" style='display: none; width: 279.2px;'  %> >
-                <label for="other">Enter other option:</label>
-                <input type="text" oninput="updateOption(this)" />
-              </div>
-            <% } else { %>
-              <div class="otherField" style='display: block; width: 279.2px;'  %> >
-                <label for="other">Enter other option:</label>
-                <input type="text" value="<%= member.religion %>" oninput="updateOption(this)" />
-              </div>
-              <% } %>
+            <div class="form-control">
+              <select
+                required
+                data-disability
+                name="disability"
+                class="pwdDropdown"
+              >
+                <option value="">--Select an option--</option>
+                <option value="0">Not Applicable</option>
+                <option value="Psychosocial Disability">
+                  Psychosocial Disability
+                </option>
+                <option value="Chronic Illness">Chronic Illness</option>
+                <option value="Learning Disability">Learning Disability</option>
+                <option value="Mental Disability">Mental Disability</option>
+                <option value="Visual Disability">Visual Disability</option>
+                <option value="Orthopedic Disability">
+                  Orthopedic Disability
+                </option>
+                <option value="Communication Disability">
+                  Communication Disability
+                </option>
+              </select>
+            </div>
           </div>
 
-          <div class="form-control">
-            <select
-              required
-              data-nonCommunicableDisease
-              name="nonCommunicableDisease"
-              class="nonCommunicableDisease"
-            >
-              <option value="">--Select an option--</option>
-              <option <%= member.nonCommunicableDisease == "0" ? "selected" : ""  %> value="0">Not Applicable</option>
-              <option <%= member.nonCommunicableDisease == "Cardiovascular Disease" ? "selected" : ""  %> value="Cardiovascular Disease">
-                Cardiovascular Disease
-              </option>
-              <option <%= member.nonCommunicableDisease == "Diabetes" ? "selected" : ""  %> value="Diabetes">Diabetes</option>
-              <option <%= member.nonCommunicableDisease == "Preventable Cancers" ? "selected" : ""  %> value="Preventable Cancers">Preventable Cancers</option>
-              <option <%= member.nonCommunicableDisease == "Chronic Respiratory Disease" ? "selected" : ""  %> value="Chronic Respiratory Disease">
-                Chronic Respiratory Disease
-              </option>
-              <option <%= member.nonCommunicableDisease == "Mental Health Condition" ? "selected" : ""  %> value="Mental Health Condition">
-                Mental Health Condition
-              </option>
-              <option <%= member.nonCommunicableDisease == "Injuries" ? "selected" : ""  %> value="Injuries">Injuries</option>
-            </select>
-          </div>
-          <div class="form-control">
-            <select
-              required
-              data-disability
-              name="disability"
-              class="pwdDropdown"
-            >
-              <option  value="">--Select an option--</option>
-              <option <%= member.disability == "0" ? "selected" : ""  %> value="0">Not Applicable</option>
-              <option <%= member.disability == "Psychosocial Disability" ? "selected" : "" %> value="Psychosocial Disability">
-                Psychosocial Disability
-              </option>
-              <option <%= member.disability == "Chronic Illness" ? "selected" : "" %> value="Chronic Illness">Chronic Illness</option>
-              <option <%= member.disability == "Learning Disability" ? "selected" : "" %> value="Learning Disability">Learning Disability</option>
-              <option <%= member.disability == "Mental Disability" ? "selected" : "" %> value="Mental Disability">Mental Disability</option>
-              <option <%= member.disability == "Visual Disability" ? "selected" : "" %> value="Visual Disability">Visual Disability</option>
-              <option value="Orthopedic Disability">
-                Orthopedic Disability
-              </option>
-              <option <%= member.disability == "Communication Disability" ? "selected" : "" %> value="Communication Disability">
-                Communication Disability
-              </option>
-            </select>
-          </div>
   
           <button type="button" class="close-new-member">Close</button>
         <button class="submit-new-member">Submit</button>
@@ -836,6 +813,7 @@
     </script>
   </body>
 </html>
+
 
 
 
