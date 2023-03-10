@@ -152,6 +152,10 @@
                   <th>Relationship</th>
                   <th>Marital Status</th>
                   <th>Educ. Attainment</th>
+                  <th>Occupation</th>
+                  <th>Religion</th>
+                  <th>Non Communicable Disease</th>
+                  <th>Disability</th>
                 </tr>
               </thead>
               <tbody>
@@ -167,6 +171,24 @@
                   <td><%= member.relationship %></td>
                   <td><%= member.maritalStatus %></td>
                   <td><%= member.education %></td>
+                  <td>
+                    <% if (member.occupation === 'pe') { %> Private Employee <%
+                    } else if (member.occupation === 'ge') { %> Government
+                    Employee <% } else if (member.occupation === 'ofw') { %> OFW
+                    <% } else if (member.occupation === 'st') { %> Student <% }
+                    else if (member.occupation === 'ue') { %> Unemployed <% }
+                    else { %> <%= member.occupation %> <% } %>
+                  </td>
+                  <td><%= member.religion %></td>
+                  <td>
+                    <% if(member.nonCommunicableDisease == '0'){ %> Not
+                    Applicable <% } else { %> <%= member.nonCommunicableDisease
+                    %> <% } %>
+                  </td>
+                  <td>
+                    <% if(member.disability == '0'){ %> Not Applicable <% } else
+                    { %> <%= member.disability %> <% } %>
+                  </td>
                 </tr>
                 <% } %> <% } else { %>
                 <tr>

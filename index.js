@@ -32,15 +32,15 @@ const logRegRoute = require("./routes/logRegRoute");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 
-// const production = true
-const production = false
+const production = true
+// const production = false
 
 
 // Session Config
 const sessionOptions = {
   store: MongoStore.create({
-    //  mongoUrl: process.env.MONGO_URI,
-     mongoUrl: 'mongodb://127.0.0.1:27017/barangayDB',
+     mongoUrl: process.env.MONGO_URI,
+    //  mongoUrl: 'mongodb://127.0.0.1:27017/barangayDB',
      touchAfter: 24 * 60 * 60,
      secret: 'thisshouldbeabettersecret',
 

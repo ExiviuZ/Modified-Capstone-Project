@@ -235,92 +235,130 @@ router.post(
  })
 
  
+
+ 
 router.get('/covid', notLoggedIn, notAdmin, async (req, res) => {
-  const allUser = await User.find({verificationStatus: 'verified'});
-  allUser.sort((a, b) => (a.address.sitio > b.address.sitio) ? 1 : -1)
 
-    var sitios = {
-      'ibabaw': {
-        members: [],
-        name: 'Ibabaw'
+  if(req.query.sitio){
+    console.log("the user is sorting");
+    var sorting = true;
+    const sitioUsers = await User.find({'address.sitio': req.query.sitio, 'verificationStatus': 'verified'})
+    return res.render("admin/covid", {
+      title: "Sorted To Generate Households || Barangay Mag-Asawang Sapa",
+      sitioUsers,
+      sitioPlace: req.query.sitio,
+      sorting,
+    });
+  }
+   else {
+    var sorting = false;
+    const allUser = await User.find({verificationStatus: 'verified'});
+    allUser.sort((a, b) => (a.address.sitio > b.address.sitio) ? 1 : -1)
+  
+      var sitios = {
+        'ibabaw': {
+          members: [],
+          name: 'Ibabaw'
+  
+        },
+        'sulucanI': {
+          members: [],
+          name: 'Sulucan I'
+  
+        },
+        'sulucanII': {
+          members: [],
+          name: 'Sulucan II'
+        },
+        'sulucanIII': {
+          members: [],
+          name: 'Sulucan III'
+        },
+        'centro': {
+          members: [],
+          name: 'Centro'
+        },
+        'hulo': {
+          members: [],
+          name: 'Hulo'
+        },
+        'pulongBocaue': {
+          members: [],
+          name: 'Pulong Bocaue'
+        },
+        'putol': {
+          members: [],
+          name: 'Putol'
+        },
+        'bancaBanca': {
+          members: [],
+          name: 'Banca Banca'
+        },
+        'elPueblo': {
+          members: [],
+          name: 'El Pueblo'
+        },
+      }
+  
+      for(registree of allUser){
+        if(registree.address.sitio == 'Ibabaw'){
+          sitios.ibabaw.members.push(registree)
+        }else if(registree.address.sitio == 'Sulucan I'){
+          sitios.sulucanI.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Sulucan II'){
+          sitios.sulucanII.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Sulucan III'){
+          sitios.sulucanIII.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Centro'){
+          sitios.centro.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Hulo'){
+          sitios.hulo.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Pulong Bocaue'){
+          sitios.pulongBocaue.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Putol'){
+          sitios.putol.members.push(registree)
+        }
+        else if(registree.address.sitio == 'Banca Banca'){
+          sitios.bancaBanca.members.push(registree)
+        }
+        else if(registree.address.sitio == 'El Pueblo'){
+          sitios.elPueblo.members.push(registree)
+        }
+      }
 
-      },
-      'sulucanI': {
-        members: [],
-        name: 'Sulucan I'
 
-      },
-      'sulucanII': {
-        members: [],
-        name: 'Sulucan II'
-      },
-      'sulucanIII': {
-        members: [],
-        name: 'Sulucan III'
-      },
-      'centro': {
-        members: [],
-        name: 'Centro'
-      },
-      'hulo': {
-        members: [],
-        name: 'Hulo'
-      },
-      'pulongBocaue': {
-        members: [],
-        name: 'Pulong Bocaue'
-      },
-      'putol': {
-        members: [],
-        name: 'Putol'
-      },
-      'bancaBanca': {
-        members: [],
-        name: 'Banca Banca'
-      },
-      'elPueblo': {
-        members: [],
-        name: 'El Pueblo'
-      },
-    }
+    return res.render("admin/covid", {
+      title: "Generate Data || Barangay Mag-Asawang Sapa",
+      allUser,
+      sorting,
+      sitios
+    });
+  }
 
-    for(registree of allUser){
-      if(registree.address.sitio == 'Ibabaw'){
-        sitios.ibabaw.members.push(registree)
-      }else if(registree.address.sitio == 'Sulucan I'){
-        sitios.sulucanI.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Sulucan II'){
-        sitios.sulucanII.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Sulucan III'){
-        sitios.sulucanIII.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Centro'){
-        sitios.centro.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Hulo'){
-        sitios.hulo.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Pulong Bocaue'){
-        sitios.pulongBocaue.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Putol'){
-        sitios.putol.members.push(registree)
-      }
-      else if(registree.address.sitio == 'Banca Banca'){
-        sitios.bancaBanca.members.push(registree)
-      }
-      else if(registree.address.sitio == 'El Pueblo'){
-        sitios.elPueblo.members.push(registree)
-      }
-    }
+
+
+
+
+
+
+
+
+ 
+
 
     // for (let sitio in sitios) {
     //   if (sitios.hasOwnProperty(sitio)) {
     //     console.log(`${sitio}: ${sitios[sitio].members.length}`);
     //   }
     // }
+
+    
 
   res.render('admin/covid', {title: 'Generate Data || Barangay Mag-Asawang Sapa', sitios})
 });
@@ -404,6 +442,14 @@ router.get('/report', notLoggedIn, notAdmin, async (req, res) => {
     "iglesiaNiCristo": 0,
     "bornAgain": 0,
     "islam": 0,
+    "others": 0
+};
+  var occupationGroup = {
+    "privateEmployee": 0,
+    "governmentEmployee": 0,
+    "unemployed": 0,
+    "student": 0,
+    "ofw": 0,
     "others": 0
 };
 var vaccineCount = {
@@ -538,18 +584,37 @@ function incrementReligionGroup(obj, religion) {
     obj.others++;
   }
 }
+function incrementOccupationGroup(obj, occupation) {
+  if (occupation == 'pe') {
+    obj.privateEmployee++;
+  } else if (occupation == 'ge') {
+    obj.governmentEmployee++;
+  } else if (occupation == 'st') {
+    obj.student++;
+  } else if (occupation == 'ofw') {
+    obj.ofw++;
+  } else if (occupation == 'ue') {
+    obj.unemployed++;
+  } else if (occupation != 'pe' || occupation != 'ge' || occupation != 'st' || occupation != 'ue' || occupation == 'ofw' | occupation == '') {
+    obj.others++;
+  }
+}
 
  // Age Group and Covid Vaccine
  for (registree of registrees) {
   if (!registree.answeredCensus) {
     incrementAgeGroup(ageGroup,_calculateAge(registree.birthday))
     incrementReligionGroup(religionGroup, registree.religion)
+    incrementOccupationGroup(occupationGroup, registree.occupation)
   } else {
     incrementReligionGroup(religionGroup, registree.religion)
     incrementAgeGroup(ageGroup,_calculateAge(registree.birthday))
+    incrementOccupationGroup(occupationGroup, registree.occupation)
+
     for(member of registree.household){
       incrementAgeGroup(ageGroup,_calculateAge(member.birthday))
       incrementReligionGroup(religionGroup, member.religion)
+    incrementOccupationGroup(occupationGroup, member.occupation)
     }
   }
 }
@@ -558,7 +623,7 @@ var mappedEvents = admin.events.map(event => {
   return {title: event.title, start: event.start, end: event.end}
 })
 
-  res.render('admin/report', {ageGroup,vaccineCount, religionGroup,title: "Report || Barangay Mag-Asawang Sapa", mappedEvents})
+  res.render('admin/report', {ageGroup,vaccineCount, occupationGroup ,religionGroup,title: "Report || Barangay Mag-Asawang Sapa", mappedEvents})
 })
 
 

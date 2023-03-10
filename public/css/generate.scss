@@ -122,6 +122,23 @@ h1 {
   }
 }
 
+.sort-download-wrap {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  margin:auto;
+  margin-block: 1rem;
+  select {
+    color: gray;
+    font-size: 0.9rem;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(187, 187, 187);
+    padding: 0.9rem 1rem;
+  }
+}
+
 
 #download-btn-2 {
   background-color: rgb(74, 58, 239);
@@ -130,10 +147,7 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: block;
-    margin-top: 1rem;
-    margin-right: 1rem;
-    margin-left: auto;
+   
     &:hover {
       background-color: rgb(59, 47, 193);
     }

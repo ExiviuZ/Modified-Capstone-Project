@@ -92,6 +92,9 @@
         <div class="bar">
           <canvas id="covidChart"></canvas>
         </div>
+        <div class="bar">
+          <canvas id="occupationChart"></canvas>
+        </div>
         <div class="doughnut">
           <canvas id="ageChart"></canvas>
         </div>
@@ -251,6 +254,66 @@
             title: {
               display: true,
               text: "Age Group Statistics",
+              font: {
+                size: 18, // Set the font size to 18px
+              },
+            },
+          },
+          aspectRatio: 2.5, // set aspect ratio to 2:1
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+    </script>
+    <script>
+      var ctx = document.getElementById("occupationChart").getContext("2d");
+      var occupationChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: [
+            "Government Employee",
+            "Private Employee",
+            "Unemployed",
+            "Student",
+            "OFW",
+            "Others",
+          ],
+          datasets: [
+            {
+              label: "No. of People",
+              data: [
+                `<%= occupationGroup.governmentEmployee %>`,
+                `<%= occupationGroup.privateEmployee %>`,
+                `<%= occupationGroup.unemployed %>`,
+                `<%= occupationGroup.student %>`,
+                `<%= occupationGroup.ofw %>`,
+                `<%= occupationGroup.others %>`,
+              ],
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
+                "rgba(255, 206, 86, 0.5)",
+                "rgba(75, 192, 192, 0.5)",
+                "rgba(153, 102, 255, 0.5)",
+                "rgba(255, 159, 64, 0.5)",
+                "rgba(255, 159, 64, 0.5)",
+              ],
+            },
+          ],
+        },
+
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Occupation Statistics",
               font: {
                 size: 18, // Set the font size to 18px
               },
