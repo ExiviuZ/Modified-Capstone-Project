@@ -399,6 +399,13 @@ router.get('/report', notLoggedIn, notAdmin, async (req, res) => {
     "middleAdult": 0,
     "seniorAdult": 0
 };
+  var religionGroup = {
+    "romanCatholic": 0,
+    "iglesiaNiCristo": 0,
+    "bornAgain": 0,
+    "islam": 0,
+    "others": 0
+};
 var vaccineCount = {
   'pfizer': {
       'firstDoseCount': 0,
@@ -518,14 +525,31 @@ function incrementAgeGroup(obj, age) {
   }
 }
 
+function incrementReligionGroup(obj, religion) {
+  if (religion == 'Roman Catholic') {
+    obj.romanCatholic++;
+  } else if (religion == 'Iglesia Ni Cristo') {
+    obj.iglesiaNiCristo++;
+  } else if (religion == 'Born Again') {
+    obj.bornAgain++;
+  } else if (religion == 'Islam') {
+    obj.islam++;
+  } else if (religion != 'Roman Catholic' || religion != 'Iglesia Ni Cristo' || religion != 'Born Again' || religion != 'Islam' || religion == '') {
+    obj.others++;
+  }
+}
+
  // Age Group and Covid Vaccine
  for (registree of registrees) {
   if (!registree.answeredCensus) {
     incrementAgeGroup(ageGroup,_calculateAge(registree.birthday))
+    incrementReligionGroup(religionGroup, registree.religion)
   } else {
+    incrementReligionGroup(religionGroup, registree.religion)
     incrementAgeGroup(ageGroup,_calculateAge(registree.birthday))
     for(member of registree.household){
       incrementAgeGroup(ageGroup,_calculateAge(member.birthday))
+      incrementReligionGroup(religionGroup, member.religion)
     }
   }
 }
@@ -534,7 +558,7 @@ var mappedEvents = admin.events.map(event => {
   return {title: event.title, start: event.start, end: event.end}
 })
 
-  res.render('admin/report', {ageGroup,vaccineCount, title: "Report || Barangay Mag-Asawang Sapa", mappedEvents})
+  res.render('admin/report', {ageGroup,vaccineCount, religionGroup,title: "Report || Barangay Mag-Asawang Sapa", mappedEvents})
 })
 
 

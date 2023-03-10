@@ -90,10 +90,13 @@
       </nav>
       <section class="report-contents">
         <div class="bar">
+          <canvas id="covidChart"></canvas>
+        </div>
+        <div class="doughnut">
           <canvas id="ageChart"></canvas>
         </div>
-        <div class="bar">
-          <canvas id="covidChart"></canvas>
+        <div class="doughnut">
+          <canvas id="religionChart"></canvas>
         </div>
         <!-- <div id="calendar"></div> -->
         <div
@@ -207,7 +210,7 @@
     <script>
       var ctx = document.getElementById("ageChart").getContext("2d");
       var ageChart = new Chart(ctx, {
-        type: "bar",
+        type: "doughnut",
         data: {
           labels: [
             "Infant (0-1)",
@@ -233,6 +236,64 @@
               backgroundColor: [
                 "rgba(255, 99, 132, 0.5)",
                 "rgba(54, 162, 235, 0.5)",
+                "rgba(255, 255, 0, 0.5)",
+                "rgba(75, 192, 192, 0.5)",
+                "rgba(153, 102, 255, 0.5)",
+                "rgba(255, 159, 64, 0.5)",
+                "rgba(0, 128, 128, 0.5)",
+              ],
+            },
+          ],
+        },
+
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Age Group Statistics",
+              font: {
+                size: 18, // Set the font size to 18px
+              },
+            },
+          },
+          aspectRatio: 2.5, // set aspect ratio to 2:1
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+        },
+      });
+    </script>
+    <script>
+      var ctx = document.getElementById("religionChart").getContext("2d");
+      var religionChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: [
+            "Roman Catholic",
+            "Iglesia Ni Cristo",
+            "Born Again",
+            "Islam",
+            "Others",
+          ],
+          datasets: [
+            {
+              label: "No. of People",
+              data: [
+                `<%= religionGroup.romanCatholic %>`,
+                `<%= religionGroup.iglesiaNiCristo %>`,
+                `<%= religionGroup.bornAgain %>`,
+                `<%= religionGroup.islam %>`,
+                `<%= religionGroup.others %>`,
+              ],
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.5)",
+                "rgba(54, 162, 235, 0.5)",
                 "rgba(255, 206, 86, 0.5)",
                 "rgba(75, 192, 192, 0.5)",
                 "rgba(153, 102, 255, 0.5)",
@@ -247,7 +308,7 @@
           plugins: {
             title: {
               display: true,
-              text: "Age Group Statistics",
+              text: "Religion Statistics",
               font: {
                 size: 18, // Set the font size to 18px
               },
