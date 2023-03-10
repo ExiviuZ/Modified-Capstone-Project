@@ -35,7 +35,6 @@ const adminRoute = require("./routes/adminRoute");
 const production = true
 // const production = false
 
-
 // Session Config
 const sessionOptions = {
   store: MongoStore.create({

@@ -5,9 +5,11 @@ const User = require("../model/user");
 const Admin = require("../model/admin");
 const passport = require("passport");
 const multer = require('multer')
-const {storage} = require('../cloudinary')
-const upload = multer({storage})
+const {announcementStorage} = require('../cloudinary/index')
+const request = require('request-promise-native')
+const upload = multer({storage: announcementStorage})
 const { ObjectId } = require('mongodb');
+const { image } = require("pdfkit");
 
 //Create Admin
 //  router.get('/new', async (req,res) => {
@@ -25,14 +27,16 @@ const { ObjectId } = require('mongodb');
 
 
 router.post('/announcement', upload.single('image') ,notLoggedIn, notAdmin, async (req,res) => {
+  console.log(req.file.path)
   const admin = await Admin.findOne()
+
   req.body.image = {
     link: req.file.path,
     fileName: req.file.filename
   }
+
   admin.announcements.push(req.body)
   await admin.save()
-
   req.flash('success', "Successfully Added An Announcement")
   res.redirect('/admin/announcement')
 })

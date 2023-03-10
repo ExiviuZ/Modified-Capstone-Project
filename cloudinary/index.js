@@ -15,6 +15,14 @@ const profilePictureStorage = new CloudinaryStorage({
   },
 });
 
+const announcementStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "Announcement-Images",
+    allowedFormats: ["jpeg", "png", "jpg"],
+  },
+});
+
 const identityVerificationStoage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -29,4 +37,5 @@ module.exports = {
   cloudinary,
   profilePictureStorage,
   identityVerificationStoage,
+  announcementStorage
 };
