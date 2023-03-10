@@ -584,7 +584,7 @@ function incrementReligionGroup(obj, religion) {
     obj.bornAgain++;
   } else if (religion == 'Islam') {
     obj.islam++;
-  } else if (religion != 'Roman Catholic' || religion != 'Iglesia Ni Cristo' || religion != 'Born Again' || religion != 'Islam' || religion == '') {
+  } else if (religion != 'Roman Catholic' || religion != 'Iglesia Ni Cristo' || religion != 'Born Again' || religion != 'Islam' || religion != "") {
     obj.others++;
   }
 }
