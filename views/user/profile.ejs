@@ -35,7 +35,7 @@
               action="/user/upload"
               method="post"
             >
-              <input type="file" name="image" accept="image/*" />
+              <input type="file" name="image" required accept="image/*" />
               <img
                 src="/img/add-photo.svg"
                 class="add-photo have-photo"
@@ -50,7 +50,7 @@
               action="/user/upload"
               method="post"
             >
-              <input type="file" name="image" accept="image/*" />
+              <input type="file" name="image" accept="image/*" required />
               <img src="/img/add-photo.svg" class="add-photo no-photo" alt="" />
             </form>
             <% } %>
@@ -473,12 +473,12 @@
         <div>
           <img src="/img/id-card.png" alt="">
           <label for="id-alone">Picture of your Identity Card</label>
-          <input type="file" name="id-alone" accept="image/*" />
+          <input type="file" name="id-alone" required accept="image/*" />
         </div>
         <div>
           <img src="/img/id-with-person.svg" alt="">
           <label for="id-person">Picture of you holding your Identity Card</label>
-          <input type="file" name="id-person" accept="image/*" />
+          <input type="file" name="id-person" required accept="image/*" />
         </div>
         <button class="close-btn-img-dialog" type="button">Close</button>
         <button class="btn" type="submit">Upload</button>
